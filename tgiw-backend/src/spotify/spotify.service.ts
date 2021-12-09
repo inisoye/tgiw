@@ -1,9 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import SpotifyWebApi = require('spotify-web-api-node');
+import { SearchTracksDto } from './dto/search-tracks.dto';
 
 @Injectable()
 export class SpotifyService {
+  private readonly logger = new Logger('SpotifyService');
   constructor(private configService: ConfigService) {}
 
   scopes: Array<string> = [
@@ -69,7 +71,9 @@ export class SpotifyService {
 
       this.setAccessAndRefreshTokens(accessToken, refreshToken);
 
-      console.log('Success! You can now close the window.');
+      this.logger.log(
+        'Authentication successful. You can now close the window.',
+      );
 
       setInterval(async () => {
         const data = await this.spotifyApi.refreshAccessToken();
@@ -81,7 +85,55 @@ export class SpotifyService {
 
       return;
     } catch (error) {
-      console.error('Error getting Tokens:', error);
+      const {
+        body: { error_description: errorDescription },
+        statusCode,
+      } = error;
+
+      this.logger.error(
+        'Could not generate access token and authenticate API from Spotify.',
+      );
+
+      throw new HttpException(
+        {
+          status: statusCode,
+          error: errorDescription,
+        },
+        statusCode,
+      );
+    }
+  }
+
+  async searchTracks(
+    searchTracksDto: SearchTracksDto,
+  ): Promise<SpotifyApi.SearchResponse> {
+    const { name, limit = 10 } = searchTracksDto;
+
+    try {
+      const { body } = await this.spotifyApi.searchTracks(name, { limit });
+
+      this.logger.log(`Fetched tracks that match "${name}" from Spotify`);
+
+      return body;
+    } catch (error) {
+      const {
+        body: {
+          error: { status, message },
+        },
+        statusCode,
+      } = error;
+
+      this.logger.error(
+        `Could not fetch tracks that match "${name}" from Spotify. Error: ${message}`,
+      );
+
+      throw new HttpException(
+        {
+          status: status,
+          error: message,
+        },
+        statusCode,
+      );
     }
   }
 }
