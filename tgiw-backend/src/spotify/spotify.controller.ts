@@ -1,4 +1,4 @@
-import { Controller, Get, Logger, Query, Redirect, Res } from '@nestjs/common';
+import { Controller, Get, Logger, Query, Redirect } from '@nestjs/common';
 import { SearchTracksDto } from './dto/search-tracks.dto';
 import { SpotifyService } from './spotify.service';
 
