@@ -2,8 +2,7 @@ import { HttpException, Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import SpotifyWebApi = require('spotify-web-api-node');
 import { format } from 'date-fns';
-import { SearchTracksDto } from './dtos';
-import { FormattedTrack } from './interfaces';
+import { AuthCallbackQueryDto, SearchTracksDto } from './dtos';
 
 @Injectable()
 export class SpotifyService {
@@ -67,7 +66,18 @@ export class SpotifyService {
     this.spotifyApi.setRefreshToken(refreshToken);
   }
 
-  async executeAuthentication(code: string): Promise<void> {
+  async executeAuthentication(
+    authCallbackQueryDto: AuthCallbackQueryDto,
+    storedState: string,
+  ): Promise<void> {
+    const { state, code } = authCallbackQueryDto;
+
+    if (!state || state !== storedState) {
+      throw new Error('State validation failed');
+    }
+
+    this.logger.verbose(`Received auth code: ${code}`);
+
     try {
       const { accessToken, refreshToken, expiresIn } =
         await this.getTokensFromApi(code);
@@ -107,22 +117,77 @@ export class SpotifyService {
     }
   }
 
-  async formatTrackGenres(trackArtists: SpotifyApi.ArtistObjectSimplified[]) {
-    const genreNamesNested = await Promise.all(
-      trackArtists.map(async ({ id }) => {
-        const {
-          body: { genres },
-        } = await this.spotifyApi.getArtist(id);
+  formatSearchedTracks(tracks: SpotifyApi.TrackObjectFull[]) {
+    return tracks.map((track) => {
+      const {
+        album: { name: album, release_date, images },
+        artists: trackArtists,
+        id: spotifyId,
+        name,
+      } = track;
 
-        return genres;
-      }),
-    );
+      const yearReleased = format(new Date(release_date), 'yyyy');
 
-    // Flatten and remove duplicates
-    return [...new Set(genreNamesNested.flat())];
+      return {
+        name,
+        album,
+        artists: trackArtists,
+        spotifyId,
+        images,
+        yearReleased,
+      };
+    });
   }
 
-  async formatTrackArtists(trackArtists: SpotifyApi.ArtistObjectSimplified[]) {
+  formatTrackError(error) {
+    const {
+      body: {
+        error: { status, message },
+      },
+      statusCode,
+    } = error;
+
+    throw new HttpException(
+      {
+        status: status,
+        error: message,
+      },
+      statusCode,
+    );
+  }
+
+  async searchTracks(searchTracksDto: SearchTracksDto) {
+    const { name, limit = 10 } = searchTracksDto;
+
+    try {
+      const { body: tracksBody } = await this.spotifyApi.searchTracks(name, {
+        limit,
+      });
+
+      this.logger.verbose(`Fetched tracks that match "${name}" from Spotify`);
+
+      const {
+        tracks: { items: trackItems },
+      } = tracksBody;
+
+      const formattedTracks = this.formatSearchedTracks(trackItems);
+
+      return formattedTracks;
+    } catch (error) {
+      this.logger.error(
+        `Could not fetch tracks that match "${name}" from Spotify.`,
+      );
+
+      console.log(typeof error === 'string', 'string error');
+      console.log(error instanceof Error, 'error object');
+
+      this.formatTrackError(error);
+    }
+  }
+
+  async formatTrackArtistsAndGenres(
+    trackArtists: SpotifyApi.ArtistObjectSimplified[],
+  ) {
     const formattedArtists = await Promise.all(
       trackArtists.map(async ({ id }) => {
         const {
@@ -139,84 +204,54 @@ export class SpotifyService {
       }),
     );
 
-    return formattedArtists;
+    const nestedGenreNames = formattedArtists.map(({ genres }) => genres);
+    // Flatten and remove duplicates
+    const genreNames = [...new Set(nestedGenreNames.flat())];
+
+    return { formattedArtists, genreNames };
   }
 
-  async formatTracks(tracks: SpotifyApi.TrackObjectFull[]) {
-    return await Promise.all(
-      tracks.map(async (track) => {
-        const {
-          album: { name: album, release_date, images },
-          artists,
-          external_ids: { isrc },
-          external_urls: { spotify: spotifyUrl },
-          id: spotifyId,
-          name,
-          popularity,
-          preview_url: snippetUrl,
-        } = track;
+  async formatTrackDetails(track: SpotifyApi.TrackObjectFull) {
+    const {
+      album: { name: album, release_date, images },
+      artists: trackArtists,
+      external_ids: { isrc },
+      external_urls: { spotify: spotifyUrl },
+      id: spotifyId,
+      name,
+      popularity,
+      preview_url: snippetUrl,
+    } = track;
 
-        const genreNames = await this.formatTrackGenres(artists);
+    const { formattedArtists: artists, genreNames } =
+      await this.formatTrackArtistsAndGenres(trackArtists);
 
-        const formattedArtists = await this.formatTrackArtists(artists);
+    const yearReleased = format(new Date(release_date), 'yyyy');
 
-        const yearReleased = format(new Date(release_date), 'yyyy');
-
-        return {
-          name,
-          album,
-          artists: formattedArtists,
-          spotifyId,
-          spotifyUrl,
-          snippetUrl,
-          popularity,
-          isrc,
-          images,
-          yearReleased,
-          genreNames,
-        };
-      }),
-    );
+    return {
+      name,
+      album,
+      artists,
+      spotifyId,
+      spotifyUrl,
+      snippetUrl,
+      popularity,
+      isrc,
+      images,
+      yearReleased,
+      genreNames,
+    };
   }
 
-  async searchTracks(
-    searchTracksDto: SearchTracksDto,
-  ): Promise<FormattedTrack[]> {
-    const { name, limit = 10 } = searchTracksDto;
-
+  async getTrackDetails(id: string) {
     try {
-      const { body: tracksBody } = await this.spotifyApi.searchTracks(name, {
-        limit,
-      });
+      const { body: track } = await this.spotifyApi.getTrack(id);
 
-      this.logger.verbose(`Fetched tracks that match "${name}" from Spotify`);
-
-      const {
-        tracks: { items: trackItems },
-      } = tracksBody;
-
-      const formattedTracks = await this.formatTracks(trackItems);
-
-      return formattedTracks;
+      return await this.formatTrackDetails(track);
     } catch (error) {
-      const {
-        body: {
-          error: { status, message },
-        },
-        statusCode,
-      } = error;
+      this.logger.error('Could not fetch track details from Spotify.');
 
-      this.logger.error(
-        `Could not fetch tracks that match "${name}" from Spotify. Error: ${message}`,
-      );
-
-      throw new HttpException(
-        {
-          status: status,
-          error: message,
-        },
-        statusCode,
-      );
+      this.formatTrackError(error);
     }
   }
 }

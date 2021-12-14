@@ -2,6 +2,7 @@ import {
   Controller,
   Get,
   Logger,
+  Param,
   Query,
   Redirect,
   Req,
@@ -10,7 +11,6 @@ import {
 import { ConfigService } from '@nestjs/config';
 import { Response, Request } from 'express';
 import { SearchTracksDto, AuthCallbackQueryDto } from './dtos';
-import { FormattedTrack } from './interfaces';
 import { SpotifyService } from './spotify.service';
 
 @Controller('spotify')
@@ -38,21 +38,21 @@ export class SpotifyController {
     @Query() authCallbackQueryDto: AuthCallbackQueryDto,
     @Req() req: Request,
   ): Promise<void> {
-    const { state, code } = authCallbackQueryDto;
     const storedState = req.cookies[this.authStateKey];
 
-    if (!state || state !== storedState) {
-      throw new Error('State validation failed');
-    }
-
-    this.logger.verbose(`Received auth code: ${code}`);
-    return this.spotifyService.executeAuthentication(code);
+    return this.spotifyService.executeAuthentication(
+      authCallbackQueryDto,
+      storedState,
+    );
   }
 
   @Get('/tracks')
-  searchTracks(
-    @Query() searchTracksDto: SearchTracksDto,
-  ): Promise<FormattedTrack[]> {
+  searchTracks(@Query() searchTracksDto: SearchTracksDto) {
     return this.spotifyService.searchTracks(searchTracksDto);
+  }
+
+  @Get('/track/:id')
+  getTrackDetails(@Param('id') id: string) {
+    return this.spotifyService.getTrackDetails(id);
   }
 }
