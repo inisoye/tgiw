@@ -1,14 +1,17 @@
 import { HttpException, Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import SpotifyWebApi = require('spotify-web-api-node');
-import { SearchTracksDto } from './dto/search-tracks.dto';
+import { format } from 'date-fns';
+import { SearchTracksDto } from './dtos';
+import { FormattedTrack } from './interfaces';
 
 @Injectable()
 export class SpotifyService {
-  private readonly logger = new Logger('SpotifyService');
   constructor(private configService: ConfigService) {}
 
-  scopes: Array<string> = [
+  private readonly logger = new Logger('SpotifyService');
+
+  oauthScopes: Array<string> = [
     'ugc-image-upload',
     'user-read-playback-state',
     'user-modify-playback-state',
@@ -31,15 +34,15 @@ export class SpotifyService {
   ];
 
   spotifyApi: SpotifyWebApi = new SpotifyWebApi({
-    clientId: this.configService.get<string>('spotify.clientId'),
-    clientSecret: this.configService.get<string>('spotify.clientSecret'),
-    redirectUri: this.configService.get<string>('spotify.redirectUri'),
+    clientId: this.configService.get('spotify.clientId'),
+    clientSecret: this.configService.get('spotify.clientSecret'),
+    redirectUri: this.configService.get('spotify.redirectUri'),
   });
 
   createAuthorizeURL(): string {
     return this.spotifyApi.createAuthorizeURL(
-      this.scopes,
-      this.configService.get<string>('spotify.authState'),
+      this.oauthScopes,
+      this.configService.get('spotify.authState'),
     );
   }
 
@@ -71,7 +74,7 @@ export class SpotifyService {
 
       this.setAccessAndRefreshTokens(accessToken, refreshToken);
 
-      this.logger.log(
+      this.logger.verbose(
         'Authentication successful. You can now close the window.',
       );
 
@@ -104,17 +107,97 @@ export class SpotifyService {
     }
   }
 
+  async formatTrackGenres(trackArtists: SpotifyApi.ArtistObjectSimplified[]) {
+    const genreNamesNested = await Promise.all(
+      trackArtists.map(async ({ id }) => {
+        const {
+          body: { genres },
+        } = await this.spotifyApi.getArtist(id);
+
+        return genres;
+      }),
+    );
+
+    // Flatten and remove duplicates
+    return [...new Set(genreNamesNested.flat())];
+  }
+
+  async formatTrackArtists(trackArtists: SpotifyApi.ArtistObjectSimplified[]) {
+    const formattedArtists = await Promise.all(
+      trackArtists.map(async ({ id }) => {
+        const {
+          body: {
+            genres,
+            images,
+            external_urls: { spotify: spotifyUrl },
+            name,
+            id: spotifyId,
+          },
+        } = await this.spotifyApi.getArtist(id);
+
+        return { name, images, genres, spotifyUrl, spotifyId };
+      }),
+    );
+
+    return formattedArtists;
+  }
+
+  async formatTracks(tracks: SpotifyApi.TrackObjectFull[]) {
+    return await Promise.all(
+      tracks.map(async (track) => {
+        const {
+          album: { name: album, release_date, images },
+          artists,
+          external_ids: { isrc },
+          external_urls: { spotify: spotifyUrl },
+          id: spotifyId,
+          name,
+          popularity,
+          preview_url: snippetUrl,
+        } = track;
+
+        const genreNames = await this.formatTrackGenres(artists);
+
+        const formattedArtists = await this.formatTrackArtists(artists);
+
+        const yearReleased = format(new Date(release_date), 'yyyy');
+
+        return {
+          name,
+          album,
+          artists: formattedArtists,
+          spotifyId,
+          spotifyUrl,
+          snippetUrl,
+          popularity,
+          isrc,
+          images,
+          yearReleased,
+          genreNames,
+        };
+      }),
+    );
+  }
+
   async searchTracks(
     searchTracksDto: SearchTracksDto,
-  ): Promise<SpotifyApi.SearchResponse> {
+  ): Promise<FormattedTrack[]> {
     const { name, limit = 10 } = searchTracksDto;
 
     try {
-      const { body } = await this.spotifyApi.searchTracks(name, { limit });
+      const { body: tracksBody } = await this.spotifyApi.searchTracks(name, {
+        limit,
+      });
 
-      this.logger.log(`Fetched tracks that match "${name}" from Spotify`);
+      this.logger.verbose(`Fetched tracks that match "${name}" from Spotify`);
 
-      return body;
+      const {
+        tracks: { items: trackItems },
+      } = tracksBody;
+
+      const formattedTracks = await this.formatTracks(trackItems);
+
+      return formattedTracks;
     } catch (error) {
       const {
         body: {

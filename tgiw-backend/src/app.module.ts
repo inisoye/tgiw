@@ -1,8 +1,12 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { LoggerModule } from 'nestjs-pino';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { configuration, configValidationSchema } from './config';
 import { SpotifyModule } from './spotify/spotify.module';
+import { SongsModule } from './songs/songs.module';
+import { GenresModule } from './genres/genres.module';
+import { ArtistsModule } from './artists/artists.module';
 
 @Module({
   imports: [
@@ -26,7 +30,26 @@ import { SpotifyModule } from './spotify/spotify.module';
             }
           : {},
     }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => {
+        return {
+          type: 'postgres',
+          autoLoadEntities: true,
+          synchronize: true,
+          host: configService.get('database.host'),
+          port: configService.get('database.port'),
+          username: configService.get('database.username'),
+          password: configService.get('database.password'),
+          database: configService.get('database.name'),
+        };
+      },
+    }),
     SpotifyModule,
+    SongsModule,
+    GenresModule,
+    ArtistsModule,
   ],
 })
 export class AppModule {}
