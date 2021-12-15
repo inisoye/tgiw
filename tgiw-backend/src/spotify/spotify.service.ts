@@ -178,9 +178,6 @@ export class SpotifyService {
         `Could not fetch tracks that match "${name}" from Spotify.`,
       );
 
-      console.log(typeof error === 'string', 'string error');
-      console.log(error instanceof Error, 'error object');
-
       this.formatTrackError(error);
     }
   }

@@ -18,13 +18,13 @@ export class Song {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ unique: true })
+  @Column()
   name: string;
 
   @Column()
   album: string;
 
-  @Column()
+  @Column({ unique: true })
   spotifyId: string;
 
   @Column()
