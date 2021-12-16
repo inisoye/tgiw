@@ -32,7 +32,9 @@ export class AuthService {
     });
 
     if (foundUser) {
-      throw new ConflictException('Username already exists');
+      throw new ConflictException(
+        `A user with username: '${userName}' already exists`,
+      );
     }
   }
 
@@ -66,8 +68,15 @@ export class AuthService {
 
   async getUser(id: string) {
     try {
-      const user = await firebaseAdmin.auth().getUser(id);
-      return user;
+      const firebaseUser = await firebaseAdmin.auth().getUser(id);
+
+      const localUser = await this.userRepository
+        .createQueryBuilder('user')
+        .leftJoinAndSelect('user.contributions', 'song')
+        .where('user.id = :id', { id })
+        .getOne();
+
+      return { firebaseUser, localUser };
     } catch (error) {
       throw new InternalServerErrorException(error.errorInfo.message);
     }

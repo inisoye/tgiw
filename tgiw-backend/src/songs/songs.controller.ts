@@ -34,6 +34,6 @@ export class SongsController {
     @GetUserData('uid') uid: string,
   ): Promise<Song> {
     console.log(uid, 'uid');
-    return this.songsService.addSong(addSongDto);
+    return this.songsService.addSong(addSongDto, uid);
   }
 }
