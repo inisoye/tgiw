@@ -7,6 +7,7 @@ import { SpotifyModule } from './spotify/spotify.module';
 import { SongsModule } from './songs/songs.module';
 import { GenresModule } from './genres/genres.module';
 import { ArtistsModule } from './artists/artists.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -50,6 +51,7 @@ import { ArtistsModule } from './artists/artists.module';
     SongsModule,
     GenresModule,
     ArtistsModule,
+    AuthModule,
   ],
 })
 export class AppModule {}

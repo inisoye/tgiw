@@ -6,8 +6,8 @@ import {
   ManyToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Genre } from 'src/genres/genre.entity';
-import { Artist } from 'src/artists/artist.entity';
+import { Genre } from 'src/genres/entities/genre.entity';
+import { Artist } from 'src/artists/entities/artist.entity';
 
 /*
  TODO Users and comments

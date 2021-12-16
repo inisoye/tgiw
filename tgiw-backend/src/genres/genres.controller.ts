@@ -1,5 +1,5 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
-import { Genre } from './genre.entity';
+import { Genre } from './entities/genre.entity';
 import { GenresService } from './genres.service';
 
 @Controller('genres')

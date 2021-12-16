@@ -16,4 +16,15 @@ export const configValidationSchema = Joi.object({
   DB_USERNAME: Joi.string().required(),
   DB_PASSWORD: Joi.string().required(),
   DB_NAME: Joi.string().required(),
+
+  FIREBASE_TYPE: Joi.string().required(),
+  FIREBASE_PROJECT_ID: Joi.string().required(),
+  FIREBASE_PRIVATE_KEY_ID: Joi.string().required(),
+  FIREBASE_PRIVATE_KEY: Joi.string().required(),
+  FIREBASE_CLIENT_EMAIL: Joi.string().required(),
+  FIREBASE_CLIENT_ID: Joi.number().unsafe().required(),
+  FIREBASE_AUTH_URI: Joi.string().required(),
+  FIREBASE_TOKEN_URI: Joi.string().required(),
+  FIREBASE_AUTH_PROVIDER_X509_CERT_URL: Joi.string().required(),
+  FIREBASE_CLIENT_X509_CERT_URL: Joi.string().required(),
 });

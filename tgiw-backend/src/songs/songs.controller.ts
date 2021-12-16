@@ -1,24 +1,39 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
-import { Song } from './song.entity';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
+import { Song } from './entities/song.entity';
 import { SongsService } from './songs.service';
-import { AddSongDto } from './dtos';
+import { AddSongDto } from './dto';
+import { GetUserData } from 'src/auth/get-user-data.decorator';
+import { FirebaseAuthGuard } from 'src/auth/firebase-auth.guard';
 
 @Controller('songs')
 export class SongsController {
   constructor(private songsService: SongsService) {}
 
   @Get()
-  getTasks(@Query('filter') filter: string): Promise<Song[]> {
+  getSongs(@Query('filter') filter: string): Promise<Song[]> {
     return this.songsService.getSongs(filter);
   }
 
   @Get('/:id')
-  getTaskById(@Param('id') id: string): Promise<Song> {
+  getSongById(@Param('id') id: string): Promise<Song> {
     return this.songsService.getSongById(id);
   }
 
   @Post()
-  addSong(@Body() addSongDto: AddSongDto): Promise<Song> {
+  @UseGuards(FirebaseAuthGuard)
+  addSong(
+    @Body() addSongDto: AddSongDto,
+    @GetUserData('uid') uid: string,
+  ): Promise<Song> {
+    console.log(uid, 'uid');
     return this.songsService.addSong(addSongDto);
   }
 }

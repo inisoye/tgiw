@@ -7,10 +7,10 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Song } from './song.entity';
-import { Genre } from '../genres/genre.entity';
-import { AddSongDto } from './dtos';
-import { Artist } from 'src/artists/artist.entity';
+import { Song } from './entities/song.entity';
+import { Genre } from '../genres/entities/genre.entity';
+import { AddSongDto } from './dto';
+import { Artist } from 'src/artists/entities/artist.entity';
 import { FormattedArtist } from 'src/common/interfaces';
 
 @Injectable()
