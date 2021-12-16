@@ -11,6 +11,7 @@ import { Song } from './entities/song.entity';
 import { Genre } from '../genres/entities/genre.entity';
 import { AddSongDto } from './dto';
 import { Artist } from 'src/artists/entities/artist.entity';
+import { User } from 'src/auth/entities/user.entity';
 import { FormattedArtist } from 'src/common/interfaces';
 
 @Injectable()
@@ -22,6 +23,8 @@ export class SongsService {
     private genreRepository: Repository<Genre>,
     @InjectRepository(Artist)
     private artistRepository: Repository<Artist>,
+    @InjectRepository(User)
+    private userRepository: Repository<User>,
   ) {}
 
   private readonly logger = new Logger('SongsService');
@@ -30,7 +33,8 @@ export class SongsService {
     const query = this.songRepository
       .createQueryBuilder('song')
       .leftJoinAndSelect('song.genres', 'genre')
-      .leftJoinAndSelect('song.artists', 'artist');
+      .leftJoinAndSelect('song.artists', 'artist')
+      .leftJoinAndSelect('song.contributor', 'user');
 
     if (filter) {
       query.andWhere(
@@ -96,10 +100,14 @@ export class SongsService {
     }
   }
 
-  async addSong(addSongDto: AddSongDto): Promise<Song> {
+  async addSong(addSongDto: AddSongDto, uid: string): Promise<Song> {
     const { genreNames, artists: artistsPayload, ...restOfDto } = addSongDto;
 
-    const song = this.songRepository.create(restOfDto);
+    const contributor = await this.userRepository.findOne({
+      where: { id: uid },
+    });
+
+    const song = this.songRepository.create({ ...restOfDto, contributor });
 
     // Add genres to song
     const genres: Genre[] = [];
@@ -114,7 +122,9 @@ export class SongsService {
     try {
       await this.songRepository.save(song);
       this.logger.verbose(
-        `Added new song ${song.name} with genres: ${genreNames.join(', ')}`,
+        `Added new song ${song.name} with genres: ${genreNames.join(', ')} by ${
+          contributor.userName
+        }`,
       );
     } catch (error) {
       console.log(error);
