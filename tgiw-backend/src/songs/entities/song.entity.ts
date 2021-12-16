@@ -12,7 +12,7 @@ import { Artist } from 'src/artists/entities/artist.entity';
 import { User } from 'src/auth/entities/user.entity';
 
 /*
- TODO Users and comments
+ TODO comments
  */
 
 @Entity()

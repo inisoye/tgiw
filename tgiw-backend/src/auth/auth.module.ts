@@ -5,10 +5,11 @@ import { AuthController } from './auth.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { FirebaseAuthStrategy } from './firebase-auth.strategy';
+import { Song } from 'src/songs/entities/song.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([User, Song]),
     PassportModule.register({ defaultStrategy: 'firebase-jwt' }),
   ],
   controllers: [AuthController],
