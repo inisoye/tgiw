@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Artist } from './entities/artist.entity';
-import { Genre } from 'src/genres/entities/genre.entity';
-import { Song } from 'src/songs/entities/song.entity';
+import { Genre } from '../genres/entities/genre.entity';
+import { Song } from '../songs/entities/song.entity';
 import { ArtistsService } from './artists.service';
 import { ArtistsController } from './artists.controller';
 
