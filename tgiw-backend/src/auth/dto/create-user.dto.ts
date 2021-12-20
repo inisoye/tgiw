@@ -1,4 +1,10 @@
-import { IsNotEmpty, IsOptional, IsString, IsBoolean } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  IsBoolean,
+  Equals,
+} from 'class-validator';
 
 export class CreateUserDto {
   @IsNotEmpty()
@@ -20,6 +26,10 @@ export class CreateUserDto {
   @IsNotEmpty()
   @IsString()
   userName: string;
+
+  @IsNotEmpty()
+  @Equals('user')
+  role = 'user';
 
   @IsOptional()
   @IsString()

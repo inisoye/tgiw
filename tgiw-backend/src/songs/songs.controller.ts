@@ -10,8 +10,8 @@ import {
 import { Song } from './entities/song.entity';
 import { SongsService } from './songs.service';
 import { AddSongDto } from './dto';
-import { GetUserData } from '../auth/get-user-data.decorator';
-import { FirebaseAuthGuard } from '../auth/firebase-auth.guard';
+import { GetUserData } from '../auth/decorators/get-user-data.decorator';
+import { FirebaseAuthGuard } from '../auth/guards/firebase-auth.guard';
 
 @Controller('songs')
 export class SongsController {

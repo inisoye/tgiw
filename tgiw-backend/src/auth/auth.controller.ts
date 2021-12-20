@@ -10,8 +10,8 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto, UpdateUserDto, UpdateUserRoleDto } from './dto';
-import { FirebaseAuthGuard } from './firebase-auth.guard';
-import { GetUserData } from './get-user-data.decorator';
+import { FirebaseAuthGuard } from './guards/firebase-auth.guard';
+import { GetUserData } from './decorators/get-user-data.decorator';
 
 @Controller('auth')
 export class AuthController {

@@ -39,13 +39,15 @@ export class AuthService {
   }
 
   async createUser(createUserDto: CreateUserDto) {
-    const { userName, ...restOfDto } = createUserDto;
+    const { userName, role = 'user', ...restOfDto } = createUserDto;
 
     await this.validateUsername(userName);
 
     try {
       const user = await firebaseAdmin.auth().createUser(restOfDto);
       const { uid: id } = user;
+
+      await firebaseAdmin.auth().setCustomUserClaims(id, { role });
 
       const localUser = this.userRepository.create({ id, userName });
       await this.userRepository.save(localUser);
