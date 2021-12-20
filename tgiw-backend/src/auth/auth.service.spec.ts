@@ -19,7 +19,8 @@ jest.mock('firebase-admin', () => ({
           ...dto,
         };
       }),
-      deleteUser: jest.fn().mockImplementation((id) => null),
+
+      deleteUser: jest.fn().mockImplementation((_id) => null),
     };
   }),
 }));
@@ -40,8 +41,9 @@ describe('AuthService', () => {
 
   const mockUserRepository = {
     create: jest.fn().mockImplementation((dto) => dto),
-    findOne: jest.fn().mockImplementation((_username) => null),
+
     delete: jest.fn().mockImplementation((_id) => null),
+
     save: jest
       .fn()
       .mockImplementation((user) => Promise.resolve({ id: 'foo', ...user })),

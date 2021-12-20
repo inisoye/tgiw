@@ -9,15 +9,16 @@ describe('AuthController', () => {
     createUser: jest.fn().mockImplementation((dto) => {
       return { uid: 'foo', ...dto };
     }),
-    deleteUser: jest.fn().mockImplementation((_id) => {
-      return;
-    }),
+
+    deleteUser: jest.fn().mockImplementation((_id) => null),
+
     getUser: jest.fn().mockImplementation((id) => {
       return {
         firebaseUser: { uid: id, email: 'bar@example.com' },
         localUser: { id: id, userName: 'bar' },
       };
     }),
+
     updateUser: jest.fn().mockImplementation((id, dto) => {
       return { uid: id, ...dto };
     }),
