@@ -49,8 +49,9 @@ export class AuthService {
       const localUser = this.userRepository.create({ id, userName });
       await this.userRepository.save(localUser);
 
-      return user;
+      return { ...user, userName };
     } catch (error) {
+      console.log(error);
       // Internal server error used because Firebase error codes are strings (and plentiful)
       throw new InternalServerErrorException(error.errorInfo.message);
     }

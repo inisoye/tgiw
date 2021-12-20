@@ -6,16 +6,16 @@ export class CreateUserDto {
   email: string;
 
   @IsOptional()
-  @IsBoolean()
-  emailVerified: boolean;
-
-  @IsOptional()
   @IsString()
   phoneNumber?: string;
 
   @IsNotEmpty()
   @IsString()
   password: string;
+
+  @IsOptional()
+  @IsString()
+  displayName?: string;
 
   @IsNotEmpty()
   @IsString()

@@ -1,4 +1,10 @@
-import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryColumn,
+} from 'typeorm';
 import { Song } from '../../songs/entities/song.entity';
 
 @Entity()
@@ -8,6 +14,9 @@ export class User {
 
   @Column({ unique: true })
   userName: string;
+
+  @CreateDateColumn()
+  dateAdded: Date;
 
   @OneToMany(() => Song, (song) => song.contributor)
   contributions: Song[];
