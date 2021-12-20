@@ -10,6 +10,7 @@ import {
 import { Genre } from '../../genres/entities/genre.entity';
 import { Artist } from '../../artists/entities/artist.entity';
 import { User } from '../../auth/entities/user.entity';
+import { DecimalTransformer } from '../../common/transformers/decimal.transformer';
 
 @Entity()
 export class Song {
@@ -37,13 +38,25 @@ export class Song {
   @Column()
   isrc: string;
 
-  @Column({ type: 'decimal', precision: 5, scale: 2 })
+  @Column('numeric', {
+    precision: 7,
+    scale: 3,
+    transformer: new DecimalTransformer(),
+  })
   valence: number;
 
-  @Column({ type: 'decimal', precision: 5, scale: 2 })
+  @Column('numeric', {
+    precision: 7,
+    scale: 3,
+    transformer: new DecimalTransformer(),
+  })
   energy: number;
 
-  @Column({ type: 'decimal', precision: 5, scale: 2 })
+  @Column('numeric', {
+    precision: 7,
+    scale: 3,
+    transformer: new DecimalTransformer(),
+  })
   danceability: number;
 
   @Column({
@@ -66,6 +79,7 @@ export class Song {
   })
   contributor: User;
 
+  @Column()
   contributorNote: string;
 
   @ManyToMany(() => Genre, (genre) => genre.songs, {

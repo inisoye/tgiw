@@ -27,10 +27,22 @@ export class AddSongDto {
   isrc: string;
 
   @IsNotEmpty()
+  valence: number;
+
+  @IsNotEmpty()
+  energy: number;
+
+  @IsNotEmpty()
+  danceability: number;
+
+  @IsNotEmpty()
   images: SpotifyApi.ImageObject[];
 
   @IsNotEmpty()
   yearReleased: string;
+
+  @IsNotEmpty()
+  contributorNote: string;
 
   @IsNotEmpty()
   genreNames: string[];
