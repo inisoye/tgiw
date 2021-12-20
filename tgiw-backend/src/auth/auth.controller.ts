@@ -6,9 +6,12 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { CreateUserDto, UpdateUserDto } from './dto';
+import { CreateUserDto, UpdateUserDto, UpdateUserRoleDto } from './dto';
+import { FirebaseAuthGuard } from './firebase-auth.guard';
+import { GetUserData } from './get-user-data.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -37,5 +40,15 @@ export class AuthController {
   @Patch('/users/:id')
   updateUser(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.authService.updateUser(id, updateUserDto);
+  }
+
+  @Patch('/users/role/:id')
+  @UseGuards(FirebaseAuthGuard)
+  updateUserRole(
+    @Param('id') id: string,
+    @Body() updateUserRoleDto: UpdateUserRoleDto,
+    @GetUserData('role') role: string,
+  ) {
+    return this.authService.updateUserRole(id, updateUserRoleDto, role);
   }
 }

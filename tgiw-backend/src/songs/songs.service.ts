@@ -4,6 +4,7 @@ import {
   InternalServerErrorException,
   Logger,
   NotFoundException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -100,7 +101,17 @@ export class SongsService {
     }
   }
 
-  async addSong(addSongDto: AddSongDto, uid: string): Promise<Song> {
+  async addSong(
+    addSongDto: AddSongDto,
+    uid: string,
+    role: string,
+  ): Promise<Song> {
+    if (!role || role !== 'contributor') {
+      throw new UnauthorizedException(
+        'Only contributors are allowed to add new songs',
+      );
+    }
+
     const { genreNames, artists: artistsPayload, ...restOfDto } = addSongDto;
 
     const contributor = await this.userRepository.findOne({

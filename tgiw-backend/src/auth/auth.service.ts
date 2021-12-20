@@ -2,12 +2,13 @@ import {
   ConflictException,
   Injectable,
   InternalServerErrorException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as firebaseAdmin from 'firebase-admin';
 import { Repository } from 'typeorm';
-import { CreateUserDto, UpdateUserDto } from './dto';
+import { CreateUserDto, UpdateUserDto, UpdateUserRoleDto } from './dto';
 import { User } from './entities/user.entity';
 
 @Injectable()
@@ -85,6 +86,24 @@ export class AuthService {
     try {
       const user = await firebaseAdmin.auth().updateUser(id, updateUserDto);
       return user;
+    } catch (error) {
+      throw new InternalServerErrorException(error.errorInfo.message);
+    }
+  }
+
+  async updateUserRole(
+    id: string,
+    updateUserRoleDto: UpdateUserRoleDto,
+    role: string,
+  ) {
+    if (!role || role !== 'contributor') {
+      throw new UnauthorizedException(
+        'Only existing contributors can update user roles',
+      );
+    }
+
+    try {
+      await firebaseAdmin.auth().setCustomUserClaims(id, updateUserRoleDto);
     } catch (error) {
       throw new InternalServerErrorException(error.errorInfo.message);
     }

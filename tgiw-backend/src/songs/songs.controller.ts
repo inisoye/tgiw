@@ -18,6 +18,7 @@ export class SongsController {
   constructor(private songsService: SongsService) {}
 
   @Get()
+  @UseGuards(FirebaseAuthGuard)
   getSongs(@Query('filter') filter: string): Promise<Song[]> {
     return this.songsService.getSongs(filter);
   }
@@ -32,7 +33,8 @@ export class SongsController {
   addSong(
     @Body() addSongDto: AddSongDto,
     @GetUserData('uid') uid: string,
+    @GetUserData('role') role: string,
   ): Promise<Song> {
-    return this.songsService.addSong(addSongDto, uid);
+    return this.songsService.addSong(addSongDto, uid, role);
   }
 }
