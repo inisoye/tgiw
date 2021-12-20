@@ -1,7 +1,12 @@
-import { HttpException, Injectable, Logger } from '@nestjs/common';
+import {
+  HttpException,
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import SpotifyWebApi = require('spotify-web-api-node');
-import { format } from 'date-fns';
+import { format as formatDate } from 'date-fns';
 import { AuthCallbackQueryDto, SearchTracksDto } from './dtos';
 
 @Injectable()
@@ -126,7 +131,7 @@ export class SpotifyService {
         name,
       } = track;
 
-      const yearReleased = format(new Date(release_date), 'yyyy');
+      const yearReleased = formatDate(new Date(release_date), 'yyyy');
 
       return {
         name,
@@ -139,7 +144,8 @@ export class SpotifyService {
     });
   }
 
-  formatTrackError(error) {
+  // Format Spotify Errors
+  throwFormattedTrackError(error) {
     const {
       body: {
         error: { status, message },
@@ -178,7 +184,11 @@ export class SpotifyService {
         `Could not fetch tracks that match "${name}" from Spotify.`,
       );
 
-      this.formatTrackError(error);
+      if (error.body.error) {
+        this.throwFormattedTrackError(error);
+      }
+
+      throw new InternalServerErrorException(error);
     }
   }
 
@@ -208,6 +218,13 @@ export class SpotifyService {
     return { formattedArtists, genreNames };
   }
 
+  async formatTrackAudioFeatures(id: string) {
+    const {
+      body: { valence, energy, danceability },
+    } = await this.spotifyApi.getAudioFeaturesForTrack(id);
+    return { valence, energy, danceability };
+  }
+
   async formatTrackDetails(track: SpotifyApi.TrackObjectFull) {
     const {
       album: { name: album, release_date, images },
@@ -223,7 +240,9 @@ export class SpotifyService {
     const { formattedArtists: artists, genreNames } =
       await this.formatTrackArtistsAndGenres(trackArtists);
 
-    const yearReleased = format(new Date(release_date), 'yyyy');
+    const audioFeatures = await this.formatTrackAudioFeatures(spotifyId);
+
+    const yearReleased = formatDate(new Date(release_date), 'yyyy');
 
     return {
       name,
@@ -237,6 +256,7 @@ export class SpotifyService {
       images,
       yearReleased,
       genreNames,
+      ...audioFeatures,
     };
   }
 
@@ -248,7 +268,11 @@ export class SpotifyService {
     } catch (error) {
       this.logger.error('Could not fetch track details from Spotify.');
 
-      this.formatTrackError(error);
+      if (error.body.error) {
+        this.throwFormattedTrackError(error);
+      }
+
+      throw new InternalServerErrorException(error);
     }
   }
 }

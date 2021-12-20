@@ -37,6 +37,15 @@ export class Song {
   @Column()
   isrc: string;
 
+  @Column()
+  valence: number;
+
+  @Column()
+  energy: number;
+
+  @Column()
+  danceability: number;
+
   @Column({
     type: 'jsonb',
     array: false,
