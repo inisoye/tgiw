@@ -37,13 +37,13 @@ export class Song {
   @Column()
   isrc: string;
 
-  @Column()
+  @Column({ type: 'decimal', precision: 5, scale: 2 })
   valence: number;
 
-  @Column()
+  @Column({ type: 'decimal', precision: 5, scale: 2 })
   energy: number;
 
-  @Column()
+  @Column({ type: 'decimal', precision: 5, scale: 2 })
   danceability: number;
 
   @Column({
@@ -65,6 +65,8 @@ export class Song {
     cascade: true,
   })
   contributor: User;
+
+  contributorNote: string;
 
   @ManyToMany(() => Genre, (genre) => genre.songs, {
     eager: true,

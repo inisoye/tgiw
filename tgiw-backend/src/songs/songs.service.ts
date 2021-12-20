@@ -123,11 +123,10 @@ export class SongsService {
       await this.songRepository.save(song);
       this.logger.verbose(
         `Added new song ${song.name} with genres: ${genreNames.join(', ')} by ${
-          contributor.userName
+          contributor?.userName
         }`,
       );
     } catch (error) {
-      console.log(error);
       if (error.code === '23505') {
         this.logger.error(`The song, ${song.name} already exists on TGIW`);
         throw new ConflictException(

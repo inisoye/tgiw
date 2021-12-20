@@ -33,7 +33,6 @@ export class SongsController {
     @Body() addSongDto: AddSongDto,
     @GetUserData('uid') uid: string,
   ): Promise<Song> {
-    console.log(uid, 'uid');
     return this.songsService.addSong(addSongDto, uid);
   }
 }

@@ -51,7 +51,6 @@ export class AuthService {
 
       return { ...user, userName };
     } catch (error) {
-      console.log(error);
       // Internal server error used because Firebase error codes are strings (and plentiful)
       throw new InternalServerErrorException(error.errorInfo.message);
     }
