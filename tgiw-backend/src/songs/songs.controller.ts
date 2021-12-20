@@ -18,7 +18,6 @@ export class SongsController {
   constructor(private songsService: SongsService) {}
 
   @Get()
-  @UseGuards(FirebaseAuthGuard)
   getSongs(@Query('filter') filter: string): Promise<Song[]> {
     return this.songsService.getSongs(filter);
   }

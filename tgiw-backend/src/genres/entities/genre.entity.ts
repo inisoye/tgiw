@@ -10,6 +10,14 @@ export class Genre {
   @Column({ unique: true })
   name: string;
 
+  @Column({
+    type: 'jsonb',
+    array: false,
+    default: () => "'[]'",
+    nullable: false,
+  })
+  countries: string[];
+
   @ManyToMany(() => Song, (song) => song.genres)
   songs: Song[];
 

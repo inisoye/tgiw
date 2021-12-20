@@ -14,6 +14,7 @@ import { AddSongDto } from './dto';
 import { Artist } from '../artists/entities/artist.entity';
 import { User } from '../auth/entities/user.entity';
 import { FormattedArtist } from '../common/interfaces';
+import { genresByCountry } from '../static/genresByCountry';
 
 @Injectable()
 export class SongsService {
@@ -59,7 +60,10 @@ export class SongsService {
     return foundSong;
   }
 
-  async populateGenres(genreNames: string[], genres: Genre[]): Promise<void> {
+  async populateGenres(
+    genreNames: string[],
+    songGenres: Genre[],
+  ): Promise<void> {
     // Remove duplicates for extra safety
     const uniqueGenreNames = [...new Set(genreNames)];
 
@@ -68,17 +72,23 @@ export class SongsService {
         where: { name },
       });
 
+      const countries: string[] = genresByCountry[name];
+
       if (!foundGenre) {
         const newGenre = this.genreRepository.create({ name });
+        newGenre.countries = countries;
         await this.genreRepository.save(newGenre);
-        genres.push(newGenre);
+        songGenres.push(newGenre);
       } else {
-        genres.push(foundGenre);
+        songGenres.push(foundGenre);
       }
     }
   }
 
-  async populateArtists(artistsPayload: FormattedArtist[], artists: Artist[]) {
+  async populateArtists(
+    artistsPayload: FormattedArtist[],
+    songArtists: Artist[],
+  ) {
     for (const artist of artistsPayload) {
       const { name, genres: genreNames, ...rest } = artist;
 
@@ -94,9 +104,9 @@ export class SongsService {
         newArtist.genres = genres;
 
         await this.artistRepository.save(newArtist);
-        artists.push(newArtist);
+        songArtists.push(newArtist);
       } else {
-        artists.push(foundArtist);
+        songArtists.push(foundArtist);
       }
     }
   }
@@ -121,14 +131,14 @@ export class SongsService {
     const song = this.songRepository.create({ ...restOfDto, contributor });
 
     // Add genres to song
-    const genres: Genre[] = [];
-    await this.populateGenres(genreNames, genres);
-    song.genres = genres;
+    const songGenres: Genre[] = [];
+    await this.populateGenres(genreNames, songGenres);
+    song.genres = songGenres;
 
     // Add artists to song
-    const artists: Artist[] = [];
-    await this.populateArtists(artistsPayload, artists);
-    song.artists = artists;
+    const songArtists: Artist[] = [];
+    await this.populateArtists(artistsPayload, songArtists);
+    song.artists = songArtists;
 
     try {
       await this.songRepository.save(song);
