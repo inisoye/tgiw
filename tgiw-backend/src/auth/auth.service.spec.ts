@@ -76,6 +76,7 @@ describe('AuthService', () => {
       email: 'foo@bar.com',
       password: 'bar',
       userName: 'foo',
+      role: 'user',
     };
 
     it('should create and return a new user record', async () => {

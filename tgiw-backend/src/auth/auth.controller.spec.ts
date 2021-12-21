@@ -45,6 +45,7 @@ describe('AuthController', () => {
       email: 'foo@bar.com',
       password: 'bar',
       userName: 'foo',
+      role: 'user',
     };
 
     it("should return created user's details", async () => {
