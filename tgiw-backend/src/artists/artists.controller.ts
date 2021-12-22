@@ -1,14 +1,18 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
 import { Artist } from './entities/artist.entity';
 import { ArtistsService } from './artists.service';
+import { PaginatedQueryDto } from '../common/dto';
+import { PaginatedResponse } from '../common/interfaces';
 
 @Controller('artists')
 export class ArtistsController {
   constructor(private artistsService: ArtistsService) {}
 
   @Get()
-  getArtists(@Query('filter') filter: string): Promise<Artist[]> {
-    return this.artistsService.getArtists(filter);
+  getArtists(
+    @Query() getArtistsQueryDto: PaginatedQueryDto,
+  ): Promise<PaginatedResponse<Artist[]>> {
+    return this.artistsService.getArtists(getArtistsQueryDto);
   }
 
   @Get('/:id')

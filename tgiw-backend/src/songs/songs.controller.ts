@@ -12,14 +12,18 @@ import { SongsService } from './songs.service';
 import { AddSongDto } from './dto';
 import { GetUserData } from '../auth/decorators/get-user-data.decorator';
 import { FirebaseAuthGuard } from '../auth/guards/firebase-auth.guard';
+import { PaginatedQueryDto } from '../common/dto';
+import { PaginatedResponse } from '../common/interfaces';
 
 @Controller('songs')
 export class SongsController {
   constructor(private songsService: SongsService) {}
 
   @Get()
-  getSongs(@Query('filter') filter: string): Promise<Song[]> {
-    return this.songsService.getSongs(filter);
+  getSongs(
+    @Query() getSongsQueryDto: PaginatedQueryDto,
+  ): Promise<PaginatedResponse<Song[]>> {
+    return this.songsService.getSongs(getSongsQueryDto);
   }
 
   @Get('/:id')

@@ -5,7 +5,7 @@ import {
   IsNumberString,
 } from 'class-validator';
 
-export class SearchTracksDto {
+export class SearchTracksQueryDto {
   @IsNotEmpty()
   @IsString()
   name: string;

@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Response, Request } from 'express';
-import { SearchTracksDto, AuthCallbackQueryDto } from './dtos';
+import { SearchTracksQueryDto, AuthCallbackQueryDto } from './dtos';
 import { SpotifyService } from './spotify.service';
 
 @Controller('spotify')
@@ -47,8 +47,8 @@ export class SpotifyController {
   }
 
   @Get('/tracks')
-  searchTracks(@Query() searchTracksDto: SearchTracksDto) {
-    return this.spotifyService.searchTracks(searchTracksDto);
+  searchTracks(@Query() searchTracksQueryDto: SearchTracksQueryDto) {
+    return this.spotifyService.searchTracks(searchTracksQueryDto);
   }
 
   @Get('/track/:id')

@@ -1,4 +1,6 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
+import { PaginatedResponse } from '../common/interfaces';
+import { PaginatedQueryDto } from '../common/dto';
 import { Genre } from './entities/genre.entity';
 import { GenresService } from './genres.service';
 
@@ -7,8 +9,10 @@ export class GenresController {
   constructor(private genresService: GenresService) {}
 
   @Get()
-  getGenres(@Query('filter') filter: string): Promise<Genre[]> {
-    return this.genresService.getGenres(filter);
+  getGenres(
+    @Query() getGenresQueryDto: PaginatedQueryDto,
+  ): Promise<PaginatedResponse<Genre[]>> {
+    return this.genresService.getGenres(getGenresQueryDto);
   }
 
   @Get('/:id')

@@ -5,9 +5,10 @@ import { Genre } from '../genres/entities/genre.entity';
 import { Song } from '../songs/entities/song.entity';
 import { ArtistsService } from './artists.service';
 import { ArtistsController } from './artists.controller';
+import { HelpersModule } from '../helpers/helpers.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Genre, Song, Artist])],
+  imports: [TypeOrmModule.forFeature([Genre, Song, Artist]), HelpersModule],
   providers: [ArtistsService],
   controllers: [ArtistsController],
 })

@@ -8,13 +8,15 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { AddSongDto } from './dto';
+import { PaginatedQueryDto } from '../common/dto';
 import { Song } from './entities/song.entity';
 import { Genre } from '../genres/entities/genre.entity';
-import { AddSongDto } from './dto';
 import { Artist } from '../artists/entities/artist.entity';
 import { User } from '../auth/entities/user.entity';
-import { FormattedArtist } from '../common/interfaces';
+import { FormattedArtist, PaginatedResponse } from '../common/interfaces';
 import { genresByCountry } from '../static/genresByCountry';
+import { HelpersService } from '../helpers/helpers.service';
 
 @Injectable()
 export class SongsService {
@@ -27,16 +29,21 @@ export class SongsService {
     private artistRepository: Repository<Artist>,
     @InjectRepository(User)
     private userRepository: Repository<User>,
+    private helpersService: HelpersService,
   ) {}
 
   private readonly logger = new Logger('SongsService');
 
-  async getSongs(filter: string): Promise<Song[]> {
+  async getSongs(
+    getSongsQueryDto: PaginatedQueryDto,
+  ): Promise<PaginatedResponse<Song[]>> {
     const query = this.songRepository
       .createQueryBuilder('song')
       .leftJoinAndSelect('song.genres', 'genre')
       .leftJoinAndSelect('song.artists', 'artist')
       .leftJoinAndSelect('song.contributor', 'user');
+
+    const { filter } = getSongsQueryDto;
 
     if (filter) {
       query.andWhere(
@@ -45,7 +52,21 @@ export class SongsService {
       );
     }
 
-    return await query.getMany();
+    const fullDataLength = (await query.getMany()).length;
+
+    let { take = 10, page = 1 } = getSongsQueryDto;
+    take = +take;
+    page = +page;
+    const skip = (page - 1) * take;
+
+    const selectedData = await query.skip(skip).take(take).getMany();
+
+    return this.helpersService.paginateResponse<Song[]>(
+      selectedData,
+      page,
+      take,
+      fullDataLength,
+    );
   }
 
   async getSongById(id: string): Promise<Song> {

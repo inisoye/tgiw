@@ -7,7 +7,7 @@ import {
 import { ConfigService } from '@nestjs/config';
 import SpotifyWebApi = require('spotify-web-api-node');
 import { format as formatDate } from 'date-fns';
-import { AuthCallbackQueryDto, SearchTracksDto } from './dtos';
+import { AuthCallbackQueryDto, SearchTracksQueryDto } from './dtos';
 
 @Injectable()
 export class SpotifyService {
@@ -162,8 +162,8 @@ export class SpotifyService {
     );
   }
 
-  async searchTracks(searchTracksDto: SearchTracksDto) {
-    const { name, limit = 10 } = searchTracksDto;
+  async searchTracks(searchTracksQueryDto: SearchTracksQueryDto) {
+    const { name, limit = 10 } = searchTracksQueryDto;
 
     try {
       const { body: tracksBody } = await this.spotifyApi.searchTracks(name, {
