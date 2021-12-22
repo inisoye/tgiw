@@ -26,9 +26,12 @@ export class GenresService {
 
     const { filter } = getGenresQueryDto;
     if (filter) {
-      query.andWhere('(LOWER(genre.name) LIKE LOWER(:filter))', {
-        filter: `%${filter}%`,
-      });
+      query.andWhere(
+        `(LOWER(genre.name) LIKE LOWER(:filter) OR
+         LOWER(song.name) LIKE LOWER(:filter) OR
+         LOWER(artist.name) LIKE LOWER(:filter))`,
+        { filter: `%${filter}%` },
+      );
     }
 
     const fullDataLength = (await query.getMany()).length;

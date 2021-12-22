@@ -38,7 +38,7 @@ describe('SongsController', () => {
 
   describe('getSongs', () => {
     it('should return all songs', async () => {
-      const result = await songsController.getSongs('foo filter');
+      const result = await songsController.getSongs({ filter: 'foo filter' });
 
       expect(result).toEqual(
         expect.arrayContaining([{ id: 'foo', name: 'bar' }]),
@@ -46,7 +46,9 @@ describe('SongsController', () => {
     });
 
     it('should call mockSongsService.getSongs', () => {
-      expect(mockSongsService.getSongs).toHaveBeenCalledWith('foo filter');
+      expect(mockSongsService.getSongs).toHaveBeenCalledWith({
+        filter: 'foo filter',
+      });
     });
   });
 
@@ -83,17 +85,26 @@ describe('SongsController', () => {
       images: [{ url: 'ajaj' }],
       yearReleased: 'string',
       genreNames: ['string'],
+      valence: 0.3,
+      energy: 0.3,
+      danceability: 0.3,
+      contributorNote: 'string',
     };
     const mockUid = 'blah';
+    const mockRole = 'contributor';
 
     it('should return requested song', async () => {
-      const result = await songsController.addSong(mockSong, mockUid);
+      const result = await songsController.addSong(mockSong, mockUid, mockRole);
 
       expect(result).toEqual({ id: '1', ...mockSong });
     });
 
     it('should call mockSongsService.addSong', () => {
-      expect(mockSongsService.addSong).toHaveBeenCalledWith(mockSong, mockUid);
+      expect(mockSongsService.addSong).toHaveBeenCalledWith(
+        mockSong,
+        mockUid,
+        mockRole,
+      );
     });
   });
 });

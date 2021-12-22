@@ -26,9 +26,12 @@ export class ArtistsService {
 
     const { filter } = getArtistsQueryDto;
     if (filter) {
-      query.andWhere('(LOWER(artist.name) LIKE LOWER(:filter))', {
-        filter: `%${filter}%`,
-      });
+      query.andWhere(
+        `(LOWER(artist.name) LIKE LOWER(:filter) OR
+         LOWER(song.name) LIKE LOWER(:filter) OR
+         LOWER(genre.name) LIKE LOWER(:filter))`,
+        { filter: `%${filter}%` },
+      );
     }
 
     const fullDataLength = (await query.getMany()).length;

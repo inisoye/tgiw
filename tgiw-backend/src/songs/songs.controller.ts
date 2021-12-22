@@ -19,6 +19,7 @@ import { PaginatedResponse } from '../common/interfaces';
 export class SongsController {
   constructor(private songsService: SongsService) {}
 
+  @UseGuards(FirebaseAuthGuard)
   @Get()
   getSongs(
     @Query() getSongsQueryDto: PaginatedQueryDto,

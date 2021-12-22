@@ -47,7 +47,10 @@ export class SongsService {
 
     if (filter) {
       query.andWhere(
-        '(LOWER(song.name) LIKE LOWER(:filter) OR LOWER(song.album) LIKE LOWER(:filter))',
+        `(LOWER(song.name) LIKE LOWER(:filter) OR
+         LOWER(song.album) LIKE LOWER(:filter) OR 
+         LOWER(genre.name) LIKE LOWER(:filter) OR 
+         LOWER(artist.name) LIKE LOWER(:filter))`,
         { filter: `%${filter}%` },
       );
     }
