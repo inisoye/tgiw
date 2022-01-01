@@ -14,14 +14,12 @@ const Songs: NextPageWithLayout = () => {
   }
 
   return (
-    <div className="mt-8">
-      {/* <h1 className="px-8 mb-8 text-3xl text-center text-gray-800 md:hidden">
+    <div className="max-w-6xl px-8 mt-8">
+      <h1 className="px-8 mb-8 text-3xl text-center text-gray-800 sr-only">
         Songs
-      </h1> */}
+      </h1>
 
-      <div className="max-w-6xl px-8">
-        <SongsList songs={songs} />
-      </div>
+      <SongsList songs={songs} />
     </div>
   );
 };

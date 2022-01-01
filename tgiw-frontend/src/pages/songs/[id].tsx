@@ -5,7 +5,12 @@ import Link from 'next/link';
 
 import { MainLayout, NextPageWithLayout } from '@/components/layout';
 import { SpotifyLink } from '@/components/elements';
-import { useSongs, useAudio, SnippetButton } from '@/features/songs';
+import {
+  useSongs,
+  useAudio,
+  SnippetButton,
+  ArtistLinks,
+} from '@/features/songs';
 import { Song } from '@/types';
 import { withAuth } from '@/features/auth';
 
@@ -31,10 +36,10 @@ const Song: NextPageWithLayout = () => {
   const imageUrl = images?.[0].url as string;
 
   return (
-    <div className="w-full max-w-6xl px-8 mt-8">
+    <div className="max-w-6xl px-8 mt-8">
       <div style={{ background: `#${bg}` }} className="w-full p-3 rounded-md">
         <div className="p-4 mx-auto text-center bg-black rounded-md bg-opacity-5 md:text-left md:flex md:justify-between md:space-x-6">
-          <div className="w-2/5 min-w-[150px] max-w-[250px] overflow-hidden rounded-md mx-auto md:mx-0">
+          <div className="w-1/2 min-w-[150px] max-w-[250px] overflow-hidden rounded-md mx-auto md:mx-0">
             <Image
               src={imageUrl}
               alt={name}
@@ -50,33 +55,7 @@ const Song: NextPageWithLayout = () => {
               {name}
             </h1>
 
-            <ul className="flex flex-wrap justify-center gap-2 mx-auto mt-6 md:mx-0 md:flex-row md:justify-end md:inline-flex md:w-full">
-              {artists?.map(({ id, name, images }) => {
-                const imageUrl = images?.[1].url;
-
-                return (
-                  <li key={id} className="w-max max-w-[90%] md:inline">
-                    <Link href={`/artists/${id}`}>
-                      <a className="flex items-center px-3 py-1.5 space-x-3 transition duration-500 ease-in-out bg-black rounded-md bg-opacity-10 hover:bg-opacity-5">
-                        <div className="w-8 h-8 overflow-hidden rounded-full shrink-0">
-                          <Image
-                            src={imageUrl}
-                            alt={name}
-                            width="100%"
-                            height="100%"
-                            layout="responsive"
-                            objectFit="contain"
-                          />
-                        </div>
-                        <span className="text-sm text-gray-800 truncate shrink text-opacity-90">
-                          {name}
-                        </span>
-                      </a>
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
+            <ArtistLinks artists={artists} />
 
             <ul className="inline-flex flex-wrap justify-center w-full gap-2 mt-6 md:justify-end">
               {!!duration && (
