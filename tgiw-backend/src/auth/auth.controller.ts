@@ -28,16 +28,19 @@ export class AuthController {
   }
 
   @Delete('/users/:id')
+  @UseGuards(FirebaseAuthGuard)
   deleteUser(@Param('id') id: string): Promise<void> {
     return this.authService.deleteUser(id);
   }
 
   @Get('/users/:id')
+  @UseGuards(FirebaseAuthGuard)
   getUser(@Param('id') id: string) {
     return this.authService.getUser(id);
   }
 
   @Patch('/users/:id')
+  @UseGuards(FirebaseAuthGuard)
   updateUser(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.authService.updateUser(id, updateUserDto);
   }

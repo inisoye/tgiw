@@ -44,6 +44,8 @@ export class SpotifyService {
   });
 
   createAuthorizeURL(): string {
+    console.log(this.spotifyApi);
+
     return this.spotifyApi.createAuthorizeURL(
       this.oauthScopes,
       this.configService.get('spotify.authState'),

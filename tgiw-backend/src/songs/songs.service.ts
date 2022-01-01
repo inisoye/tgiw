@@ -72,6 +72,16 @@ export class SongsService {
     );
   }
 
+  async get10Songs() {
+    return await this.songRepository
+      .createQueryBuilder('song')
+      .leftJoinAndSelect('song.genres', 'genre')
+      .leftJoinAndSelect('song.artists', 'artist')
+      .leftJoinAndSelect('song.contributor', 'user')
+      .take(10)
+      .getMany();
+  }
+
   async getSongById(id: string): Promise<Song> {
     const foundSong = await this.songRepository.findOne({ where: { id } });
 

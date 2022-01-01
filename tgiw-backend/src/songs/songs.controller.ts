@@ -19,15 +19,21 @@ import { PaginatedResponse } from '../common/interfaces';
 export class SongsController {
   constructor(private songsService: SongsService) {}
 
-  @UseGuards(FirebaseAuthGuard)
   @Get()
+  @UseGuards(FirebaseAuthGuard)
   getSongs(
     @Query() getSongsQueryDto: PaginatedQueryDto,
   ): Promise<PaginatedResponse<Song[]>> {
     return this.songsService.getSongs(getSongsQueryDto);
   }
 
+  @Get('/10')
+  get10Songs(): Promise<Song[]> {
+    return this.songsService.get10Songs();
+  }
+
   @Get('/:id')
+  @UseGuards(FirebaseAuthGuard)
   getSongById(@Param('id') id: string): Promise<Song> {
     return this.songsService.getSongById(id);
   }
