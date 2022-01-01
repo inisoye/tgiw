@@ -2,9 +2,9 @@ import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Artist } from './entities/artist.entity';
-import { HelpersService } from '../helpers/helpers.service';
-import { PaginatedQueryDto } from '../common/dto';
-import { PaginatedResponse } from '../common/interfaces';
+import { HelpersService } from '@/helpers/helpers.service';
+import { PaginatedQueryDto } from '@/common/dto';
+import { PaginatedResponse } from '@/common/interfaces';
 
 @Injectable()
 export class ArtistsService {

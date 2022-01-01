@@ -5,7 +5,7 @@ import { AuthController } from './auth.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { FirebaseAuthStrategy } from './strategies/firebase-auth.strategy';
-import { Song } from '../songs/entities/song.entity';
+import { Song } from '@/songs/entities/song.entity';
 
 @Module({
   imports: [

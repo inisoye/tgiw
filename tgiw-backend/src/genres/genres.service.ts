@@ -1,10 +1,10 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { PaginatedQueryDto } from '../common/dto';
+import { PaginatedQueryDto } from '@/common/dto';
 import { Genre } from './entities/genre.entity';
-import { PaginatedResponse } from '../common/interfaces';
-import { HelpersService } from '../helpers/helpers.service';
+import { PaginatedResponse } from '@/common/interfaces';
+import { HelpersService } from '@/helpers/helpers.service';
 
 @Injectable()
 export class GenresService {
