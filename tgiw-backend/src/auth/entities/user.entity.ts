@@ -5,7 +5,7 @@ import {
   OneToMany,
   PrimaryColumn,
 } from 'typeorm';
-import { Song } from '../../songs/entities/song.entity';
+import { Song } from '@/songs/entities/song.entity';
 
 @Entity()
 export class User {

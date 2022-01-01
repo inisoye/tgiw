@@ -1,6 +1,6 @@
 import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { Song } from '../../songs/entities/song.entity';
-import { Artist } from '../../artists/entities/artist.entity';
+import { Song } from '@/songs/entities/song.entity';
+import { Artist } from '@/artists/entities/artist.entity';
 
 @Entity()
 export class Genre {
