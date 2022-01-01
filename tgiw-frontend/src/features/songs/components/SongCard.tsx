@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { Palette } from 'color-thief-react';
-import tinycolor from 'tinycolor2';
 import Image from 'next/image';
 import Link from 'next/link';
+import tinycolor from 'tinycolor2';
 
 import { Song } from '@/types';
-import { pickArtistsNames } from '@/utils';
+import { formatBgColor, pickArtistsNames } from '@/utils';
 
 interface SongCardProps {
   song: Song;
@@ -24,15 +24,7 @@ export const SongCard: React.FunctionComponent<SongCardProps> = ({ song }) => {
 
         let defaultBg1 = data?.[0] || '#f4f4f5';
 
-        const editColor = (color: string) => {
-          if (tinycolor(color).isDark()) {
-            return tinycolor(color).brighten(50).toString();
-          }
-
-          return color;
-        };
-
-        const bg1 = editColor(defaultBg1);
+        const bg1 = formatBgColor(defaultBg1);
 
         return (
           <Link href={`/songs/${id}?bg=${bg1.substring(1)}`}>

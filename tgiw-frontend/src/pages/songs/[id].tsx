@@ -36,7 +36,7 @@ const Song: NextPageWithLayout = () => {
 
   return (
     <div className="max-w-6xl px-8 mt-8">
-      <div style={{ background: `#${bg}` }} className="w-full p-3 rounded-md">
+      <div style={{ background: `#${bg}` }} className="w-full p-6 rounded-md">
         <div className="p-4 mx-auto text-center bg-black rounded-md bg-opacity-5 md:text-left md:flex md:justify-between md:space-x-6">
           <LargeSongCardImage imageUrl={imageUrl} name={name} />
 
