@@ -48,7 +48,7 @@ export const SongCard: React.FunctionComponent<SongCardProps> = ({ song }) => {
                     objectFit="contain"
                   />
                 </div>
-                <p className="max-w-full mt-4 text-lg truncate text-gray-800 font-heading">
+                <p className="max-w-full mt-4 text-lg text-gray-800 truncate font-heading">
                   {name}
                 </p>
                 <div className="flex items-center justify-center mt-1 space-x-2 text-sm text-gray-800 text-opacity-70">
