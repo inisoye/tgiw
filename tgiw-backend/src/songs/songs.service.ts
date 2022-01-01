@@ -8,6 +8,8 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import randomColor = require('randomcolor');
+
 import { AddSongDto } from './dto';
 import { PaginatedQueryDto } from '@/common/dto';
 import { Song } from './entities/song.entity';
@@ -57,7 +59,7 @@ export class SongsService {
 
     const fullDataLength = (await query.getMany()).length;
 
-    let { take = 10, page = 1 } = getSongsQueryDto;
+    let { take = 15, page = 1 } = getSongsQueryDto;
     take = +take;
     page = +page;
     const skip = (page - 1) * take;
@@ -109,7 +111,8 @@ export class SongsService {
       const countries: string[] = genresByCountry[name];
 
       if (!foundGenre) {
-        const newGenre = this.genreRepository.create({ name });
+        const color = randomColor({ luminosity: 'dark' });
+        const newGenre = this.genreRepository.create({ name, color });
         newGenre.countries = countries;
         await this.genreRepository.save(newGenre);
         songGenres.push(newGenre);

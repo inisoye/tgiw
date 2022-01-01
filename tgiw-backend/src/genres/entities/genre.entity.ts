@@ -1,4 +1,5 @@
 import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+
 import { Song } from '@/songs/entities/song.entity';
 import { Artist } from '@/artists/entities/artist.entity';
 
@@ -9,6 +10,9 @@ export class Genre {
 
   @Column({ unique: true })
   name: string;
+
+  @Column()
+  color: string;
 
   @Column({
     type: 'jsonb',
