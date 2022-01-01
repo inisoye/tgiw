@@ -1,4 +1,5 @@
 import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
+
 import { PaginatedResponse } from '@/common/interfaces';
 import { PaginatedQueryDto } from '@/common/dto';
 import { Genre } from './entities/genre.entity';

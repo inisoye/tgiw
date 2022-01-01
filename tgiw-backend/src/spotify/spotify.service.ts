@@ -7,6 +7,7 @@ import {
 import { ConfigService } from '@nestjs/config';
 import SpotifyWebApi = require('spotify-web-api-node');
 import { format as formatDate } from 'date-fns';
+
 import { AuthCallbackQueryDto, SearchTracksQueryDto } from './dtos';
 
 @Injectable()

@@ -2,6 +2,7 @@
 
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
+
 import { Artist } from '@/artists/entities/artist.entity';
 import { User } from '@/auth/entities/user.entity';
 import { Genre } from '@/genres/entities/genre.entity';

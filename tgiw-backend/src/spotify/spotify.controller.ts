@@ -10,6 +10,7 @@ import {
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Response, Request } from 'express';
+
 import { SearchTracksQueryDto, AuthCallbackQueryDto } from './dtos';
 import { SpotifyService } from './spotify.service';
 

@@ -1,4 +1,5 @@
 import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
+
 import { Artist } from './entities/artist.entity';
 import { ArtistsService } from './artists.service';
 import { PaginatedQueryDto } from '@/common/dto';

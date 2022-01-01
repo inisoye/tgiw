@@ -5,6 +5,7 @@ import {
   ManyToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+
 import { Song } from '@/songs/entities/song.entity';
 import { Genre } from '@/genres/entities/genre.entity';
 

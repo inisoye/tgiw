@@ -1,4 +1,5 @@
 import { IsNotEmpty } from 'class-validator';
+
 import { FormattedArtist } from '@/common/interfaces';
 
 export class AddSongDto {

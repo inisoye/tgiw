@@ -7,6 +7,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+
 import { Genre } from '@/genres/entities/genre.entity';
 import { Artist } from '@/artists/entities/artist.entity';
 import { User } from '@/auth/entities/user.entity';
