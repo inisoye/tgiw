@@ -1,8 +1,11 @@
 import * as React from 'react';
-import Link from 'next/link';
 
 import { Logo } from '../elements';
 import { SidebarLink } from './SidebarLink';
+import { useAuth } from '@/lib/Authentication';
+import { useUser } from '@/features/auth';
+import ProfileMenu from './ProfileMenu';
+import { SidebarAuthLinks } from './SidebarAuthLinks';
 
 interface SidebarProps {}
 
@@ -11,44 +14,30 @@ const sidebarLinks = [
   { link: '/genres', text: 'Genres' },
   { link: '/artists', text: 'Artists' },
   { link: '/genre-finder', text: 'Genre Finder' },
-  {
-    link: '/about',
-    text: 'About TGIW',
-    className: 'text-gray-400 text-opacity-70 mt-10',
-  },
+  { link: '/about', text: 'About TGIW', className: 'mt-10' },
 ];
 
 export const Sidebar: React.FunctionComponent<SidebarProps> = () => {
+  const { user } = useAuth();
+  const { data } = useUser(user?.uid);
+
+  // dbUser refers to data for user stored on app database i.e not on Firebase's servers
+  const dbUser = data?.dbUser;
+
   return (
     <div className="md:p-8 md:h-full md:pr-0">
       <Logo />
 
-      <nav className="hidden w-full h-[calc(100%-8rem)] mt-8 text-sm bg-white rounded-md border-2 border-gray-100 py-9 overflow-auto md:flex md:flex-col">
-        <ul className="space-y-1">
+      <nav className="hidden w-full max-w-[11.875rem] h-[calc(100%-7.9rem)] mt-8 text-sm  overflow-auto md:flex md:flex-col py-9 ">
+        <ul className="px-4 space-y-3">
           {sidebarLinks.map(({ link, text, className }) => (
-            <li key={link}>
+            <li key={link} className="relative">
               <SidebarLink link={link} text={text} className={className} />
             </li>
           ))}
         </ul>
 
-        <div className="mt-auto">
-          <div className="px-4">
-            <Link href="/log-in">
-              <a className="block w-full px-4 py-2 mt-20 transition duration-500 ease-in-out rounded-md active:scale-[0.98] bg-gray-200 bg-opacity-40 hover:bg-gray-300">
-                Log in
-              </a>
-            </Link>
-          </div>
-
-          <div className="px-4">
-            <Link href="/sign-up">
-              <a className="block w-full px-4 py-2 mt-4 transition duration-500 ease-in-out border-2 rounded-md active:scale-[0.98] border-gray-800 hover:border-transparent hover:bg-gray-800 hover:text-white">
-                Sign up
-              </a>
-            </Link>
-          </div>
-        </div>
+        {user ? <ProfileMenu dbUser={dbUser} /> : <SidebarAuthLinks />}
       </nav>
     </div>
   );

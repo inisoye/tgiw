@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Link from 'next/link';
 import clsx from 'clsx';
-
 import { useRouter } from 'next/router';
 
 interface SidebarLinkProps {
@@ -23,14 +22,15 @@ export const SidebarLink: React.FunctionComponent<SidebarLinkProps> = ({
     <Link href={link}>
       <a
         className={clsx(
-          'block w-full px-8 py-3 hover:text-tgiwOrange transition duration-500 ease-in-out',
+          'block w-full px-4 py-2 transition duration-500 ease-in-out',
           {
-            'bg-opacity-40 border-r-4 border-r-tgiwOrange': isLinkActive,
+            'text-gray-800': isLinkActive,
+            'text-gray-400 hover:text-gray-600': !isLinkActive,
           },
           className
         )}
       >
-        {text}
+        <span>{text}</span>
       </a>
     </Link>
   );
