@@ -5,7 +5,6 @@ import { format as formatDate } from 'date-fns';
 import { MainLayout, NextPageWithLayout } from '@/components/layout';
 import { Loader } from '@/components/elements';
 import {
-  useSongs,
   useAudio,
   ArtistLinks,
   TrackProgressMeter,
@@ -14,6 +13,7 @@ import {
   getSongMoodMessage,
   SmallSongDescriptor,
   SongGenreChips,
+  useInfiniteSongs,
 } from '@/features/songs';
 import { withAuth } from '@/features/auth';
 
@@ -21,9 +21,13 @@ interface SongProps {}
 
 const Song: NextPageWithLayout = () => {
   const router = useRouter();
-  const { data: songs, isError, isLoading } = useSongs();
+  const { data, isLoading, isError } = useInfiniteSongs();
 
   const { id, bg } = router.query;
+
+  const allFetchedsongs = data?.pages
+    ?.map((page) => page.data.map((song) => song))
+    .flat();
 
   const {
     name,
@@ -37,7 +41,7 @@ const Song: NextPageWithLayout = () => {
     contributorNote,
     contributor,
     dateAdded,
-  } = songs?.data.find((s) => s.id === id) || {};
+  } = allFetchedsongs?.find((s) => s.id === id) || {};
 
   const { isPlaying, toggle, trackProgressPercentage, duration } = useAudio(
     snippetUrl as string
@@ -97,8 +101,9 @@ const Song: NextPageWithLayout = () => {
           </SmallSongDescriptor>
 
           <SmallSongDescriptor heading="Added">
-            {formatDate(new Date(dateAdded as string), 'MMM dd, yyyy')} by{' '}
-            <span className="capitalize">{contributor?.userName}</span>
+            {!!dateAdded &&
+              formatDate(new Date(dateAdded as string), 'MMM dd, yyyy')}{' '}
+            by <span className="capitalize">{contributor?.userName}</span>
           </SmallSongDescriptor>
 
           <SmallSongDescriptor heading="Year of Release">

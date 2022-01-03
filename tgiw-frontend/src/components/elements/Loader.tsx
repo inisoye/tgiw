@@ -3,10 +3,12 @@ import clsx from 'clsx';
 
 interface LoaderProps {
   isFullHeight?: boolean;
+  isInfiniteLoader?: boolean;
 }
 
 export const Loader: React.FunctionComponent<LoaderProps> = ({
   isFullHeight,
+  isInfiniteLoader,
 }) => {
   return (
     <div
@@ -15,6 +17,7 @@ export const Loader: React.FunctionComponent<LoaderProps> = ({
         {
           /* Screen minus header height on mobile */
           'h-[calc(100vh-71px)] md:h-full': isFullHeight,
+          'py-10': isInfiniteLoader,
         }
       )}
     >

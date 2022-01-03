@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { SongCard } from '@/features/songs';
+import type { InfiniteData } from 'react-query';
 
 import type { PaginatedResponse, Song } from '@/types';
+import { SongCard } from '@/features/songs';
 
 interface SongsListProps {
-  songs: PaginatedResponse<Song[]> | undefined;
+  songs: Song[] | undefined;
 }
 
 export const SongsList: React.FunctionComponent<SongsListProps> = ({
@@ -15,7 +16,7 @@ export const SongsList: React.FunctionComponent<SongsListProps> = ({
       aria-label="songs"
       className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
     >
-      {songs?.data.map((song) => {
+      {songs?.map((song) => {
         return (
           <li key={song.id}>
             <SongCard song={song} />
