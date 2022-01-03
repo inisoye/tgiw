@@ -7,6 +7,8 @@ import {
 import type { User } from 'firebase/auth';
 
 import { firebaseAuth, axios } from '@/config';
+import { getStoredUser, setAxiosAccessToken } from '@/utils';
+import type { StoredUser } from '@/types';
 
 type LogIn = (email: string, password: string) => Promise<User | undefined>;
 
@@ -19,23 +21,35 @@ type SignUp = (
 type LogOut = () => Promise<void>;
 
 interface State {
-  user: User | null;
+  user: User | StoredUser | null;
   logIn: LogIn;
   signUp: SignUp;
   logOut: LogOut;
   isUserLoading: Boolean;
 }
 
-// Added to prevent compiler error when obtaining accessToken
-interface UserWithAccessToken extends User {
-  accessToken: string;
-}
-
 const AuthContext = React.createContext<Partial<State>>({});
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = React.useState<User | null>(null);
+  const [user, setUser] = React.useState<User | StoredUser | null>(null);
   const [isUserLoading, setIsUserLoading] = React.useState<Boolean>(true);
+
+  // Fetch locally stored user from IndexDB before remote Firebase verification
+  // Prevents the immediate trigger of unauthenticated requests
+  React.useEffect(() => {
+    const fetchUser = async () => {
+      const storedUser = await getStoredUser();
+      setUser(storedUser);
+      setIsUserLoading(false);
+    };
+
+    fetchUser();
+  }, []);
+
+  // Add the access token to the Axios instance everytime the user object change
+  React.useEffect(() => {
+    setAxiosAccessToken(user, axios);
+  }, [user]);
 
   const logIn = async (email: string, password: string) => {
     try {
@@ -75,12 +89,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       if (user) {
         setUser(user);
         setIsUserLoading(false);
-
-        const userWithAccessToken = user as UserWithAccessToken;
-
-        axios.defaults.headers.common = {
-          Authorization: `Bearer ${userWithAccessToken.accessToken}`,
-        };
+        setAxiosAccessToken(user, axios);
       } else {
         setUser(null);
         setIsUserLoading(false);
@@ -103,7 +112,7 @@ export const useAuth = () => {
   const context = React.useContext(AuthContext);
 
   if (context === undefined) {
-    throw new Error('useAuth must be used within a CountProvider');
+    throw new Error('useAuth must be used within an AuthProvider');
   }
 
   return context;
