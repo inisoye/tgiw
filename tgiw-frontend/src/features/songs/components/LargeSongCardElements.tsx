@@ -1,6 +1,8 @@
 import * as React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
+import type { FormattedArtist } from '@/types';
 import { SpotifyLink } from '@/components/elements';
 
 interface LargeSongCardImageProps {
@@ -11,7 +13,7 @@ interface LargeSongCardImageProps {
 export const LargeSongCardImage: React.FunctionComponent<LargeSongCardImageProps> =
   ({ imageUrl, name }) => {
     return (
-      <div className="w-1/2 min-w-[150px] max-w-[250px] overflow-hidden rounded-md mx-auto md:mx-0">
+      <div className="w-1/2 min-w-[150px] max-w-[250px] overflow-hidden rounded-md mx-auto lg:mx-0">
         <Image
           src={imageUrl}
           alt={name}
@@ -24,24 +26,80 @@ export const LargeSongCardImage: React.FunctionComponent<LargeSongCardImageProps
     );
   };
 
+interface ArtistLinkProps {
+  id: string;
+  name: string;
+  imageUrl: string;
+}
+
+export const ArtistLink: React.FunctionComponent<ArtistLinkProps> = ({
+  id,
+  name,
+  imageUrl,
+}) => {
+  return (
+    <Link href={`/artists/${id}`}>
+      <a className="flex items-center px-3 py-1.5 space-x-3 transition duration-500 ease-in-out bg-black rounded-md bg-opacity-10 hover:bg-opacity-5">
+        <div className="w-8 h-8 overflow-hidden rounded-full shrink-0">
+          <Image
+            src={imageUrl}
+            alt={name}
+            width="100%"
+            height="100%"
+            layout="responsive"
+            objectFit="contain"
+          />
+        </div>
+        <span className="text-gray-800 truncate shrink text-opacity-90">
+          {name}
+        </span>
+      </a>
+    </Link>
+  );
+};
+
+interface ArtistLinksProps {
+  artists: FormattedArtist[] | undefined;
+}
+
+export const ArtistLinks: React.FunctionComponent<ArtistLinksProps> = ({
+  artists,
+}) => {
+  return (
+    <ul className="flex flex-wrap justify-center gap-2 mx-auto mt-10 lg:mx-0 lg:flex-row lg:justify-end lg:inline-flex lg:w-full">
+      {artists?.map(({ id, name, images }) => {
+        const imageUrl = images?.[1].url;
+
+        return (
+          <li key={id} className="w-max max-w-[90%] lg:inline">
+            <ArtistLink id={id} name={name} imageUrl={imageUrl} />
+          </li>
+        );
+      })}
+    </ul>
+  );
+};
+
+export default ArtistLinks;
+
 interface SnippetButtonProps {
+  isLoading: boolean;
   toggle: () => void;
   isPlaying: boolean;
 }
 
 export const SnippetButton: React.FunctionComponent<SnippetButtonProps> = ({
+  isLoading,
   toggle,
   isPlaying,
 }) => {
   return (
     <button
+      disabled={isLoading}
       onClick={toggle}
-      className="inline-flex items-center p-2 px-3 space-x-2 text-sm transition duration-500 ease-in-out rounded-md bg-tgiwYellow hover:bg-opacity-70 active:scale-90"
+      className="inline-flex items-center p-2 px-3 space-x-2 text-sm transition duration-500 ease-in-out rounded-md bg-tgiwYellow hover:bg-opacity-70 active:scale-[0.95] disabled:opacity-50"
     >
-      <span>
-        <span className="sr-only">{!isPlaying ? 'Play ' : 'Pause '}</span>
-        Snippet
-      </span>
+      <span>Snippet {isLoading && 'Loading'}</span>
       <span>
         {!isPlaying ? (
           <svg
@@ -54,7 +112,7 @@ export const SnippetButton: React.FunctionComponent<SnippetButtonProps> = ({
               fillRule="evenodd"
               clipRule="evenodd"
               d="M8 16A8 8 0 1 0 8-.001 8 8 0 0 0 8 16ZM7.555 5.168A1 1 0 0 0 6 6v4a1 1 0 0 0 1.555.832l3-2a.999.999 0 0 0 0-1.664l-3-2Z"
-              className="fill-slate-800"
+              className="fill-gray-800"
             />
           </svg>
         ) : (
@@ -68,7 +126,7 @@ export const SnippetButton: React.FunctionComponent<SnippetButtonProps> = ({
               fillRule="evenodd"
               clipRule="evenodd"
               d="M16 8A8 8 0 1 1-.001 8 8 8 0 0 1 16 8ZM5 6a1 1 0 0 1 2 0v4a1 1 0 1 1-2 0V6Zm5-1a1 1 0 0 0-1 1v4a1 1 0 1 0 2 0V6a1 1 0 0 0-1-1Z"
-              className="fill-slate-800"
+              className="fill-gray-800"
             />
           </svg>
         )}
@@ -87,12 +145,15 @@ interface LargeSongCardActionButtonsProps {
 export const LargeSongCardActionButtons: React.FunctionComponent<LargeSongCardActionButtonsProps> =
   ({ duration, toggle, isPlaying, spotifyUrl }) => {
     return (
-      <ul className="inline-flex flex-wrap justify-center w-full gap-2 mt-6 md:justify-end">
-        {!!duration && (
-          <li className="inline w-max">
-            <SnippetButton toggle={toggle} isPlaying={isPlaying} />
-          </li>
-        )}
+      <ul className="inline-flex flex-wrap justify-center w-full gap-2 mt-10 lg:justify-end">
+        <li className="inline w-max">
+          <SnippetButton
+            isLoading={!duration}
+            toggle={toggle}
+            isPlaying={isPlaying}
+          />
+        </li>
+
         <li className="inline w-max">
           <SpotifyLink spotifyUrl={spotifyUrl} />
         </li>
@@ -101,23 +162,23 @@ export const LargeSongCardActionButtons: React.FunctionComponent<LargeSongCardAc
   };
 
 interface TrackProgressMeterProps {
-  duration: number;
   trackProgressPercentage: number;
 }
 
 /* Progress meters left as div elements as to be used by sighted users only */
 export const TrackProgressMeter: React.FunctionComponent<TrackProgressMeterProps> =
-  ({ duration, trackProgressPercentage }) => {
+  ({ trackProgressPercentage }) => {
     return (
-      <>
-        {!!duration && (
-          <div className="w-full h-3 mt-3 bg-black rounded-sm bg-opacity-5">
-            <div
-              style={{ width: `${trackProgressPercentage}%` }}
-              className="h-full transition-all duration-200 ease-linear rounded-sm bg-slate-800"
-            ></div>
-          </div>
-        )}
-      </>
+      <div className="w-full h-3 mt-3 bg-black rounded-sm bg-opacity-5">
+        <div
+          className="h-full transition-all duration-200 ease-linear bg-gray-800 rounded-sm meter-length"
+        ></div>
+
+        <style jsx>{`
+          .meter-length {
+            width: ${`${trackProgressPercentage}%`}
+          }
+        `}</style>
+      </div>
     );
   };

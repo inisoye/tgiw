@@ -4,8 +4,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import tinycolor from 'tinycolor2';
 
-import { Song } from '@/types';
-import { formatBgColor, pickArtistsNames } from '@/utils';
+import type { Song } from '@/types';
+import { brightenBgColor, pickArtistsNames } from '@/utils';
 
 interface SongCardProps {
   song: Song;
@@ -24,12 +24,12 @@ export const SongCard: React.FunctionComponent<SongCardProps> = ({ song }) => {
 
         let defaultBg1 = data?.[0] || '#f4f4f5';
 
-        const bg1 = formatBgColor(defaultBg1);
+        const bg1 = brightenBgColor(defaultBg1);
 
         return (
           <Link href={`/songs/${id}?bg=${bg1.substring(1)}`}>
             <a>
-              <div className="p-4 text-center transition duration-300 ease-in-out rounded-md shadow-lg card-background hover:filter-none hover:scale-[0.98] hover:shadow-none">
+              <div className="p-4 text-center transition duration-300 ease-in-out rounded-md shadow-lg card-background hover:filter-none hover:scale-[1.02] active:scale-[0.98] hover:shadow-none">
                 <div className="overflow-hidden rounded-md">
                   <Image
                     src={imageUrl}

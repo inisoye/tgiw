@@ -1,7 +1,7 @@
 import { axios } from '@/config';
 import { useQuery } from 'react-query';
 
-import { PaginatedResponse, Song } from '@/types';
+import type { PaginatedResponse, Song } from '@/types';
 
 export const getSongs = async (): Promise<PaginatedResponse<Song[]>> => {
   const { data } = await axios.get('/songs');

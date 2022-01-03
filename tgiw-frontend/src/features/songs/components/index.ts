@@ -1,4 +1,5 @@
 export * from './SongCard';
 export * from './SongsList';
-export * from './ArtistLinks';
 export * from './LargeSongCardElements';
+export * from './SongDescriptorElements';
+export * from './SongGenreChips';
