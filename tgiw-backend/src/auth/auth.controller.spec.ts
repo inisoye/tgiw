@@ -16,7 +16,7 @@ describe('AuthController', () => {
     getUser: jest.fn().mockImplementation((id) => {
       return {
         firebaseUser: { uid: id, email: 'bar@example.com' },
-        localUser: { id: id, userName: 'bar' },
+        dbUser: { id: id, userName: 'bar' },
       };
     }),
 
@@ -76,7 +76,7 @@ describe('AuthController', () => {
 
       expect(result).toMatchObject({
         firebaseUser: { uid: '1', email: expect.any(String) },
-        localUser: { id: '1', userName: expect.any(String) },
+        dbUser: { id: '1', userName: expect.any(String) },
       });
     });
 

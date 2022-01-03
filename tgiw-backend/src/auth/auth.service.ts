@@ -50,8 +50,8 @@ export class AuthService {
 
       await firebaseAdmin.auth().setCustomUserClaims(id, { role });
 
-      const localUser = this.userRepository.create({ id, userName });
-      await this.userRepository.save(localUser);
+      const dbUser = this.userRepository.create({ id, userName });
+      await this.userRepository.save(dbUser);
 
       return { ...user, userName };
     } catch (error) {
@@ -73,13 +73,13 @@ export class AuthService {
     try {
       const firebaseUser = await firebaseAdmin.auth().getUser(id);
 
-      const localUser = await this.userRepository
+      const dbUser = await this.userRepository
         .createQueryBuilder('user')
         .leftJoinAndSelect('user.contributions', 'song')
         .where('user.id = :id', { id })
         .getOne();
 
-      return { firebaseUser, localUser };
+      return { firebaseUser, dbUser };
     } catch (error) {
       throw new InternalServerErrorException(error.errorInfo.message);
     }
