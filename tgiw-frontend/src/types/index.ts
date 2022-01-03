@@ -6,7 +6,7 @@ export interface PaginatedResponse<DataType> {
   currentPage: any;
   nextPage: any;
   prevPage: number;
-  lastPage: number;
+  totalPages: number;
 }
 
 export interface ImageObject {
