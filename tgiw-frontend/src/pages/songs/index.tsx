@@ -36,8 +36,11 @@ const Songs: NextPageWithLayout = () => {
 
       <SongsList songs={allFetchedsongs} />
 
-      <div ref={sentryRef} />
-      {isLoading && <Loader isInfiniteLoader />}
+      {(isLoading || hasNextPage) && (
+        <div ref={sentryRef}>
+          <Loader isInfiniteLoader />
+        </div>
+      )}
     </div>
   );
 };

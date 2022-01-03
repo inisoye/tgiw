@@ -20,7 +20,8 @@ export const SongCard: React.FunctionComponent<SongCardProps> = ({ song }) => {
   return (
     <Palette src={imageUrl} colorCount={2} crossOrigin="anonymous" format="hex">
       {({ data, loading }) => {
-        if (loading) return;
+        // Div added to prevent main loader from jumping in front of user
+        if (loading) return <div className="h-[40vh]"></div>;
 
         let defaultBg1 = data?.[0] || '#f4f4f5';
 

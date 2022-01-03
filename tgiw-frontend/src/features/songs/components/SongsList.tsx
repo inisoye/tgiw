@@ -14,7 +14,7 @@ export const SongsList: React.FunctionComponent<SongsListProps> = ({
   return (
     <ul
       aria-label="songs"
-      className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
+      className="grid max-w-xs grid-cols-1 gap-8 mx-auto sm:mx-0 sm:max-w-none sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
     >
       {songs?.map((song) => {
         return (
