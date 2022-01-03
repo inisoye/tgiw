@@ -1,11 +1,11 @@
 import * as React from 'react';
 
 import { Logo } from '../elements';
-import { SidebarLink } from './SidebarLink';
 import { useAuth } from '@/lib/Authentication';
 import { useUser } from '@/features/auth';
-import ProfileMenu from './ProfileMenu';
 import { SidebarAuthLinks } from './SidebarAuthLinks';
+import { SidebarLink } from './SidebarLink';
+import { ProfileMenu } from './ProfileMenu';
 
 interface SidebarProps {}
 

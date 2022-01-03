@@ -9,7 +9,9 @@ interface ProfileMenuProps {
   dbUser: DbUser | undefined;
 }
 
-const ProfileMenu: React.FunctionComponent<ProfileMenuProps> = ({ dbUser }) => {
+export const ProfileMenu: React.FunctionComponent<ProfileMenuProps> = ({
+  dbUser,
+}) => {
   return (
     <div className="w-full px-4 mt-auto">
       <DropdownMenuPrimitive.Root>
@@ -22,13 +24,13 @@ const ProfileMenu: React.FunctionComponent<ProfileMenuProps> = ({ dbUser }) => {
         </DropdownMenuPrimitive.Trigger>
 
         <DropdownMenuPrimitive.Content className="bg-gray-100 w-[9.625rem] -translate-y-2 rounded-md">
-          <DropdownMenuPrimitive.Item className="w-full px-4 py-2 text-sm text-gray-800 rounded-md cursor-pointer text-opacity-90 hover:bg-gray-200 focus:outline-none focus:bg-gray-200">
+          <DropdownMenuPrimitive.Item className="w-full px-4 py-2 text-sm text-gray-800 transition duration-500 ease-in-out rounded-md cursor-pointer text-opacity-90 focus:outline-none focus:bg-gray-200">
             <Link href="/edit-profile">
               <a className="inline-block w-full h-full">Edit Profile</a>
             </Link>
           </DropdownMenuPrimitive.Item>
 
-          <DropdownMenuPrimitive.Item className="w-full px-4 py-2 text-sm text-gray-800 rounded-md cursor-pointer text-opacity-90 hover:bg-gray-200 focus:outline-none focus:bg-gray-200">
+          <DropdownMenuPrimitive.Item className="w-full px-4 py-2 text-sm text-gray-800 transition duration-500 ease-in-out rounded-md cursor-pointer text-opacity-90 focus:outline-none focus:bg-red-100 focus:text-red-600">
             Log Out
           </DropdownMenuPrimitive.Item>
         </DropdownMenuPrimitive.Content>
@@ -36,5 +38,3 @@ const ProfileMenu: React.FunctionComponent<ProfileMenuProps> = ({ dbUser }) => {
     </div>
   );
 };
-
-export default ProfileMenu;

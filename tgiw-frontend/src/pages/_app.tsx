@@ -18,7 +18,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
         <AuthProvider>
-          {/* Custom base styles added here */}
+          {/* More custom base styles added here */}
           <div className="text-gray-700 font-regular">
             {getLayout(<Component {...pageProps} />)}
           </div>
