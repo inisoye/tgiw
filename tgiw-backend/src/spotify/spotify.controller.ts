@@ -52,7 +52,7 @@ export class SpotifyController {
     return this.spotifyService.searchTracks(searchTracksQueryDto);
   }
 
-  @Get('/track/:id')
+  @Get('/tracks/:id')
   getTrackDetails(@Param('id') id: string) {
     return this.spotifyService.getTrackDetails(id);
   }
