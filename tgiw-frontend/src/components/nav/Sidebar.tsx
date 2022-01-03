@@ -29,7 +29,7 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = () => {
       <Logo />
 
       <nav className="hidden w-full max-w-[11.875rem] h-[calc(100%-7.9rem)] mt-8 text-sm  overflow-auto md:flex md:flex-col py-9 ">
-        <ul className="px-4 space-y-3">
+        <ul className="px-4 space-y-2">
           {sidebarLinks.map(({ link, text, className }) => (
             <li key={link} className="relative">
               <SidebarLink link={link} text={text} className={className} />
