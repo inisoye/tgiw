@@ -8,7 +8,7 @@ export const Logo: React.FunctionComponent<LogoProps> = () => {
   return (
     <>
       <Link href="/">
-        <a className="hidden px-8 py-6 mx-auto leading-3 rounded-md bg-slate-800 md:block w-max">
+        <a className="hidden px-8 py-6 mx-auto leading-3 rounded-md bg-slate-800 md:block w-max hover:scale-[1.02] active:scale-[0.98] transition ease-in-out duration-300">
           <Image
             src="/logos/tgiwLogo.svg"
             alt="The Genre Isn't World Logo"
