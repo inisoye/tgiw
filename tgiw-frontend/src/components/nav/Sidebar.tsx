@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Logo } from '../elements';
-import { useAuth } from '@/lib/Authentication';
+import { useAuth } from '@/lib/authentication';
 import { useUser } from '@/features/auth';
 import { SidebarAuthLinks } from './SidebarAuthLinks';
 import { SidebarLink } from './SidebarLink';

@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-import { MainLayout, NextPageWithLayout } from '@/components/layout';
+import { MainLayout } from '@/components/layout';
+import type { NextPageWithLayout } from '@/types';
 
 interface ArtistsProps {}
 

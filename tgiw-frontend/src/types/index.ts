@@ -1,4 +1,9 @@
-import type { User as FirebaseUser } from 'firebase/auth';
+import type { ReactElement, ReactNode } from 'react';
+import type { NextPage } from 'next';
+
+export type NextPageWithLayout = NextPage & {
+  getLayout?: (page: ReactElement) => ReactNode;
+};
 
 export interface PaginatedResponse<DataType> {
   data: DataType;
@@ -40,6 +45,7 @@ export interface Contributor {
 export interface Song {
   id: string;
   name: string;
+  color: string;
   artists: FormattedArtist[];
   album: string;
   spotifyId: string;
@@ -63,13 +69,6 @@ export interface DbUser {
   userName: string;
   dateAdded: Date;
   contributions: Song[];
-}
-
-// Added to prevent compiler error when obtaining accessToken
-export interface UserWithAccessToken extends FirebaseUser {
-  stsTokenManager: {
-    accessToken: string;
-  };
 }
 
 export interface ProviderData {
@@ -97,4 +96,19 @@ export interface StoredUser {
   lastLoginAt: string;
   apiKey: string;
   appName: string;
+}
+
+export interface Data {
+  statusCode: number;
+  message: string;
+  error: string;
+}
+
+export interface ErrorResponse {
+  data: Data;
+  status: number;
+  statusText: string;
+}
+export interface ErrorWithResponseObject extends Error {
+  response: ErrorResponse;
 }

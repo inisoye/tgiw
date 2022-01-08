@@ -22,6 +22,9 @@ export class Song {
   name: string;
 
   @Column()
+  color: string;
+
+  @Column()
   album: string;
 
   @Column({ unique: true })

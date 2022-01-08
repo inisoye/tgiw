@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { useRouter } from 'next/router';
 
-import { MainLayout, NextPageWithLayout } from '@/components/layout';
+import { MainLayout } from '@/components/layout';
+import type { NextPageWithLayout } from '@/types';
 
 interface GenreProps {}
 

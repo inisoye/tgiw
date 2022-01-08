@@ -1,8 +1,8 @@
-import { axios } from '@/config';
 import { useQuery } from 'react-query';
 import type { User as FirebaseUser } from 'firebase/auth';
 
 import type { DbUser } from '@/types';
+import { axios } from '@/lib/axios';
 
 interface Params {
   queryKey: (string | { id: string | undefined })[];

@@ -1,11 +1,13 @@
 import * as React from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { dehydrate, QueryClient, useQuery } from 'react-query';
+import { dehydrate, QueryClient } from 'react-query';
 
-import { MainLayout, NextPageWithLayout } from '@/components/layout';
-import { useAuth } from '@/lib/Authentication';
+import { MainLayout } from '@/components/layout';
+import { Loader } from '@/components/elements';
+import { useAuth } from '@/lib/authentication';
 import { get10Songs, use10Songs } from '@/features/songs';
+import { NextPageWithLayout } from '@/types';
 
 export async function getStaticProps() {
   const queryClient = new QueryClient();
@@ -21,8 +23,12 @@ export async function getStaticProps() {
 
 const Home: NextPageWithLayout = () => {
   const router = useRouter();
-  const { user } = useAuth();
+  const { user, isUserLoading } = useAuth();
   const { data } = use10Songs();
+
+  if (isUserLoading) {
+    return <Loader isFullHeight />;
+  }
 
   if (user) {
     router.replace('/songs');

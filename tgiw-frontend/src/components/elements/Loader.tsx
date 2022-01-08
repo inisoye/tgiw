@@ -11,18 +11,20 @@ export const Loader: React.FunctionComponent<LoaderProps> = ({
   isInfiniteLoader,
 }) => {
   return (
-    <div
-      className={clsx(
-        'flex items-center justify-center m-auto wrapper w-max h-max',
-        {
-          /* Screen minus header height on mobile */
-          'h-[calc(100vh-71px)] md:h-full': isFullHeight,
-          'py-10': isInfiniteLoader,
-        }
-      )}
-    >
-      <div className="text-gray-800 bg-gray-800 dot-flashing before:bg-gray-800 after:bg-gray-800 before:text-gray-800 after:text-gray-800">
-        <p className="sr-only">Loading</p>
+    <>
+      <div
+        className={clsx(
+          'flex items-center justify-center m-auto wrapper w-max h-max',
+          {
+            /* Screen minus header height on mobile */
+            'h-[calc(100vh-71px)] md:h-full': isFullHeight,
+            'py-10': isInfiniteLoader,
+          }
+        )}
+      >
+        <div className="text-gray-800 bg-gray-800 dot-flashing before:bg-gray-800 after:bg-gray-800 before:text-gray-800 after:text-gray-800">
+          <p className="sr-only">Loading</p>
+        </div>
       </div>
 
       <style jsx>{`
@@ -71,6 +73,6 @@ export const Loader: React.FunctionComponent<LoaderProps> = ({
           }
         }
       `}</style>
-    </div>
+    </>
   );
 };

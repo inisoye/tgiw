@@ -8,7 +8,8 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import randomColor = require('randomcolor');
+import Vibrant = require('node-vibrant');
+import chroma = require('chroma-js');
 
 import { AddSongDto } from './dto';
 import { PaginatedQueryDto } from '@/common/dto';
@@ -59,7 +60,7 @@ export class SongsService {
 
     const fullDataLength = (await query.getMany()).length;
 
-    let { take = 15, page = 1 } = getSongsQueryDto;
+    let { take = 12, page = 1 } = getSongsQueryDto;
     take = +take;
     page = +page;
     const skip = (page - 1) * take;
@@ -96,6 +97,18 @@ export class SongsService {
     return foundSong;
   }
 
+  darkenGenreColor = (color: string) => {
+    if (chroma(color).luminance() > 0.7) {
+      return chroma(color).darken(2).hex();
+    }
+
+    if (chroma(color).luminance() > 0.5) {
+      return chroma(color).darken().hex();
+    }
+
+    return color;
+  };
+
   async populateGenres(
     genreNames: string[],
     songGenres: Genre[],
@@ -111,7 +124,9 @@ export class SongsService {
       const countries: string[] = genresByCountry[name];
 
       if (!foundGenre) {
-        const color = randomColor({ luminosity: 'dark' });
+        const genreColor = chroma.random().hex();
+        const color = this.darkenGenreColor(genreColor);
+
         const newGenre = this.genreRepository.create({ name, color });
         newGenre.countries = countries;
         await this.genreRepository.save(newGenre);
@@ -148,6 +163,37 @@ export class SongsService {
     }
   }
 
+  brightenSongColor = (color: string) => {
+    if (chroma(color).luminance() < 0.1) {
+      return chroma(color).brighten(3).hex();
+    }
+
+    if (chroma(color).luminance() < 0.35) {
+      return chroma(color).brighten(2).hex();
+    }
+
+    if (chroma(color).luminance() < 0.45) {
+      return chroma(color).brighten().hex();
+    }
+
+    return color;
+  };
+
+  async getSongColor(images: SpotifyApi.ImageObject[]): Promise<string> {
+    const largestImageUrl = images[0].url;
+
+    const palette = await Vibrant.from(largestImageUrl).getPalette(
+      (_, palette) => palette,
+    );
+
+    const paletteArray = Object.values(palette);
+    const mostCommonColor = paletteArray.reduce((prev, current) =>
+      prev.population > current.population ? prev : current,
+    );
+
+    return mostCommonColor.hex;
+  }
+
   async addSong(
     addSongDto: AddSongDto,
     uid: string,
@@ -161,11 +207,19 @@ export class SongsService {
 
     const { genreNames, artists: artistsPayload, ...restOfDto } = addSongDto;
 
+    const songColor = await this.getSongColor(addSongDto.images);
+    console.log(chroma(songColor).luminance());
+    const color = this.brightenSongColor(songColor);
+
     const contributor = await this.userRepository.findOne({
       where: { id: uid },
     });
 
-    const song = this.songRepository.create({ ...restOfDto, contributor });
+    const song = this.songRepository.create({
+      ...restOfDto,
+      contributor,
+      color,
+    });
 
     // Add genres to song
     const songGenres: Genre[] = [];

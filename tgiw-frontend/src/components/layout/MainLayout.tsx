@@ -8,7 +8,7 @@ export const MainLayout: React.FunctionComponent<MainLayoutProps> = ({
   children,
 }) => {
   return (
-    <div className="md:flex md:h-screen bg-gray-50">
+    <div className="bg-gray-50 md:flex md:h-screen">
       <Sidebar />
 
       <main className="md:h-full md:w-full md:overflow-auto ">

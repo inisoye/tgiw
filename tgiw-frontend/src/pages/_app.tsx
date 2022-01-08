@@ -1,30 +1,27 @@
 import * as React from 'react';
 import type { AppProps } from 'next/app';
-import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 
 import '@/styles/globals.css';
-import type { NextPageWithLayout } from '@/components/layout';
-import { AuthProvider } from '@/lib/Authentication';
+import { AuthProvider } from '@/lib/authentication';
+import ReactQueryProvider from '@/lib/react-query';
+import type { NextPageWithLayout } from '@/types';
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
-  const [queryClient] = React.useState(() => new QueryClient());
   const getLayout = Component.getLayout ?? ((page: React.ReactElement) => page);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <Hydrate state={pageProps.dehydratedState}>
-        <AuthProvider>
-          {/* More custom base styles added here */}
-          <div className="text-gray-700 font-regular">
-            {getLayout(<Component {...pageProps} />)}
-          </div>
-        </AuthProvider>
-      </Hydrate>
-    </QueryClientProvider>
+    <AuthProvider>
+      <ReactQueryProvider pageProps={pageProps}>
+        {/* More custom base styles added here */}
+        <div className="text-gray-700 font-regular">
+          {getLayout(<Component {...pageProps} />)}
+        </div>
+      </ReactQueryProvider>
+    </AuthProvider>
   );
 }
 
