@@ -5,10 +5,9 @@ interface SmallSongDescriptorProps {
   children: React.ReactNode;
 }
 
-export const SmallSongDescriptor: React.FunctionComponent<SmallSongDescriptorProps> = ({
-  heading,
-  children,
-}) => {
+export const SmallSongDescriptor: React.FunctionComponent<
+  SmallSongDescriptorProps
+> = ({ heading, children }) => {
   return (
     <section>
       <h2 className="text-lg">{heading}</h2>

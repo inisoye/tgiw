@@ -1,10 +1,11 @@
 import * as React from 'react';
 import useInfiniteScroll from 'react-infinite-scroll-hook';
 
-import { MainLayout, NextPageWithLayout } from '@/components/layout';
+import { MainLayout } from '@/components/layout';
 import { Loader } from '@/components/elements';
 import { withAuth } from '@/features/auth';
 import { SongsList, useInfiniteSongs } from '@/features/songs';
+import type { NextPageWithLayout } from '@/types';
 
 interface SongsProps {}
 
@@ -24,7 +25,7 @@ const Songs: NextPageWithLayout = () => {
     return <Loader isFullHeight />;
   }
 
-  const allFetchedsongs = data?.pages
+  const allFetchedSongs = data?.pages
     ?.map((page) => page.data.map((song) => song))
     .flat();
 
@@ -34,7 +35,7 @@ const Songs: NextPageWithLayout = () => {
         Songs
       </h1>
 
-      <SongsList songs={allFetchedsongs} />
+      <SongsList songs={allFetchedSongs} />
 
       {(isLoading || hasNextPage) && (
         <div ref={sentryRef}>

@@ -1,30 +1,31 @@
 import * as React from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 
 import type { FormattedArtist } from '@/types';
-import { SpotifyLink } from '@/components/elements';
+import { ImageWithFallback, SpotifyLink } from '@/components/elements';
 
 interface LargeSongCardImageProps {
   imageUrl: string;
-  name: string | undefined;
+  name: string;
 }
 
-export const LargeSongCardImage: React.FunctionComponent<LargeSongCardImageProps> =
-  ({ imageUrl, name }) => {
-    return (
-      <div className="w-1/2 min-w-[150px] max-w-[250px] overflow-hidden rounded-md mx-auto lg:mx-0">
-        <Image
-          src={imageUrl}
-          alt={name}
-          width="100%"
-          height="100%"
-          layout="responsive"
-          objectFit="contain"
-        />
-      </div>
-    );
-  };
+export const LargeSongCardImage: React.FunctionComponent<
+  LargeSongCardImageProps
+> = ({ imageUrl, name }) => {
+  return (
+    <div className="w-1/2 min-w-[150px] max-w-[250px] overflow-hidden rounded-md mx-auto lg:mx-0">
+      <ImageWithFallback
+        src={imageUrl}
+        fallbackSrc="/images/song.jpg"
+        alt={name}
+        width="100%"
+        height="100%"
+        layout="responsive"
+        objectFit="contain"
+      />
+    </div>
+  );
+};
 
 interface ArtistLinkProps {
   id: string;
@@ -39,10 +40,11 @@ export const ArtistLink: React.FunctionComponent<ArtistLinkProps> = ({
 }) => {
   return (
     <Link href={`/artists/${id}`}>
-      <a className="flex items-center px-3 py-1.5 space-x-3 transition duration-500 ease-in-out bg-black rounded-md bg-opacity-10 hover:bg-opacity-5">
+      <a className="flex items-center px-3 py-1.5 space-x-3 transition duration-500 ease-in-out bg-black rounded-md bg-opacity-10 hover:bg-opacity-20 hover:scale-105 active:scale-[0.95]">
         <div className="w-8 h-8 overflow-hidden rounded-full shrink-0">
-          <Image
+          <ImageWithFallback
             src={imageUrl}
+            fallbackSrc="/images/artist.jpg"
             alt={name}
             width="100%"
             height="100%"
@@ -68,7 +70,7 @@ export const ArtistLinks: React.FunctionComponent<ArtistLinksProps> = ({
   return (
     <ul className="flex flex-wrap justify-center gap-2 mx-auto mt-10 lg:mx-0 lg:flex-row lg:justify-end lg:inline-flex lg:w-full">
       {artists?.map(({ id, name, images }) => {
-        const imageUrl = images?.[1].url;
+        const imageUrl = images?.[1]?.url;
 
         return (
           <li key={id} className="w-max max-w-[90%] lg:inline">
@@ -79,8 +81,6 @@ export const ArtistLinks: React.FunctionComponent<ArtistLinksProps> = ({
     </ul>
   );
 };
-
-export default ArtistLinks;
 
 interface SnippetButtonProps {
   isLoading: boolean;
@@ -97,7 +97,7 @@ export const SnippetButton: React.FunctionComponent<SnippetButtonProps> = ({
     <button
       disabled={isLoading}
       onClick={toggle}
-      className="inline-flex items-center p-2 px-3 space-x-2 text-sm transition duration-500 ease-in-out rounded-md bg-tgiwYellow hover:bg-opacity-70 active:scale-[0.95] disabled:opacity-50"
+      className="inline-flex items-center p-2 px-3 space-x-2 text-sm transition duration-500 ease-in-out rounded-md bg-tgiwYellow hover:scale-105 active:scale-[0.95] disabled:opacity-50"
     >
       <span>Snippet {isLoading && 'Loading'}</span>
       <span>
@@ -142,43 +142,45 @@ interface LargeSongCardActionButtonsProps {
   spotifyUrl: string | undefined;
 }
 
-export const LargeSongCardActionButtons: React.FunctionComponent<LargeSongCardActionButtonsProps> =
-  ({ duration, toggle, isPlaying, spotifyUrl }) => {
-    return (
-      <ul className="inline-flex flex-wrap justify-center w-full gap-2 mt-10 lg:justify-end">
-        <li className="inline w-max">
-          <SnippetButton
-            isLoading={!duration}
-            toggle={toggle}
-            isPlaying={isPlaying}
-          />
-        </li>
+export const LargeSongCardActionButtons: React.FunctionComponent<
+  LargeSongCardActionButtonsProps
+> = ({ duration, toggle, isPlaying, spotifyUrl }) => {
+  return (
+    <ul className="inline-flex flex-wrap justify-center w-full gap-2 mt-10 lg:justify-end">
+      <li className="inline w-max">
+        <SnippetButton
+          isLoading={!duration}
+          toggle={toggle}
+          isPlaying={isPlaying}
+        />
+      </li>
 
-        <li className="inline w-max">
-          <SpotifyLink spotifyUrl={spotifyUrl} />
-        </li>
-      </ul>
-    );
-  };
+      <li className="inline w-max">
+        <SpotifyLink spotifyUrl={spotifyUrl} />
+      </li>
+    </ul>
+  );
+};
 
 interface TrackProgressMeterProps {
   trackProgressPercentage: number;
 }
 
 /* Progress meters left as div elements as to be used by sighted users only */
-export const TrackProgressMeter: React.FunctionComponent<TrackProgressMeterProps> =
-  ({ trackProgressPercentage }) => {
-    return (
+export const TrackProgressMeter: React.FunctionComponent<
+  TrackProgressMeterProps
+> = ({ trackProgressPercentage }) => {
+  return (
+    <>
       <div className="w-full h-3 mt-3 bg-black rounded-sm bg-opacity-5">
-        <div
-          className="h-full transition-all duration-200 ease-linear bg-gray-800 rounded-sm meter-length"
-        ></div>
-
-        <style jsx>{`
-          .meter-length {
-            width: ${`${trackProgressPercentage}%`}
-          }
-        `}</style>
+        <div className="h-full transition-all duration-200 ease-linear bg-gray-800 rounded-sm meter-length"></div>
       </div>
-    );
-  };
+
+      <style jsx>{`
+        .meter-length {
+          width: ${`${trackProgressPercentage}%`};
+        }
+      `}</style>
+    </>
+  );
+};
