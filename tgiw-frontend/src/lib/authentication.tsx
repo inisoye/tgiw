@@ -4,10 +4,11 @@ import {
   onAuthStateChanged,
   signOut,
 } from 'firebase/auth';
+``;
 import type { User } from 'firebase/auth';
 
-import { firebaseAuth, axios } from '@/config';
-import { getStoredUser, setAxiosAccessToken } from '@/utils';
+import { firebaseAuth, getStoredUser } from './firebase';
+import { axios, setAxiosAccessToken } from './axios';
 import type { StoredUser } from '@/types';
 
 type LogIn = (email: string, password: string) => Promise<User | undefined>;
@@ -39,17 +40,15 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   React.useEffect(() => {
     const fetchUser = async () => {
       const storedUser = await getStoredUser();
+      const storedToken = storedUser?.stsTokenManager.accessToken;
+
       setUser(storedUser);
+      setAxiosAccessToken(storedToken, axios);
       setIsUserLoading(false);
     };
 
     fetchUser();
   }, []);
-
-  // Add the access token to the Axios instance everytime the user object change
-  React.useEffect(() => {
-    setAxiosAccessToken(user, axios);
-  }, [user]);
 
   const logIn = async (email: string, password: string) => {
     try {
@@ -88,8 +87,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const unsubscribe = onAuthStateChanged(firebaseAuth, (user) => {
       if (user) {
         setUser(user);
+
+        user.getIdToken().then((idToken) => {
+          setAxiosAccessToken(idToken, axios);
+        });
+
         setIsUserLoading(false);
-        setAxiosAccessToken(user, axios);
       } else {
         setUser(null);
         setIsUserLoading(false);
