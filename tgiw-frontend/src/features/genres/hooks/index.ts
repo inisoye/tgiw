@@ -1,1 +1,1 @@
-export * from './useGravityAnimation';
+export * from './useWindowSize';
