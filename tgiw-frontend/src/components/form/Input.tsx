@@ -28,7 +28,7 @@ export const Input: React.FunctionComponent<InputProps> = ({
       autoFocus={autoFocus}
       required={required}
       defaultValue={defaultValue}
-      className="block w-full p-3 px-4 mt-1 transition duration-700 ease-in-out bg-gray-100 rounded-md sm:text-sm focus:bg-white placeholder:text-opacity-40 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-b-transparent placeholder:text-gray-400"
+      className="block w-full p-3 px-4 mt-1 transition duration-700 ease-in-out bg-gray-100 rounded-md sm:text-sm focus:bg-white placeholder:text-opacity-40 focus:border-b-transparent placeholder:text-gray-400"
     />
   );
 };

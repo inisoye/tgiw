@@ -22,7 +22,7 @@ export const TextArea: React.FunctionComponent<TextAreaProps> = ({
       placeholder={placeholder}
       autoFocus={autoFocus}
       required={required}
-      className="block w-full p-3 sm:text-sm px-4 mt-1 transition duration-700 ease-in-out bg-gray-100 rounded-md min-h-[120px] placeholder:text-opacity-40 max-h-80 focus:outline-none focus:bg-white focus:ring-2 focus:ring-blue-600 focus:border-b-transparent placeholder:text-gray-400 input-wrapper"
+      className="block w-full p-3 sm:text-sm px-4 mt-1 transition duration-700 ease-in-out bg-gray-100 rounded-md min-h-[120px] placeholder:text-opacity-40 max-h-80 focus:bg-white  focus:border-b-transparent placeholder:text-gray-400 input-wrapper"
     />
   );
 };
