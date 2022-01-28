@@ -19,7 +19,7 @@ export const Dialog: React.FunctionComponent<DialogProps> = ({
 }) => {
   return (
     <DialogOverlay
-      style={{ backgroundColor: 'hsla(0, 0%, 0%, 0.8)' }}
+      style={{ backgroundColor: 'hsla(0, 0%, 0%, 0.8)', zIndex: 3 }}
       isOpen={isDialogOpen}
       onDismiss={closeDialog}
     >
@@ -44,6 +44,7 @@ export const Dialog: React.FunctionComponent<DialogProps> = ({
             height: '100%',
             width: '100%',
             backgroundColor: 'transparent',
+            zIndex: 4,
           }}
         >
           {children}

@@ -111,7 +111,8 @@ const Home: NextPageWithLayout = () => {
             </div>
 
             <div className="lg:max-w-[40%] max-h-60 overflow-hidden relative rounded-l-md">
-              <div className="absolute z-10 w-full h-full bg-gradient-to-b lg:bg-gradient-to-l from-transparent to-tgiwBlue-light"></div>
+              <div className="absolute z-[1] w-full h-full bg-gradient-to-b lg:bg-gradient-to-l from-transparent to-tgiwBlue-light"></div>
+
               <ul className="relative flex flex-wrap gap-3 mt-12 justify-left w-[140%] -left-4 lg:mt-0 lg:items-start card-home">
                 {HOMEPAGE_COUNTRIES.map((country, index) => (
                   <li

@@ -29,7 +29,7 @@ export const MobileNav: React.FunctionComponent<MobileNavProps> = () => {
   return (
     <>
       <button
-        className="fixed bottom-0 z-10 w-screen py-4 mt-auto text-lg bg-white border-t border-gray-100 font-heading md:hidden"
+        className="fixed bottom-0 z-[2] w-screen py-4 mt-auto text-lg bg-white border-t border-gray-100 font-heading md:hidden"
         onClick={openDialog}
       >
         Open menu
