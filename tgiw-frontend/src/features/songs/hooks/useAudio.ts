@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useRouter } from 'next/router';
 
 export const useAudio = (url: string) => {
   const audio = React.useMemo(() => new Audio(url), [url]);
@@ -6,6 +7,7 @@ export const useAudio = (url: string) => {
   const [currentTime, setCurrentTime] = React.useState(0);
   const [duration, setDuration] = React.useState(0);
   const intervalRef: { current: NodeJS.Timeout | null } = React.useRef(null);
+  const router = useRouter();
 
   audio.onloadedmetadata = () => {
     setDuration(audio.duration);
@@ -28,6 +30,7 @@ export const useAudio = (url: string) => {
     return () => {
       clearInterval(intervalRef.current as NodeJS.Timeout);
     };
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPlaying]);
 
@@ -35,11 +38,19 @@ export const useAudio = (url: string) => {
     audio.addEventListener('ended', () => setIsPlaying(false));
 
     return () => {
-      audio.pause();
       audio.removeEventListener('ended', () => setIsPlaying(false));
     };
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  React.useEffect(() => {
+    router.events.on('routeChangeStart', () => setIsPlaying(false));
+
+    return () => {
+      router.events.off('routeChangeStart', () => setIsPlaying(false));
+    };
+  }, [router.events]);
 
   return {
     isPlaying,

@@ -1,51 +1,49 @@
 import * as React from 'react';
-import useInfiniteScroll from 'react-infinite-scroll-hook';
+import type { GetServerSidePropsContext } from 'next';
+import { dehydrate, QueryClient } from 'react-query';
+import nookies from 'nookies';
 
 import { MainLayout } from '@/components/layout';
-import { Loader } from '@/components/elements';
-import { withAuth } from '@/features/auth';
-import { SongsList, useInfiniteSongs } from '@/features/songs';
+import { getSongs, Songs as SongsRoute } from '@/features/songs';
 import type { NextPageWithLayout } from '@/types';
+import { firebaseAdmin } from '@/lib/firebaseAdmin';
+import { axios, setAxiosAccessToken } from '@/lib/axios';
 
-interface SongsProps {}
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+  try {
+    const cookies = nookies.get(ctx);
+    await firebaseAdmin.auth().verifyIdToken(cookies.token);
+    setAxiosAccessToken(cookies.token, axios);
 
-const Songs: NextPageWithLayout = () => {
-  const { data, isLoading, isError, hasNextPage, fetchNextPage } =
-    useInfiniteSongs();
+    const queryClient = new QueryClient();
+    await queryClient.prefetchInfiniteQuery('infinite-songs', getSongs);
 
-  const [sentryRef] = useInfiniteScroll({
-    loading: isLoading,
-    hasNextPage: hasNextPage as boolean,
-    onLoadMore: fetchNextPage,
-    disabled: isError,
-    rootMargin: '0px 0px 400px 0px',
-  });
+    /**
+     * Replaced this approach: https://github.com/tannerlinsley/react-query/issues/1458#issuecomment-788447705
+     * with this: https://github.com/tannerlinsley/react-query/issues/2227#issue-874698548
+     */
+    const dehydratedState = dehydrate(queryClient);
+    (dehydratedState.queries[0].state.data as any).pageParams = [1];
 
-  if (isLoading) {
-    return <Loader isFullHeight />;
+    return {
+      props: {
+        dehydratedState,
+      },
+    };
+  } catch (err) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/log-in',
+      },
+
+      props: {} as never,
+    };
   }
-
-  const allFetchedSongs = data?.pages
-    ?.map((page) => page.data.map((song) => song))
-    .flat();
-
-  return (
-    <div className="max-w-6xl p-8">
-      <h1 className="px-8 mb-8 text-3xl text-center text-gray-800 sr-only">
-        Songs
-      </h1>
-
-      <SongsList songs={allFetchedSongs} />
-
-      {(isLoading || hasNextPage) && (
-        <div ref={sentryRef}>
-          <Loader isInfiniteLoader />
-        </div>
-      )}
-    </div>
-  );
 };
+
+const Songs: NextPageWithLayout = () => <SongsRoute />;
 
 Songs.getLayout = (page: React.ReactElement) => <MainLayout>{page}</MainLayout>;
 
-export default withAuth(Songs);
+export default Songs;

@@ -11,7 +11,7 @@ export const SmallSongDescriptor: React.FunctionComponent<
   return (
     <section>
       <h2 className="text-lg">{heading}</h2>
-      <p className="mt-2 text-gray-800 text-opacity-60">{children}</p>
+      <p className="mt-2 text-tgiwPurplish text-opacity-60">{children}</p>
     </section>
   );
 };

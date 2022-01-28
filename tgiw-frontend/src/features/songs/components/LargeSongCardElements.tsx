@@ -1,8 +1,11 @@
 import * as React from 'react';
 import Link from 'next/link';
+import clsx from 'clsx';
+import { useQueryClient } from 'react-query';
 
-import type { FormattedArtist } from '@/types';
+import type { Artist } from '@/types';
 import { ImageWithFallback, SpotifyLink } from '@/components/elements';
+import { prefetchArtist } from '@/features/artists';
 
 interface LargeSongCardImageProps {
   imageUrl: string;
@@ -38,12 +41,18 @@ export const ArtistLink: React.FunctionComponent<ArtistLinkProps> = ({
   name,
   imageUrl,
 }) => {
+  const queryClient = useQueryClient();
+
   return (
     <Link href={`/artists/${id}`}>
-      <a className="flex items-center px-3 py-1.5 space-x-3 transition duration-500 ease-in-out bg-black rounded-md bg-opacity-10 hover:bg-opacity-20 hover:scale-105 active:scale-[0.95]">
+      <a
+        className="flex items-center px-3 py-1.5 space-x-3 transition duration-500 ease-in-out bg-black rounded-md bg-opacity-10 hover:scale-105 active:scale-[0.95]"
+        onMouseEnter={async () => prefetchArtist(queryClient, id)}
+      >
         <div className="w-8 h-8 overflow-hidden rounded-full shrink-0">
           <ImageWithFallback
             src={imageUrl}
+            key={id}
             fallbackSrc="/images/artist.jpg"
             alt={name}
             width="100%"
@@ -52,7 +61,7 @@ export const ArtistLink: React.FunctionComponent<ArtistLinkProps> = ({
             objectFit="contain"
           />
         </div>
-        <span className="text-gray-800 truncate shrink text-opacity-90">
+        <span className="truncate text-tgiwPurplish shrink text-opacity-90">
           {name}
         </span>
       </a>
@@ -61,16 +70,26 @@ export const ArtistLink: React.FunctionComponent<ArtistLinkProps> = ({
 };
 
 interface ArtistLinksProps {
-  artists: FormattedArtist[] | undefined;
+  artists: Artist[] | undefined;
+  isJustifiedRight?: boolean;
 }
 
 export const ArtistLinks: React.FunctionComponent<ArtistLinksProps> = ({
   artists,
+  isJustifiedRight,
 }) => {
   return (
-    <ul className="flex flex-wrap justify-center gap-2 mx-auto mt-10 lg:mx-0 lg:flex-row lg:justify-end lg:inline-flex lg:w-full">
+    <ul
+      className={clsx(
+        'flex flex-wrap gap-2 mx-auto lg:mx-0 lg:inline-flex lg:w-full',
+        {
+          'justify-center lg:justify-end mt-10': isJustifiedRight,
+          'justify-start lg:justify-start': !isJustifiedRight,
+        }
+      )}
+    >
       {artists?.map(({ id, name, images }) => {
-        const imageUrl = images?.[1]?.url;
+        const imageUrl = images?.[2]?.url;
 
         return (
           <li key={id} className="w-max max-w-[90%] lg:inline">
@@ -112,7 +131,7 @@ export const SnippetButton: React.FunctionComponent<SnippetButtonProps> = ({
               fillRule="evenodd"
               clipRule="evenodd"
               d="M8 16A8 8 0 1 0 8-.001 8 8 0 0 0 8 16ZM7.555 5.168A1 1 0 0 0 6 6v4a1 1 0 0 0 1.555.832l3-2a.999.999 0 0 0 0-1.664l-3-2Z"
-              className="fill-gray-800"
+              className="fill-tgiwPurplish"
             />
           </svg>
         ) : (
@@ -126,7 +145,7 @@ export const SnippetButton: React.FunctionComponent<SnippetButtonProps> = ({
               fillRule="evenodd"
               clipRule="evenodd"
               d="M16 8A8 8 0 1 1-.001 8 8 8 0 0 1 16 8ZM5 6a1 1 0 0 1 2 0v4a1 1 0 1 1-2 0V6Zm5-1a1 1 0 0 0-1 1v4a1 1 0 1 0 2 0V6a1 1 0 0 0-1-1Z"
-              className="fill-gray-800"
+              className="fill-tgiwPurplish"
             />
           </svg>
         )}
@@ -173,7 +192,7 @@ export const TrackProgressMeter: React.FunctionComponent<
   return (
     <>
       <div className="w-full h-3 mt-3 bg-black rounded-sm bg-opacity-5">
-        <div className="h-full transition-all duration-200 ease-linear bg-gray-800 rounded-sm meter-length"></div>
+        <div className="h-full transition-all duration-200 ease-linear rounded-sm bg-tgiwPurplish meter-length"></div>
       </div>
 
       <style jsx>{`
