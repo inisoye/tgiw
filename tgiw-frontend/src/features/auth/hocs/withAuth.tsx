@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useRouter } from 'next/router';
 
-import { NextPageWithLayout } from '@/components/layout';
+import type { NextPageWithLayout } from '@/types';
 import { useAuth } from '@/lib/authentication';
 
 export const withAuth = (Page: NextPageWithLayout) => {

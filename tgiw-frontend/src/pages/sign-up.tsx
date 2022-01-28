@@ -1,11 +1,13 @@
 import * as React from 'react';
 
-import { MainLayout, NextPageWithLayout } from '@/components/layout';
+import { SecondaryLayout } from '@/components/layout';
+import type { NextPageWithLayout } from '@/types';
+import { SignUp as SignUpRoute } from '@/features/auth';
 
-interface SignUpProps {}
+const SignUp: NextPageWithLayout = () => <SignUpRoute />;
 
-const SignUp: NextPageWithLayout = () => {
-  return <div>SignUp</div>;
-};
+SignUp.getLayout = (page: React.ReactElement) => (
+  <SecondaryLayout hasCenteredLogo>{page}</SecondaryLayout>
+);
 
 export default SignUp;

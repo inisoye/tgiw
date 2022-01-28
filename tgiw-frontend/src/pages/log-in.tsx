@@ -1,11 +1,13 @@
 import * as React from 'react';
 
-import { MainLayout, NextPageWithLayout } from '@/components/layout';
+import { SecondaryLayout } from '@/components/layout';
+import type { NextPageWithLayout } from '@/types';
+import { LogIn as LogInRoute } from '@/features/auth';
 
-interface LogInProps {}
+const LogIn: NextPageWithLayout = () => <LogInRoute />;
 
-const LogIn: NextPageWithLayout = () => {
-  return <div>LogIn</div>;
-};
+LogIn.getLayout = (page: React.ReactElement) => (
+  <SecondaryLayout hasCenteredLogo>{page}</SecondaryLayout>
+);
 
 export default LogIn;

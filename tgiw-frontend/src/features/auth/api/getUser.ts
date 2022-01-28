@@ -20,4 +20,7 @@ export const getUser = async (
 };
 
 export const useUser = (id: string | undefined) =>
-  useQuery(['user', { id }], getUser, { refetchOnWindowFocus: false });
+  useQuery(['user', { id }], getUser, {
+    keepPreviousData: true,
+    enabled: !!id,
+  });
