@@ -21,9 +21,9 @@ export const ImageWithFallback: React.FunctionComponent<
       {...rest}
       src={imgSrc}
       alt={alt}
-      onError={() => {
-        setImgSrc(fallbackSrc);
-      }}
+      placeholder="blur"
+      blurDataURL="/images/staticLightBg.jpg"
+      onError={() => setImgSrc(fallbackSrc)}
     />
   );
 };
