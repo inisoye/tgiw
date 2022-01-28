@@ -25,7 +25,7 @@ export const Dialog: React.FunctionComponent<DialogProps> = ({
     >
       <div
         className={clsx(
-          'h-max max-h-[84%] overflow-auto w-screen max-w-3xl mx-auto reach-dialog-content bg-white text-tgiwPurplish',
+          'h-max max-h-[84%] overflow-auto w-screen max-w-3xl mx-auto bg-white text-tgiwPurplish',
           {
             'h-screen max-h-screen rounded-none': isCenterFullHeight,
             'fixed bottom-0 md:hidden': isMobileMenu,
@@ -33,7 +33,6 @@ export const Dialog: React.FunctionComponent<DialogProps> = ({
         )}
       >
         <DialogContent
-          aria-label="Happy New Year"
           /**
            * Reach UI doesn't work very well with Styled JSX or Tailwind.
            * Override defaults inline and style containing div instead.
@@ -43,7 +42,7 @@ export const Dialog: React.FunctionComponent<DialogProps> = ({
             padding: 0,
             height: '100%',
             width: '100%',
-            backgroundColor: 'transparent',
+            // backgroundColor: 'transparent',
             zIndex: 4,
           }}
         >

@@ -74,7 +74,7 @@ export const SongDetails: React.FunctionComponent<SongDetailsProps> = () => {
       {userRole === 'contributor' && (
         <button
           onClick={openDialog}
-          className="fixed bottom-0 right-0 z-10 w-full px-4 py-6 transition-colors duration-300 bg-tgiwYellow hover:bg-tgiwOrange text-tgiwPurplish mdrounded-md eas"
+          className="fixed bottom-0 right-0 w-full px-4 py-6 transition-colors duration-300 bg-tgiwYellow hover:bg-tgiwOrange text-tgiwPurplish mdrounded-md eas"
         >
           Contribute this song to TGIW
         </button>
