@@ -1,7 +1,7 @@
 import * as Joi from 'joi';
 
 export const configValidationSchema = Joi.object({
-  PORT: Joi.number().default(5432).required(),
+  PORT: Joi.number().default(5432),
   NODE_ENV: Joi.string().required(),
 
   SPOTIFY_CLIENT_ID: Joi.string().required(),

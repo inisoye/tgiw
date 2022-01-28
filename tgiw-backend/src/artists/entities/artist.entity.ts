@@ -17,6 +17,9 @@ export class Artist {
   @Column({ unique: true })
   name: string;
 
+  @Column({ nullable: true })
+  color: string;
+
   @Column()
   spotifyId: string;
 

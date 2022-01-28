@@ -22,6 +22,9 @@ export class Genre {
   })
   countries: string[];
 
+  @Column({ nullable: true })
+  countriesString: string;
+
   @ManyToMany(() => Song, (song) => song.genres)
   songs: Song[];
 

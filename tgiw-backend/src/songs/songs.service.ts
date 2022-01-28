@@ -8,8 +8,6 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import Vibrant = require('node-vibrant');
-import chroma = require('chroma-js');
 
 import { AddSongDto } from './dto';
 import { PaginatedQueryDto } from '@/common/dto';
@@ -44,7 +42,8 @@ export class SongsService {
       .createQueryBuilder('song')
       .leftJoinAndSelect('song.genres', 'genre')
       .leftJoinAndSelect('song.artists', 'artist')
-      .leftJoinAndSelect('song.contributor', 'user');
+      .leftJoinAndSelect('song.contributor', 'user')
+      .orderBy('song.dateAdded', 'DESC');
 
     const { filter } = getSongsQueryDto;
 
@@ -53,9 +52,13 @@ export class SongsService {
         `(LOWER(song.name) LIKE LOWER(:filter) OR
          LOWER(song.album) LIKE LOWER(:filter) OR 
          LOWER(genre.name) LIKE LOWER(:filter) OR 
+         LOWER(genre.countriesString) LIKE LOWER(:filter) OR 
          LOWER(artist.name) LIKE LOWER(:filter))`,
         { filter: `%${filter}%` },
       );
+
+      query.addOrderBy('song.name', 'ASC');
+      query.addOrderBy('artist.name', 'ASC');
     }
 
     const fullDataLength = (await query.getMany()).length;
@@ -81,7 +84,8 @@ export class SongsService {
       .leftJoinAndSelect('song.genres', 'genre')
       .leftJoinAndSelect('song.artists', 'artist')
       .leftJoinAndSelect('song.contributor', 'user')
-      .take(10)
+      .orderBy('song.dateAdded', 'DESC')
+      .take(12) // Actually gets 12 songs endpoint and methods not renamed.
       .getMany();
   }
 
@@ -97,24 +101,11 @@ export class SongsService {
     return foundSong;
   }
 
-  darkenGenreColor = (color: string) => {
-    if (chroma(color).luminance() > 0.7) {
-      return chroma(color).darken(2).hex();
-    }
-
-    if (chroma(color).luminance() > 0.5) {
-      return chroma(color).darken().hex();
-    }
-
-    return color;
-  };
-
   async populateGenres(
     genreNames: string[],
     songGenres: Genre[],
   ): Promise<void> {
-    // Remove duplicates for extra safety
-    const uniqueGenreNames = [...new Set(genreNames)];
+    const uniqueGenreNames = [...new Set(genreNames)]; // Remove duplicates for extra safety
 
     for (const name of uniqueGenreNames) {
       const foundGenre = await this.genreRepository.findOne({
@@ -122,13 +113,17 @@ export class SongsService {
       });
 
       const countries: string[] = genresByCountry[name];
+      const countriesString: string = countries?.join(' ');
 
       if (!foundGenre) {
-        const genreColor = chroma.random().hex();
-        const color = this.darkenGenreColor(genreColor);
+        const genreColor = this.helpersService.generateRandomColor();
+        const color = this.helpersService.darkenColor(genreColor);
 
         const newGenre = this.genreRepository.create({ name, color });
+
         newGenre.countries = countries;
+        newGenre.countriesString = countriesString;
+
         await this.genreRepository.save(newGenre);
         songGenres.push(newGenre);
       } else {
@@ -149,7 +144,16 @@ export class SongsService {
       });
 
       if (!foundArtist) {
-        const newArtist = this.artistRepository.create({ name, ...rest });
+        const artistColor = await this.helpersService.getColorFromImage(
+          artist.images,
+        );
+        const color = this.helpersService.brightenColor(artistColor);
+
+        const newArtist = this.artistRepository.create({
+          name,
+          color,
+          ...rest,
+        });
 
         const genres: Genre[] = [];
         await this.populateGenres(genreNames, genres);
@@ -161,37 +165,6 @@ export class SongsService {
         songArtists.push(foundArtist);
       }
     }
-  }
-
-  brightenSongColor = (color: string) => {
-    if (chroma(color).luminance() < 0.1) {
-      return chroma(color).brighten(3).hex();
-    }
-
-    if (chroma(color).luminance() < 0.35) {
-      return chroma(color).brighten(2).hex();
-    }
-
-    if (chroma(color).luminance() < 0.45) {
-      return chroma(color).brighten().hex();
-    }
-
-    return color;
-  };
-
-  async getSongColor(images: SpotifyApi.ImageObject[]): Promise<string> {
-    const largestImageUrl = images[0].url;
-
-    const palette = await Vibrant.from(largestImageUrl).getPalette(
-      (_, palette) => palette,
-    );
-
-    const paletteArray = Object.values(palette);
-    const mostCommonColor = paletteArray.reduce((prev, current) =>
-      prev.population > current.population ? prev : current,
-    );
-
-    return mostCommonColor.hex;
   }
 
   async addSong(
@@ -207,9 +180,10 @@ export class SongsService {
 
     const { genreNames, artists: artistsPayload, ...restOfDto } = addSongDto;
 
-    const songColor = await this.getSongColor(addSongDto.images);
-    console.log(chroma(songColor).luminance());
-    const color = this.brightenSongColor(songColor);
+    const songColor = await this.helpersService.getColorFromImage(
+      addSongDto.images,
+    );
+    const color = this.helpersService.brightenColor(songColor);
 
     const contributor = await this.userRepository.findOne({
       where: { id: uid },
@@ -233,6 +207,7 @@ export class SongsService {
 
     try {
       await this.songRepository.save(song);
+
       this.logger.verbose(
         `Added new song ${song.name} with genres: ${genreNames.join(', ')} by ${
           contributor?.userName
@@ -241,6 +216,7 @@ export class SongsService {
     } catch (error) {
       if (error.code === '23505') {
         this.logger.error(`The song, ${song.name} already exists on TGIW`);
+
         throw new ConflictException(
           `The song, ${song.name} already exists on TGIW`,
         );
