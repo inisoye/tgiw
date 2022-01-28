@@ -19,14 +19,14 @@ export const Dialog: React.FunctionComponent<DialogProps> = ({
 }) => {
   return (
     <DialogOverlay
-      className="z-20 "
+      className="z-20"
       style={{ backgroundColor: 'hsla(0, 0%, 0%, 0.8)' }}
       isOpen={isDialogOpen}
       onDismiss={closeDialog}
     >
       <div
         className={clsx(
-          'h-max max-h-[84%] overflow-auto w-screen max-w-3xl mx-auto reach-dialog-content bg-white text-tgiwPurplish',
+          'h-max max-h-[84%] overflow-auto w-screen max-w-3xl mx-auto reach-dialog-content bg-white text-tgiwPurplish z-30',
           {
             'h-screen max-h-screen rounded-none': isCenterFullHeight,
             'fixed bottom-0 md:hidden': isMobileMenu,
