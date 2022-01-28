@@ -1,14 +1,13 @@
 import * as React from 'react';
-import type { NextPage } from 'next';
-import { useRouter } from 'next/router';
 
-interface GenreFinderSongProps {}
+import { SecondaryLayout } from '@/components/layout';
+import type { NextPageWithLayout } from '@/types';
+import { SongDetails as SongDetailsRoute } from '@/features/contributions';
 
-const GenreFinderSong: NextPage = () => {
-  const router = useRouter();
-  const { id } = router.query;
+const SongDetails: NextPageWithLayout = () => <SongDetailsRoute />;
 
-  return <div>GenreFinderSong: {id}</div>;
-};
+SongDetails.getLayout = (page: React.ReactElement) => (
+  <SecondaryLayout hasChildrenMargin>{page}</SecondaryLayout>
+);
 
-export default GenreFinderSong;
+export default SongDetails;
