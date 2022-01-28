@@ -4,7 +4,7 @@ import { openDB } from 'idb';
 
 import type { StoredUser } from '@/types';
 
-export const FIREBASE_CONFIG = {
+const FIREBASE_CLIENT_CONFIG = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
   projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
@@ -14,8 +14,8 @@ export const FIREBASE_CONFIG = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-export const firebaseApp = initializeApp(FIREBASE_CONFIG);
-export const firebaseAuth = getAuth(firebaseApp);
+export const firebaseApp = initializeApp(FIREBASE_CLIENT_CONFIG);
+export const firebaseClient = getAuth(firebaseApp);
 
 // Obtain user stored in IndexDB
 export const getStoredUser = async (): Promise<StoredUser> => {
@@ -23,7 +23,7 @@ export const getStoredUser = async (): Promise<StoredUser> => {
   const tx = db2.transaction('firebaseLocalStorage', 'readonly');
   const store = tx.objectStore('firebaseLocalStorage');
   const result = await store.get(
-    `firebase:authUser:${FIREBASE_CONFIG.apiKey}:[DEFAULT]`
+    `firebase:authUser:${FIREBASE_CLIENT_CONFIG.apiKey}:[DEFAULT]`
   );
   return result?.value;
 };

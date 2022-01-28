@@ -1,38 +1,23 @@
 import * as React from 'react';
-import {
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-  signOut,
-} from 'firebase/auth';
-``;
+import { onIdTokenChanged } from 'firebase/auth';
 import type { User } from 'firebase/auth';
+import nookies from 'nookies';
 
-import { firebaseAuth, getStoredUser } from './firebase';
+import { firebaseClient, getStoredUser } from './firebaseClient';
 import { axios, setAxiosAccessToken } from './axios';
 import type { StoredUser } from '@/types';
 
-type LogIn = (email: string, password: string) => Promise<User | undefined>;
-
-type SignUp = (
-  email: string,
-  password: string,
-  userName: string
-) => Promise<User | undefined>;
-
-type LogOut = () => Promise<void>;
-
-interface State {
+interface AuthState {
   user: User | StoredUser | null;
-  logIn: LogIn;
-  signUp: SignUp;
-  logOut: LogOut;
+  userRole: string | null;
   isUserLoading: Boolean;
 }
 
-const AuthContext = React.createContext<Partial<State>>({});
+const AuthContext = React.createContext<Partial<AuthState>>({});
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = React.useState<User | StoredUser | null>(null);
+  const [userRole, setUserRole] = React.useState<string | null>(null);
   const [isUserLoading, setIsUserLoading] = React.useState<Boolean>(true);
 
   // Fetch locally stored user from IndexDB before remote Firebase verification
@@ -50,62 +35,55 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     fetchUser();
   }, []);
 
-  const logIn = async (email: string, password: string) => {
-    try {
-      const userCredential = await signInWithEmailAndPassword(
-        firebaseAuth,
-        email,
-        password
-      );
-      return userCredential.user;
-    } catch (error) {
-      console.log(error);
+  React.useEffect(() => {
+    if (typeof window !== 'undefined') {
+      (window as any).nookies = nookies;
     }
-  };
 
-  const signUp = async (
-    email: string,
-    password: string,
-    userName: string
-  ): Promise<User | undefined> => {
-    try {
-      return await axios.post('/auth/users', { email, password, userName });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    return onIdTokenChanged(firebaseClient, async (user) => {
+      if (!user) {
+        setUser(null);
 
-  const logOut = async () => {
-    try {
-      return await signOut(firebaseAuth);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+        nookies.destroy(null, 'token');
+        nookies.set(undefined, 'token', '', { path: '/' });
+        setIsUserLoading(false);
+
+        return;
+      }
+
+      setUser(user);
+      const idToken = await user.getIdToken();
+      const idTokenResult = await user.getIdTokenResult();
+
+      setAxiosAccessToken(idToken, axios);
+      nookies.destroy(null, 'token');
+      nookies.set(undefined, 'token', idToken, { path: '/' });
+
+      /**
+       * Handle authorization with custom claims
+       * https://firebase.google.com/docs/auth/admin/custom-claims#access_custom_claims_on_the_client
+       * */
+      setUserRole(idTokenResult.claims.role as string);
+
+      setIsUserLoading(false);
+    });
+  }, []);
 
   React.useEffect(() => {
-    const unsubscribe = onAuthStateChanged(firebaseAuth, (user) => {
+    const handleTokenRefresh = setInterval(async () => {
+      const user = firebaseClient.currentUser;
+
       if (user) {
-        setUser(user);
-
-        user.getIdToken().then((idToken) => {
-          setAxiosAccessToken(idToken, axios);
-        });
-
-        setIsUserLoading(false);
-      } else {
-        setUser(null);
-        setIsUserLoading(false);
+        const idToken = await user.getIdToken(true);
+        setAxiosAccessToken(idToken, axios);
       }
-    });
+    }, 10 * 60 * 1000); // 10 minutes
 
-    return () => unsubscribe();
-  }, [user]);
+    return () => clearInterval(handleTokenRefresh);
+  }, []);
 
   return (
-    <AuthContext.Provider
-      value={{ user, logIn, signUp, logOut, isUserLoading }}
-    >
+    <AuthContext.Provider value={{ user, userRole, isUserLoading }}>
       {!isUserLoading && children}
     </AuthContext.Provider>
   );

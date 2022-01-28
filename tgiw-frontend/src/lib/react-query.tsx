@@ -2,16 +2,10 @@ import * as React from 'react';
 import {
   DefaultOptions,
   Hydrate,
-  QueryCache,
   QueryClient,
   QueryClientProvider,
 } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import type { User } from 'firebase/auth';
-
-import { useAuth } from './authentication';
-import { resetAxiosTokenOnRequestError } from './axios';
-import { ErrorWithResponseObject } from '@/types';
 
 interface ReactQueryProviderProps {
   children: React.ReactNode;
@@ -22,30 +16,13 @@ const ReactQueryProvider: React.FunctionComponent<ReactQueryProviderProps> = ({
   children,
   pageProps,
 }) => {
-  const { user } = useAuth();
-
   const queryConfig: DefaultOptions = {
     queries: {
-      retry: 1,
+      // retry: 1,
     },
   };
 
-  const queryCacheConfig = {
-    onError: (error: unknown) => {
-      resetAxiosTokenOnRequestError(
-        error as ErrorWithResponseObject,
-        user as User
-      );
-    },
-  };
-
-  const [queryClient] = React.useState(
-    () =>
-      new QueryClient({
-        defaultOptions: queryConfig,
-        queryCache: new QueryCache(queryCacheConfig),
-      })
-  );
+  const [queryClient] = React.useState(() => new QueryClient());
 
   return (
     <QueryClientProvider client={queryClient}>

@@ -1,11 +1,13 @@
 import * as React from 'react';
 
-import { MainLayout, NextPageWithLayout } from '@/components/layout';
+import { SecondaryLayout } from '@/components/layout';
+import type { NextPageWithLayout } from '@/types';
+import { EditProfile as EditProfileRoute } from '@/features/auth';
 
-interface EditProfileProps {}
+const EditProfile: NextPageWithLayout = () => <EditProfileRoute />;
 
-const EditProfile: NextPageWithLayout = () => {
-  return <div>EditProfile</div>;
-};
+EditProfile.getLayout = (page: React.ReactElement) => (
+  <SecondaryLayout hasCenteredLogo>{page}</SecondaryLayout>
+);
 
 export default EditProfile;

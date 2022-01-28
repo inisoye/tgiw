@@ -1,5 +1,6 @@
 import * as React from 'react';
 import type { AppProps } from 'next/app';
+import { Toaster } from 'react-hot-toast';
 
 import '@/styles/globals.css';
 import { AuthProvider } from '@/lib/authentication';
@@ -14,14 +15,16 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page: React.ReactElement) => page);
 
   return (
-    <AuthProvider>
-      <ReactQueryProvider pageProps={pageProps}>
+    <ReactQueryProvider pageProps={pageProps}>
+      <AuthProvider>
         {/* More custom base styles added here */}
-        <div className="text-gray-700 font-regular">
+        <div className="text-tgiwPurplish font-regular">
           {getLayout(<Component {...pageProps} />)}
+
+          <Toaster position="bottom-center" reverseOrder={false} />
         </div>
-      </ReactQueryProvider>
-    </AuthProvider>
+      </AuthProvider>
+    </ReactQueryProvider>
   );
 }
 
