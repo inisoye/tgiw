@@ -34,6 +34,7 @@ export interface Genre {
   name: string;
   countries: string[];
   color: string;
+  songs: Song[];
 }
 
 export interface Contributor {
@@ -42,11 +43,22 @@ export interface Contributor {
   userName: string;
 }
 
+export interface Artist {
+  id: string;
+  name: string;
+  color: string;
+  spotifyId: string;
+  spotifyUrl: string;
+  images: ImageObject[];
+  songs: Song[];
+  genres: Genre[];
+}
+
 export interface Song {
   id: string;
   name: string;
   color: string;
-  artists: FormattedArtist[];
+  artists: Artist[];
   album: string;
   spotifyId: string;
   spotifyUrl: string;
@@ -98,17 +110,4 @@ export interface StoredUser {
   appName: string;
 }
 
-export interface Data {
-  statusCode: number;
-  message: string;
-  error: string;
-}
-
-export interface ErrorResponse {
-  data: Data;
-  status: number;
-  statusText: string;
-}
-export interface ErrorWithResponseObject extends Error {
-  response: ErrorResponse;
-}
+export type Notification = 'success' | 'error' | 'neutral';

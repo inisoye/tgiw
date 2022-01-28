@@ -4,11 +4,13 @@ import clsx from 'clsx';
 interface LoaderProps {
   isFullHeight?: boolean;
   isInfiniteLoader?: boolean;
+  isAlignedRight?: boolean;
 }
 
 export const Loader: React.FunctionComponent<LoaderProps> = ({
   isFullHeight,
   isInfiniteLoader,
+  isAlignedRight,
 }) => {
   return (
     <>
@@ -17,12 +19,14 @@ export const Loader: React.FunctionComponent<LoaderProps> = ({
           'flex items-center justify-center m-auto wrapper w-max h-max',
           {
             /* Screen minus header height on mobile */
-            'h-[calc(100vh-71px)] md:h-full': isFullHeight,
+            'h-[calc(100vh-71px)] md:h-full min-h-[calc(100vh-71px)]':
+              isFullHeight,
             'py-10': isInfiniteLoader,
+            'mr-0': isAlignedRight,
           }
         )}
       >
-        <div className="text-gray-800 bg-gray-800 dot-flashing before:bg-gray-800 after:bg-gray-800 before:text-gray-800 after:text-gray-800">
+        <div className="text-tgiwPurplish bg-tgiwPurplish dot-flashing before:bg-tgiwPurplish after:bg-tgiwPurplish before:text-tgiwPurplish after:text-tgiwPurplish">
           <p className="sr-only">Loading</p>
         </div>
       </div>
@@ -30,8 +34,8 @@ export const Loader: React.FunctionComponent<LoaderProps> = ({
       <style jsx>{`
         .dot-flashing {
           position: relative;
-          width: 9px;
-          height: 9px;
+          width: 8px;
+          height: 8px;
           border-radius: 5px;
           animation: dotFlashing 1s infinite linear alternate;
           animation-delay: 0.5s;
@@ -46,18 +50,18 @@ export const Loader: React.FunctionComponent<LoaderProps> = ({
         }
 
         .dot-flashing::before {
-          left: -15px;
-          width: 9px;
-          height: 9px;
+          left: -13px;
+          width: 8px;
+          height: 8px;
           border-radius: 5px;
           animation: dotFlashing 1s infinite alternate;
           animation-delay: 0s;
         }
 
         .dot-flashing::after {
-          left: 15px;
-          width: 9px;
-          height: 9px;
+          left: 13px;
+          width: 8px;
+          height: 8px;
           border-radius: 5px;
           animation: dotFlashing 1s infinite alternate;
           animation-delay: 1s;
@@ -65,7 +69,7 @@ export const Loader: React.FunctionComponent<LoaderProps> = ({
 
         @keyframes dotFlashing {
           0% {
-            background-color: #1f2937;
+            background-color: #111827;
           }
           50%,
           100% {

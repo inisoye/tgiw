@@ -8,13 +8,16 @@ module.exports = {
     extend: {
       colors: {
         tgiwBlue: {
-          light: '#899CBC',
+          light: '#9BB2C5',
           lightish: '#5482A3',
           DEFAULT: '#303E5B',
           dark: '#09101E',
         },
         tgiwOrange: {
           DEFAULT: '#FC8F68',
+        },
+        tgiwPurplish: {
+          DEFAULT: '#1F2532',
         },
         tgiwYellow: {
           DEFAULT: '#FAC081',
