@@ -22,10 +22,10 @@ export const SidebarLink: React.FunctionComponent<SidebarLinkProps> = ({
     <Link href={link}>
       <a
         className={clsx(
-          'block w-full px-4 py-2 transition duration-500 ease-in-out hover:bg-gray-200 rounded-md',
+          'block w-full px-4 py-2 transition duration-500 ease-in-out hover:bg-gray-200 hover:bg-opacity-60 rounded-md',
           {
-            'text-gray-800': isLinkActive,
-            'text-gray-400 hover:text-gray-600': !isLinkActive,
+            'text-tgiwPurplish bg-gray-200': isLinkActive,
+            'text-gray-500 hover:text-tgiwPurplish': !isLinkActive,
           },
           className
         )}

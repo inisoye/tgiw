@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Logo } from '../elements';
+import { Logo } from '@/components/elements';
 import { useAuth } from '@/lib/authentication';
 import { useUser } from '@/features/auth';
 import { SidebarAuthLinks } from './SidebarAuthLinks';
@@ -10,11 +10,10 @@ import { ProfileMenu } from './ProfileMenu';
 interface SidebarProps {}
 
 const sidebarLinks = [
-  { link: '/songs', text: 'Songs' },
-  { link: '/genres', text: 'Genres' },
-  { link: '/artists', text: 'Artists' },
+  { link: '/songs', text: 'All Songs' },
+  { link: '/search', text: 'Search' },
   { link: '/genre-finder', text: 'Genre Finder' },
-  { link: '/about', text: 'About TGIW', className: 'mt-10' },
+  { link: '/about', text: 'About TGIW', className: 'mt-10 hidden' },
 ];
 
 export const Sidebar: React.FunctionComponent<SidebarProps> = () => {
@@ -28,8 +27,8 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = () => {
     <div className="md:p-8 md:h-full md:pr-0">
       <Logo />
 
-      <nav className="hidden w-full max-w-[11.875rem] h-[calc(100%-7.9rem)] mt-8 text-sm  overflow-auto md:flex md:flex-col py-9 ">
-        <ul className="px-4 space-y-2">
+      <nav className="hidden w-full max-w-[11.875rem] h-[calc(100%-7.9rem)] mt-8 text-sm md:flex md:flex-col py-9 ">
+        <ul className="px-4 space-y-4 overflow-auto">
           {sidebarLinks.map(({ link, text, className }) => (
             <li key={link} className="relative">
               <SidebarLink link={link} text={text} className={className} />

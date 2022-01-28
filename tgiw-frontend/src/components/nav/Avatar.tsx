@@ -2,10 +2,10 @@ import * as React from 'react';
 import * as AvatarPrimitive from '@radix-ui/react-avatar';
 
 import { getInitials } from '@/utils';
-import type { User } from '@/types';
+import type { DbUser } from '@/types';
 
 interface AvatarProps {
-  dbUser: User | undefined;
+  dbUser: DbUser | undefined;
 }
 
 export const Avatar: React.FunctionComponent<AvatarProps> = ({ dbUser }) => {
