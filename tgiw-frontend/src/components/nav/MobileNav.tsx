@@ -84,17 +84,21 @@ export const MobileNav: React.FunctionComponent<MobileNavProps> = () => {
           <div className="max-w-[200px] px-4 my-12">
             {!user ? (
               <div className="space-y-3">
-                <Link href="/log-in">
-                  <a className="block w-full px-4 py-2 transition duration-500 ease-in-out rounded-md bg-tgiwYellow">
-                    Log in
-                  </a>
-                </Link>
+                <div onClick={closeDialog}>
+                  <Link href="/log-in">
+                    <a className="block w-full px-4 py-2 transition duration-500 ease-in-out rounded-md bg-tgiwYellow">
+                      Log in
+                    </a>
+                  </Link>
+                </div>
 
-                <Link href="/sign-up">
-                  <a className="block w-full px-4 py-2 transition duration-500 ease-in-out rounded-md bg-tgiwOrange">
-                    Sign up
-                  </a>
-                </Link>
+                <div onClick={closeDialog}>
+                  <Link href="/sign-up">
+                    <a className="block w-full px-4 py-2 transition duration-500 ease-in-out rounded-md bg-tgiwOrange">
+                      Sign up
+                    </a>
+                  </Link>
+                </div>
               </div>
             ) : (
               <div className="space-y-3">
