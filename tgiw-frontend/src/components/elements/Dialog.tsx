@@ -25,10 +25,11 @@ export const Dialog: React.FunctionComponent<DialogProps> = ({
     >
       <div
         className={clsx(
-          'h-max max-h-[84%] overflow-auto w-screen max-w-3xl mx-auto bg-white text-tgiwPurplish',
+          'overflow-auto w-screen mx-auto bg-white text-tgiwPurplish',
           {
             'h-screen max-h-screen rounded-none': isCenterFullHeight,
-            'fixed bottom-0 md:hidden': isMobileMenu,
+            'max-h-[84%] h-max': !isMobileMenu,
+            'md:hidden max-w-none h-full': isMobileMenu,
           }
         )}
       >
@@ -42,7 +43,7 @@ export const Dialog: React.FunctionComponent<DialogProps> = ({
             padding: 0,
             height: '100%',
             width: '100%',
-            // backgroundColor: 'transparent',
+            backgroundColor: 'transparent',
             zIndex: 4,
           }}
         >
