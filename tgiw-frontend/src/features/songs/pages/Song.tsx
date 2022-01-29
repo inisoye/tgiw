@@ -69,7 +69,7 @@ export const Song: React.FunctionComponent<SongProps> = () => {
 
           <section>
             <h2 className="text-2xl">{"Contributor's Note"}</h2>
-            <p className="mt-4 text-tgiwPurplish text-opacity-70">
+            <p className="mt-4 leading-relaxed text-tgiwPurplish text-opacity-70 ">
               {contributorNote}
             </p>
           </section>
