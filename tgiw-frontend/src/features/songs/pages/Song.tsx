@@ -114,7 +114,7 @@ export const Song: React.FunctionComponent<SongProps> = () => {
           <SmallSongDescriptor heading="Added">
             {!!dateAdded &&
               formatDate(new Date(dateAdded as string), 'MMM dd, yyyy')}{' '}
-            by <span className="capitalize">{contributor?.userName}</span>
+            by <span>{contributor?.userName}</span>
           </SmallSongDescriptor>
 
           <SmallSongDescriptor heading="Year of Release">

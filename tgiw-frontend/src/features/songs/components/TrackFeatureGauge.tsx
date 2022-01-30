@@ -19,7 +19,7 @@ export const TrackFeatureGauge: React.FunctionComponent<
           {featureName}
         </p>
 
-        <div className="relative flex items-center w-3/4 h-5 px-2 ml-10 rounded-full shrink-0 bg-tgiwBlue">
+        <div className="relative flex items-center w-3/5 h-5 px-2 ml-10 rounded-md shrink-0 bg-tgiwBlue">
           <div className="absolute flex justify-center w-4 h-3 rounded-full bg-tgiwOrange percentage-gauge">
             <span className="text-xs text-center -translate-y-6 text-tgiwPurplish text-opacity-70">
               {roundedValue}%
