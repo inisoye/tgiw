@@ -4,3 +4,4 @@ export * from './LargeSongCardElements';
 export * from './LargeSongCard';
 export * from './SmallSongDesciptor';
 export * from './SongGenreChips';
+export * from './TrackFeatureGauge';

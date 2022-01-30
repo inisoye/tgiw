@@ -11,6 +11,7 @@ import {
   getSongMoodMessage,
 } from '@/features/songs';
 import { Loader } from '@/components/elements';
+import { TrackFeatureGauge } from '../components';
 
 interface SongProps {}
 
@@ -19,6 +20,7 @@ export const Song: React.FunctionComponent<SongProps> = () => {
   const { id } = router.query;
 
   const { data: song, isLoading, isError } = useSong(id as string);
+
   const {
     name,
     artists,
@@ -32,6 +34,9 @@ export const Song: React.FunctionComponent<SongProps> = () => {
     contributor,
     dateAdded,
     color,
+    popularity,
+    danceability,
+    energy,
   } = song || {};
 
   const { isPlaying, toggle, trackProgressPercentage, duration } = useAudio(
@@ -58,7 +63,7 @@ export const Song: React.FunctionComponent<SongProps> = () => {
         color={color}
       />
 
-      <div className="px-6 mt-6 text-center bg-white border-2 border-gray-100 divide-y-2 divide-gray-100 rounded-md lg:text-left lg:py-12 lg:flex lg:space-x-14 lg:divide-y-0 lg:divide-x-2">
+      <div className="px-6 mt-6 text-center bg-white border-2 border-gray-100 divide-y-2 divide-gray-100 rounded-md lg:text-left lg:py-12 lg:flex lg:space-x-12 lg:divide-y-0 lg:divide-x-2">
         <div className="py-12 space-y-12 lg:py-0 lg:w-3/5">
           {!!genres?.length && (
             <section>
@@ -72,6 +77,32 @@ export const Song: React.FunctionComponent<SongProps> = () => {
             <p className="mt-4 leading-relaxed text-tgiwPurplish text-opacity-70 ">
               {contributorNote}
             </p>
+          </section>
+
+          <section>
+            <h2 className="text-2xl">Other Features</h2>
+
+            <div className="mt-4 space-y-1">
+              <TrackFeatureGauge
+                featureName="Happiness Score"
+                featureValue={(valence as number) * 100}
+              />
+
+              <TrackFeatureGauge
+                featureName="Popularity"
+                featureValue={popularity as number}
+              />
+
+              <TrackFeatureGauge
+                featureName="Danceability"
+                featureValue={(danceability as number) * 100}
+              />
+
+              <TrackFeatureGauge
+                featureName="Energy"
+                featureValue={(energy as number) * 100}
+              />
+            </div>
           </section>
         </div>
 

@@ -13,3 +13,17 @@ export const getSongMoodMessage = (
     return 'Happy 😁';
   }
 };
+
+export const getGaugeColor = (
+  featureValue: number | undefined
+): string | undefined => {
+  if (!featureValue) return;
+
+  if (featureValue <= 33.33) {
+    return '#FC8F68';
+  } else if (featureValue > 33.33 && featureValue <= 66.66) {
+    return '#FAC081';
+  } else {
+    return '#899CBC';
+  }
+};
