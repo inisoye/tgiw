@@ -15,7 +15,7 @@ export const TrackFeatureGauge: React.FunctionComponent<
   return (
     <>
       <div aria-hidden className="flex items-center justify-between pt-4 h-11">
-        <p className="text-sm capitalize text-tgiwPurplish text-opacity-70">
+        <p className="text-sm text-left capitalize text-tgiwPurplish text-opacity-70">
           {featureName}
         </p>
 
