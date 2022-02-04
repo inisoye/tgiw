@@ -1,9 +1,12 @@
 import * as React from 'react';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
+import Router from 'next/router';
+import nProgress from 'nprogress';
 import { Toaster } from 'react-hot-toast';
 
 import '@/styles/globals.css';
+import '@/styles/nprogress.css';
 import { AuthProvider } from '@/lib/authentication';
 import ReactQueryProvider from '@/lib/react-query';
 import type { NextPageWithLayout } from '@/types';
@@ -11,6 +14,10 @@ import type { NextPageWithLayout } from '@/types';
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
+
+Router.events.on('routeChangeStart', nProgress.start);
+Router.events.on('routeChangeError', nProgress.done);
+Router.events.on('routeChangeComplete', nProgress.done);
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page: React.ReactElement) => page);
