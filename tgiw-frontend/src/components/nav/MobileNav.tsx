@@ -14,7 +14,6 @@ const menuLinks = [
   { link: '/songs', text: 'All Songs' },
   { link: '/search', text: 'Search' },
   { link: '/genre-finder', text: 'Genre Finder' },
-  { link: '/about', text: 'About TGIW', className: 'mt-10' },
 ];
 
 export const MobileNav: React.FunctionComponent<MobileNavProps> = () => {
@@ -71,7 +70,7 @@ export const MobileNav: React.FunctionComponent<MobileNavProps> = () => {
 
         <nav className=" w-full h-[calc(100%-7.9rem)] my-12 px-2">
           <ul className="px-4 space-y-3 text-lg font-heading">
-            {menuLinks.map(({ link, text, className }) => (
+            {menuLinks.map(({ link, text }) => (
               <li key={link} className="relative" onClick={closeDialog}>
                 <Link href={link}>
                   <a className="block w-full p-4 transition duration-500 ease-in-out bg-opacity-25 rounded-md bg-tgiwBlue-light hover:bg-opacity-50">
