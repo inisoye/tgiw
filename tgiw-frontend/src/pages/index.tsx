@@ -84,7 +84,7 @@ const Home: NextPageWithLayout = () => {
 
   return (
     <>
-      <div className="max-w-6xl p-8 md:px-16">
+      <div className="max-w-6xl px-4 py-8 sm:p-8 md:px-16">
         <section className="sm:max-w-xl w-full mx-auto lg:max-w-full p-6 rounded bg-[#A3BBCE]">
           <div className="py-6 mx-auto overflow-hidden text-center rounded-lg bg-tgiwBlue-light lg:text-left lg:flex lg:justify-between lg:space-x-6 lg:items-start">
             <div className="px-6">
@@ -140,7 +140,7 @@ const Home: NextPageWithLayout = () => {
 
           <ul
             aria-label="songs"
-            className="grid grid-cols-2 gap-8 mx-auto mt-2 sm:max-w-xl md:grid-cols-2 lg:max-w-4xl xl:mx-0 xl:max-w-none lg:grid-cols-3 xl:grid-cols-4"
+            className="grid grid-cols-2 gap-4 mx-auto mt-2 sm:gap-8 sm:max-w-xl md:grid-cols-2 lg:max-w-4xl xl:mx-0 xl:max-w-none lg:grid-cols-3 xl:grid-cols-4"
           >
             {songs?.map((song) => {
               return (
