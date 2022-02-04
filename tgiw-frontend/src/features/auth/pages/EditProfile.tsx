@@ -8,7 +8,7 @@ import {
   getInputValueFromForm,
   launchNotification,
 } from '@/utils';
-import { PlayFulFooterLogo } from '@/components/elements';
+import { PlayfulFooterLogo } from '@/components/elements';
 import { useAuth } from '@/lib/authentication';
 
 interface EditProfileProps {}
@@ -69,7 +69,7 @@ export const EditProfile: React.FunctionComponent<EditProfileProps> = () => {
         initialEmail={initialEmail}
       />
 
-      <PlayFulFooterLogo />
+      <PlayfulFooterLogo />
     </>
   );
 };

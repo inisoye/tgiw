@@ -7,7 +7,7 @@ import {
   launchNotification,
 } from '@/utils';
 import { SignUpForm, useCreateUser, useLogIn } from '@/features/auth';
-import { PlayFulFooterLogo } from '@/components/elements';
+import { PlayfulFooterLogo } from '@/components/elements';
 
 interface SignUpProps {}
 
@@ -64,7 +64,7 @@ export const SignUp: React.FunctionComponent<SignUpProps> = () => {
         isLoading={isSignUpLoading || isLogInLoading}
       />
 
-      <PlayFulFooterLogo />
+      <PlayfulFooterLogo />
     </>
   );
 };

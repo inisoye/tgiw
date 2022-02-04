@@ -7,7 +7,7 @@ import {
   getInputValueFromForm,
   launchNotification,
 } from '@/utils';
-import { PlayFulFooterLogo } from '@/components/elements';
+import { PlayfulFooterLogo } from '@/components/elements';
 
 interface LogInProps {}
 
@@ -44,7 +44,7 @@ export const LogIn: React.FunctionComponent<LogInProps> = () => {
     <>
       <LoginForm handleSubmit={handleSubmit} isLoading={isLoading} />
 
-      <PlayFulFooterLogo />
+      <PlayfulFooterLogo />
     </>
   );
 };

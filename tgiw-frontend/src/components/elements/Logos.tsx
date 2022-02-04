@@ -83,10 +83,10 @@ export const SecondaryLogo: React.FunctionComponent<SecondaryLogoProps> = ({
   );
 };
 
-interface PlayFulFooterLogoProps {}
+interface PlayfulFooterLogoProps {}
 
-export const PlayFulFooterLogo: React.FunctionComponent<
-  PlayFulFooterLogoProps
+export const PlayfulFooterLogo: React.FunctionComponent<
+  PlayfulFooterLogoProps
 > = () => {
   return (
     <>
