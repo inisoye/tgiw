@@ -39,6 +39,7 @@ export const MobileNav: React.FunctionComponent<MobileNavProps> = () => {
         isDialogOpen={isDialogOpen}
         closeDialog={closeDialog}
         isMobileMenu
+        ariaLabel="Menu"
       >
         <div className="flex items-center justify-between gap-4 pl-6 overflow-auto leading-3 transition duration-300 ease-in-out bg-gray-900 wrap md:hidden">
           <div className="w-max shrink-0">

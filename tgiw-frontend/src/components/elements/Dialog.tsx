@@ -8,6 +8,7 @@ interface DialogProps {
   closeDialog: () => void;
   isCenterFullHeight?: boolean;
   isMobileMenu?: boolean;
+  ariaLabel: string;
 }
 
 export const Dialog: React.FunctionComponent<DialogProps> = ({
@@ -16,6 +17,7 @@ export const Dialog: React.FunctionComponent<DialogProps> = ({
   isCenterFullHeight,
   children,
   isMobileMenu,
+  ariaLabel,
 }) => {
   return (
     <DialogOverlay
@@ -34,6 +36,7 @@ export const Dialog: React.FunctionComponent<DialogProps> = ({
         )}
       >
         <DialogContent
+          aria-label={ariaLabel}
           /**
            * Reach UI doesn't work very well with Styled JSX or Tailwind.
            * Override defaults inline and style containing div instead.

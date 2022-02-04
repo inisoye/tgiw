@@ -21,7 +21,11 @@ export const ContributionFormDialog: React.FunctionComponent<
   isContributionLoading,
 }) => {
   return (
-    <Dialog isDialogOpen={isDialogOpen} closeDialog={closeDialog}>
+    <Dialog
+      isDialogOpen={isDialogOpen}
+      closeDialog={closeDialog}
+      ariaLabel="Add a contribution note"
+    >
       <div className="max-w-3xl">
         <h1 className="p-4 pb-0 text-2xl">Add a note to your contribution</h1>
 
