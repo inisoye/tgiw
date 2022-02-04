@@ -24,7 +24,7 @@ export const Artist: React.FunctionComponent<ArtistProps> = () => {
   }
 
   return (
-    <div className="w-full max-w-6xl p-8 md:px-16">
+    <div className="w-full max-w-6xl p-8 pb-24 md:px-16">
       <ArtistDetails
         imageUrl={imageUrl}
         name={name}
