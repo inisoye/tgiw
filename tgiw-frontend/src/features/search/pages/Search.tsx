@@ -61,7 +61,7 @@ export const Search: React.FunctionComponent<SearchProps> = () => {
   ];
 
   return (
-    <div className="max-w-6xl p-8 pb-24 md:px-16">
+    <>
       <SearchInput
         filter={filter}
         setFilter={setFilter}
@@ -111,6 +111,6 @@ export const Search: React.FunctionComponent<SearchProps> = () => {
           )}
         </div>
       )}
-    </div>
+    </>
   );
 };

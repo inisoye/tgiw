@@ -50,7 +50,7 @@ export const Song: React.FunctionComponent<SongProps> = () => {
   }
 
   return (
-    <div className="max-w-6xl p-8 pb-24 md:px-16">
+    <>
       <LargeSongCard
         imageUrl={imageUrl}
         name={name}
@@ -122,6 +122,6 @@ export const Song: React.FunctionComponent<SongProps> = () => {
           </SmallSongDescriptor>
         </div>
       </div>
-    </div>
+    </>
   );
 };

@@ -24,7 +24,7 @@ export const Artist: React.FunctionComponent<ArtistProps> = () => {
   }
 
   return (
-    <div className="w-full max-w-6xl p-8 pb-24 md:px-16">
+    <>
       <ArtistDetails
         imageUrl={imageUrl}
         name={name}
@@ -37,6 +37,6 @@ export const Artist: React.FunctionComponent<ArtistProps> = () => {
 
         <ArtistSongsList songs={songs} genres={genres} />
       </div>
-    </div>
+    </>
   );
 };
