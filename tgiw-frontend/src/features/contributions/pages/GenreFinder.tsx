@@ -39,7 +39,7 @@ export const GenreFinder: React.FunctionComponent<GenreFinderProps> = () => {
   }
 
   return (
-    <div className="text-white isolate">
+    <div className="pb-24 text-white isolate">
       <h1 className="sr-only">Find genres of any song</h1>
 
       <SearchInput

@@ -71,15 +71,6 @@ export const SongDetails: React.FunctionComponent<SongDetailsProps> = () => {
 
   return (
     <div className="relative max-w-xl py-16 pb-24 mx-auto text-white">
-      {userRole === 'contributor' && (
-        <button
-          onClick={openDialog}
-          className="fixed bottom-0 right-0 w-full px-4 py-6 transition-colors duration-300 bg-tgiwYellow hover:bg-tgiwOrange text-tgiwPurplish mdrounded-md eas"
-        >
-          Contribute this song to TGIW
-        </button>
-      )}
-
       <ContributionFormDialog
         songName={name as string}
         isDialogOpen={isDialogOpen}
@@ -109,6 +100,15 @@ export const SongDetails: React.FunctionComponent<SongDetailsProps> = () => {
       </div>
 
       <ContributorGenresList genreNames={genreNames} />
+
+      {userRole === 'contributor' && (
+        <button
+          onClick={openDialog}
+          className="bottom-0 right-0 w-full px-4 py-6 transition-colors duration-300 md:fixed bg-tgiwYellow hover:bg-tgiwOrange text-tgiwPurplish mdrounded-md eas"
+        >
+          Contribute this song to TGIW
+        </button>
+      )}
     </div>
   );
 };
