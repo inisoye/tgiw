@@ -27,7 +27,7 @@ export const Songs: React.FunctionComponent<SongsProps> = () => {
     .flat();
 
   return (
-    <div className="max-w-6xl p-8 pb-24 md:px-16">
+    <div className="max-w-6xl px-4 py-8 pb-24 sm:p-8 md:px-16">
       <h1 className="sr-only">Songs</h1>
 
       <SongsList songs={allFetchedSongs} />
