@@ -18,7 +18,7 @@ export const SearchResultSongs: React.FunctionComponent<
 
   return (
     <ul className="space-y-3 overflow-auto lg:overflow-visible max-h-[22.3rem] lg:grid lg:grid-cols-2 lg:space-y-0 lg:gap-3 lg:max-h-[16.5rem]">
-      {songs?.slice(0, 6).map(({ name, artists, images, id, color }) => {
+      {songs?.slice(0, 4).map(({ name, artists, images, id, color }) => {
         const imageUrl = images?.[1]?.url as string;
         const artistsNames = pickArtistsNames(artists);
 
