@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Head from 'next/head';
 import type { AxiosError } from 'axios';
 
 import {
@@ -59,6 +60,10 @@ export const SignUp: React.FunctionComponent<SignUpProps> = () => {
   };
   return (
     <>
+      <Head>
+        <title>Sign up - The Genre isn&apos;t World</title>
+      </Head>
+
       <SignUpForm
         handleSubmit={handleSubmit}
         isLoading={isSignUpLoading || isLogInLoading}

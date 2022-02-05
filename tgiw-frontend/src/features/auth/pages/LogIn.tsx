@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Head from 'next/head';
 import type { AuthError } from 'firebase/auth';
 
 import { LoginForm, useLogIn } from '@/features/auth';
@@ -42,6 +43,10 @@ export const LogIn: React.FunctionComponent<LogInProps> = () => {
 
   return (
     <>
+      <Head>
+        <title>Log in - The Genre isn&apos;t World</title>
+      </Head>
+
       <LoginForm handleSubmit={handleSubmit} isLoading={isLoading} />
 
       <PlayfulFooterLogo />

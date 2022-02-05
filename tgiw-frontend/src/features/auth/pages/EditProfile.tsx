@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Head from 'next/head';
 import type { AxiosError } from 'axios';
 import type { User } from 'firebase/auth';
 
@@ -63,6 +64,10 @@ export const EditProfile: React.FunctionComponent<EditProfileProps> = () => {
 
   return (
     <>
+      <Head>
+        <title>Log in - The Genre isn&apos;t World</title>
+      </Head>
+
       <EditProfileForm
         handleSubmit={handleSubmit}
         isLoading={isUpdateUserLoading || isLogInLoading}
