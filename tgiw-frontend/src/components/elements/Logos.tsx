@@ -22,7 +22,7 @@ export const Logo: React.FunctionComponent<LogoProps> = () => {
       </Link>
 
       <Link href="/">
-        <a className="block px-8 py-6 mx-auto leading-3 transition duration-300 ease-in-out bg-tgiwPurplish hover:bg-gray-900 md:hidden">
+        <a className="block px-8 py-6 mx-auto leading-3 transition duration-300 ease-in-out bg-gray-900 hover:bg-tgiwPurplish md:hidden">
           <div className="mx-auto w-max">
             <Image
               src="/logos/tgiwLogoHorizontal.svg"
