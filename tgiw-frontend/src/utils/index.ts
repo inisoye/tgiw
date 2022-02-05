@@ -19,6 +19,13 @@ export const getInitials = (string: string) => {
   return initials;
 };
 
+export const convertToTitleCase = (string: string) =>
+  string
+    .toLowerCase()
+    .split(' ')
+    .map((word) => word.charAt(0).toUpperCase() + word.substring(1))
+    .join(' ');
+
 export const getInputValueFromForm = (
   form: HTMLFormElement,
   valueName: string

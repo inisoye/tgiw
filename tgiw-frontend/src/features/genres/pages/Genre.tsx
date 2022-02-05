@@ -9,6 +9,7 @@ import {
   useGenre,
 } from '@/features/genres';
 import { Loader } from '@/components/elements';
+import { convertToTitleCase } from '@/utils';
 
 interface GenreProps {}
 
@@ -30,10 +31,15 @@ export const Genre: React.FunctionComponent<GenreProps> = () => {
   return (
     <>
       <Head>
-        <title>{name} Songs - The Genre isn&apos;t World</title>
+        <title>
+          {convertToTitleCase(name as string)} Songs - The Genre isn&apos;t
+          World
+        </title>
         <meta
           name="description"
-          content={`Curated songs within the ${name} genre.`}
+          content={`Curated songs within the ${convertToTitleCase(
+            name as string
+          )} genre.`}
         />
       </Head>
 
