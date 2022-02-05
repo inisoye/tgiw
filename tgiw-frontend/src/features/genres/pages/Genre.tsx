@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 
 import {
@@ -28,6 +29,14 @@ export const Genre: React.FunctionComponent<GenreProps> = () => {
 
   return (
     <>
+      <Head>
+        <title>{name} Songs - The Genre isn&apos;t World</title>
+        <meta
+          name="description"
+          content={`Curated songs within the ${name} genre.`}
+        />
+      </Head>
+
       <div className="px-4 py-6 rounded-md pt-36 genre-background lg:px-9">
         <h1 className="text-white capitalize text-4xl lg:text-5xl max-w-[70%] break-words">
           {name === 'world' ? `${name} (ew!)` : name}

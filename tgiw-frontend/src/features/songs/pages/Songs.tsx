@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Head from 'next/head';
 import useInfiniteScroll from 'react-infinite-scroll-hook';
 
 import { SongsList, useInfiniteSongs } from '@/features/songs';
@@ -28,6 +29,14 @@ export const Songs: React.FunctionComponent<SongsProps> = () => {
 
   return (
     <>
+      <Head>
+        <title>The Genre isn&apos;t World Songs - Most Recent</title>
+        <meta
+          name="description"
+          content="Extend your music taste with songs from a diverse catalogue spanning numerous genres."
+        />
+      </Head>
+
       <h1 className="sr-only">Songs</h1>
 
       <SongsList songs={allFetchedSongs} />

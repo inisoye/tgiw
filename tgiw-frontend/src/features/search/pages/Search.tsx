@@ -1,5 +1,7 @@
 import * as React from 'react';
 import debounceFn from 'debounce-fn';
+import Link from 'next/link';
+import Head from 'next/head';
 
 import type { Artist, Genre } from '@/types';
 import {
@@ -11,7 +13,6 @@ import {
   useSearchResults,
 } from '@/features/search';
 import { ArtistLinks, SongGenreChips } from '@/features/songs';
-import Link from 'next/link';
 
 interface SearchProps {}
 
@@ -62,6 +63,16 @@ export const Search: React.FunctionComponent<SearchProps> = () => {
 
   return (
     <>
+      <Head>
+        <title>
+          Search through The Genre isn&apos;t World&apos;s catalogue
+        </title>
+        <meta
+          name="description"
+          content={`Find genres, artists and songs within TGIW's diverse catalogue. Searches can be performed by country, genre, artist or song.`}
+        />
+      </Head>
+
       <SearchInput
         filter={filter}
         setFilter={setFilter}

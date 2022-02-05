@@ -7,6 +7,7 @@ import {
   useSearchResults,
 } from '@/features/contributions';
 import { Loader } from '@/components/elements';
+import Head from 'next/head';
 
 interface GenreFinderProps {}
 
@@ -40,6 +41,15 @@ export const GenreFinder: React.FunctionComponent<GenreFinderProps> = () => {
 
   return (
     <div className="pb-24 text-white isolate">
+      <Head>
+        <title>Find the genre for any song.</title>
+
+        <meta
+          name="description"
+          content="Using our genre finder, you can search for any digitally released song and find the genres associated with its artists"
+        />
+      </Head>
+
       <h1 className="sr-only">Find genres of any song</h1>
 
       <SearchInput

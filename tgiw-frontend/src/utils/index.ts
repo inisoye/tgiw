@@ -2,10 +2,11 @@ import toast from 'react-hot-toast';
 import type { AxiosError } from 'axios';
 import type { AuthError } from 'firebase/auth';
 
-import type { Artist, Notification } from '@/types';
+import type { Artist, FormattedArtist, Notification } from '@/types';
 
-export const pickArtistsNames = (artistsObjects: Artist[]) =>
-  artistsObjects.map(({ name }) => name).join(', ');
+export const pickArtistsNames = (
+  artistsObjects: Artist[] | FormattedArtist[]
+): string => artistsObjects.map(({ name }) => name).join(', ');
 
 export const getInitials = (string: string) => {
   const names = string.split(' ');

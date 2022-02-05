@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 
 import {
@@ -25,6 +26,16 @@ export const Artist: React.FunctionComponent<ArtistProps> = () => {
 
   return (
     <>
+      <Head>
+        <title>
+          Genres and Songs associated with {name} - The Genre isn&apos;t World
+        </title>
+        <meta
+          name="description"
+          content={`Genres and Songs associated with ${name}.`}
+        />
+      </Head>
+
       <ArtistDetails
         imageUrl={imageUrl}
         name={name}

@@ -50,6 +50,8 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         />
         <meta name="msapplication-TileColor" content="#2b5797" />
         <meta name="theme-color" content="#ffffff"></meta>
+        <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
 
       <ReactQueryProvider pageProps={pageProps}>

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { format as formatDate } from 'date-fns';
 
@@ -12,6 +13,8 @@ import {
 } from '@/features/songs';
 import { Loader } from '@/components/elements';
 import { TrackFeatureGauge } from '../components';
+import { pickArtistsNames } from '@/utils';
+import { Artist } from '@/types';
 
 interface SongProps {}
 
@@ -51,6 +54,19 @@ export const Song: React.FunctionComponent<SongProps> = () => {
 
   return (
     <>
+      <Head>
+        <title>
+          {name} by {pickArtistsNames(artists as Artist[])} - The Genre
+          isn&apos;t World
+        </title>
+        <meta
+          name="description"
+          content={`${name} by ${pickArtistsNames(
+            artists as Artist[]
+          )}. ${contributorNote}`}
+        />
+      </Head>
+
       <LargeSongCard
         imageUrl={imageUrl}
         name={name}

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 import type { AxiosError } from 'axios';
 
 import {
@@ -11,8 +12,13 @@ import {
 } from '@/features/contributions';
 import { ImageWithFallback, Loader } from '@/components/elements';
 import { useDialogControl } from '@/hooks';
-import { formatAxiosErrorMessage, launchNotification } from '@/utils';
+import {
+  formatAxiosErrorMessage,
+  launchNotification,
+  pickArtistsNames,
+} from '@/utils';
 import { useAuth } from '@/lib/authentication';
+import { FormattedArtist } from '@/types';
 
 interface SongDetailsProps {}
 
@@ -71,6 +77,16 @@ export const SongDetails: React.FunctionComponent<SongDetailsProps> = () => {
 
   return (
     <div className="relative max-w-xl py-16 pb-24 mx-auto text-white">
+      <Head>
+        <title>{name}&apos;s Genres - The Genre isn&apos;t World</title>
+        <meta
+          name="description"
+          content={`The genres associated with ${name} by ${pickArtistsNames(
+            artists as FormattedArtist[]
+          )}.`}
+        />
+      </Head>
+
       <ContributionFormDialog
         songName={name as string}
         isDialogOpen={isDialogOpen}

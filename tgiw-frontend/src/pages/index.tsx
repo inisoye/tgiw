@@ -84,6 +84,14 @@ const Home: NextPageWithLayout = () => {
 
   return (
     <>
+      <Head>
+        <title>The Genre isn&apos;t World</title>
+        <meta
+          name="description"
+          content="Extend your music taste with songs from a diverse catalogue spanning numerous genres."
+        />
+      </Head>
+
       <section className="sm:max-w-xl w-full mx-auto lg:max-w-full p-6 rounded bg-[#A3BBCE]">
         <div className="py-6 mx-auto overflow-hidden text-center rounded-lg bg-tgiwBlue-light lg:text-left lg:flex lg:justify-between lg:space-x-6 lg:items-start">
           <div className="px-6">
