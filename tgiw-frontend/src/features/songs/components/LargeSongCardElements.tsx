@@ -47,7 +47,7 @@ export const ArtistLink: React.FunctionComponent<ArtistLinkProps> = ({
     <Link href={`/artists/${id}`}>
       <a
         className="flex items-center px-3 py-1.5 space-x-3 transition duration-500 ease-in-out bg-black rounded-md bg-opacity-10 hover:scale-105 active:scale-[0.95]"
-        onMouseEnter={async () => prefetchArtist(queryClient, id)}
+        // onMouseEnter={async () => prefetchArtist(queryClient, id)}
       >
         <div className="w-8 h-8 overflow-hidden rounded-full shrink-0">
           <ImageWithFallback

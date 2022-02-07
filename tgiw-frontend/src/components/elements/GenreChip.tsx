@@ -35,9 +35,9 @@ export const GenreChip: React.FunctionComponent<GenreChipProps> = ({
               'text-xs': isExtraSmallTextSize,
             }
           )}
-          onMouseEnter={async () => {
-            if (hasPrefetch) prefetchGenre(queryClient, id);
-          }}
+          // onMouseEnter={async () => {
+          //   if (hasPrefetch) prefetchGenre(queryClient, id);
+          // }}
         >
           {name === 'world' ? `${name} (ew!)` : name}
         </a>

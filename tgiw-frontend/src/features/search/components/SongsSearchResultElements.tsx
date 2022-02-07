@@ -23,7 +23,10 @@ export const SearchResultSongs: React.FunctionComponent<
         const artistsNames = pickArtistsNames(artists);
 
         return (
-          <li key={id} onMouseEnter={async () => prefetchSong(queryClient, id)}>
+          <li
+            key={id}
+            // onMouseEnter={async () => prefetchSong(queryClient, id)}
+          >
             <SearchResultSongCard
               id={id}
               name={name}

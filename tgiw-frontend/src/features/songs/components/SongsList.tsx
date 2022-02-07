@@ -22,7 +22,7 @@ export const SongsList: React.FunctionComponent<SongsListProps> = ({
         return (
           <li
             key={song.id}
-            onMouseEnter={async () => prefetchSong(queryClient, song.id)}
+            // onMouseEnter={async () => prefetchSong(queryClient, song.id)}
           >
             <SongCard song={song} />
           </li>
