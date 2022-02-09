@@ -4301,6 +4301,11 @@ react-clientside-effect@^1.2.5:
   dependencies:
     "@babel/runtime" "^7.12.13"
 
+react-cool-img@^1.2.12:
+  version "1.2.12"
+  resolved "https://registry.yarnpkg.com/react-cool-img/-/react-cool-img-1.2.12.tgz#b7a65053d5e234417afeb0791ce650783ebf80db"
+  integrity sha512-HambbjVszVVCNAEps+wReo9znzhgpq/72DCRvz4ahKkubEUV/ij0WH3RCQ37rcAPezhchpH75VutDE/ENgWegA==
+
 react-dom@17.0.2:
   version "17.0.2"
   resolved "https://registry.npmjs.org/react-dom/-/react-dom-17.0.2.tgz"

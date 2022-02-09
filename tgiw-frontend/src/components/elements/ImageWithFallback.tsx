@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Image from 'next/image';
+import Img from 'react-cool-img';
 
 interface ImageWithFallbackProps {
   src: string;
@@ -17,12 +17,11 @@ export const ImageWithFallback: React.FunctionComponent<
   const [imgSrc, setImgSrc] = React.useState(src || fallbackSrc);
 
   return (
-    <Image
+    <Img
       {...rest}
       src={imgSrc}
       alt={alt}
-      placeholder="blur"
-      blurDataURL="/images/staticLightBg.jpg"
+      placeholder="/images/staticLightBg.jpg"
       onError={() => setImgSrc(fallbackSrc)}
     />
   );
