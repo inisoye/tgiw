@@ -66,8 +66,8 @@ export const SearchResultSongCard: React.FunctionComponent<
               alt={name}
               width="100%"
               height="100%"
-              layout="responsive"
-              objectFit="contain"
+              objectFit="cover"
+              className="relative w-full h-full"
             />
           </div>
 

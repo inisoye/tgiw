@@ -32,8 +32,8 @@ export const SongCard: React.FunctionComponent<SongCardProps> = ({ song }) => {
                   alt={name}
                   width="100%"
                   height="100%"
-                  layout="responsive"
-                  objectFit="contain"
+                  objectFit="cover"
+                  className="relative w-full h-full"
                 />
               </div>
 

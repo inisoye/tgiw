@@ -17,13 +17,14 @@ export const ArtistDetails: React.FunctionComponent<ArtistDetailsProps> = ({
 }) => {
   return (
     <>
-      <div className="relative w-full overflow-hidden rounded-md h-96 lg:h-[30rem]">
+      <div className="relative w-full overflow-hidden rounded-md h-96 lg:h-[40rem]">
         <ImageWithFallback
           src={imageUrl}
           fallbackSrc="/images/artist.jpg"
           alt={name as string}
           layout="fill"
           objectFit="cover"
+          className="relative w-full h-full"
         />
       </div>
 
