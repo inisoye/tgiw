@@ -29,6 +29,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
       setUser(storedUser);
       setAxiosAccessToken(storedToken, axios);
+      nookies.set(undefined, 'token', storedToken, { path: '/' });
       setIsUserLoading(false);
     };
 
