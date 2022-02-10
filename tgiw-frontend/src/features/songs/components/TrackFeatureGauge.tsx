@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { getGaugeColor } from '..';
+import { VisuallyHidden } from '@/components/elements';
 
 interface TrackFeatureGaugeProps {
   featureName: string;
@@ -28,7 +29,9 @@ export const TrackFeatureGauge: React.FunctionComponent<
         </div>
       </div>
 
-      {/* <p className="sr-only">Popularity score is {roundedValue}%</p> */}
+      <VisuallyHidden>
+        {featureName} is {roundedValue}%
+      </VisuallyHidden>
 
       <style jsx>{`
         .percentage-gauge {

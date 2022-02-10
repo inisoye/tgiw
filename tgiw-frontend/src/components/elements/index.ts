@@ -4,3 +4,4 @@ export * from './Loader';
 export * from './ImageWithFallback';
 export * from './Dialog';
 export * from './GenreChip';
+export * from './VisuallyHidden';

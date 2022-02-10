@@ -1,6 +1,8 @@
 import * as React from 'react';
 import clsx from 'clsx';
 
+import { VisuallyHidden } from '.';
+
 interface LoaderProps {
   isFullHeight?: boolean;
   isInfiniteLoader?: boolean;
@@ -27,7 +29,7 @@ export const Loader: React.FunctionComponent<LoaderProps> = ({
         )}
       >
         <div className="text-tgiwPurplish bg-tgiwPurplish dot-flashing before:bg-tgiwPurplish after:bg-tgiwPurplish before:text-tgiwPurplish after:text-tgiwPurplish">
-          <p className="sr-only">Loading</p>
+          <VisuallyHidden>Loading</VisuallyHidden>
         </div>
       </div>
 
