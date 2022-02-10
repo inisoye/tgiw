@@ -6,8 +6,7 @@ interface ImageWithFallbackProps {
   fallbackSrc: string;
   alt: string;
 
-  // All other props
-  [rest: string]: any;
+  [rest: string]: any; // All other props
 }
 
 export const ImageWithFallback: React.FunctionComponent<
