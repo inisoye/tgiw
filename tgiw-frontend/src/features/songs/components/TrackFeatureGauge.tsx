@@ -29,9 +29,9 @@ export const TrackFeatureGauge: React.FunctionComponent<
         </div>
       </div>
 
-      <VisuallyHidden>
+      {/* <VisuallyHidden>
         {featureName} is {roundedValue}%
-      </VisuallyHidden>
+      </VisuallyHidden> */}
 
       <style jsx>{`
         .percentage-gauge {
