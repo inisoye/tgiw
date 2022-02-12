@@ -7,13 +7,17 @@ interface LoaderProps {
   isFullHeight?: boolean;
   isInfiniteLoader?: boolean;
   isAlignedRight?: boolean;
+  isSmall?: boolean;
 }
 
 export const Loader: React.FunctionComponent<LoaderProps> = ({
   isFullHeight,
   isInfiniteLoader,
   isAlignedRight,
+  isSmall,
 }) => {
+  const size = `${isSmall ? '6' : '8'}px`;
+
   return (
     <>
       <div
@@ -36,8 +40,8 @@ export const Loader: React.FunctionComponent<LoaderProps> = ({
       <style jsx>{`
         .dot-flashing {
           position: relative;
-          width: 8px;
-          height: 8px;
+          width: ${size};
+          height: ${size};
           border-radius: 5px;
           animation: dotFlashing 1s infinite linear alternate;
           animation-delay: 0.5s;
@@ -52,18 +56,18 @@ export const Loader: React.FunctionComponent<LoaderProps> = ({
         }
 
         .dot-flashing::before {
-          left: -13px;
-          width: 8px;
-          height: 8px;
+          left: ${isSmall ? '-10' : '-13'}px;
+          width: ${size};
+          height: ${size};
           border-radius: 5px;
           animation: dotFlashing 1s infinite alternate;
           animation-delay: 0s;
         }
 
         .dot-flashing::after {
-          left: 13px;
-          width: 8px;
-          height: 8px;
+          left: ${isSmall ? '10' : '13'}px;
+          width: ${size};
+          height: ${size};
           border-radius: 5px;
           animation: dotFlashing 1s infinite alternate;
           animation-delay: 1s;

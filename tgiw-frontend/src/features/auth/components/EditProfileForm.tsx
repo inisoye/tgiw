@@ -74,7 +74,7 @@ export const EditProfileForm: React.FunctionComponent<EditProfileFormProps> = ({
 
             {isLoading && (
               <div className="pr-4">
-                <Loader isAlignedRight />
+                <Loader isAlignedRight isSmall />
               </div>
             )}
           </button>

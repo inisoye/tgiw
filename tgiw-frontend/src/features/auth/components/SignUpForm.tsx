@@ -96,7 +96,7 @@ export const SignUpForm: React.FunctionComponent<SignUpFormProps> = ({
 
             {isLoading && (
               <div className="pr-4">
-                <Loader isAlignedRight />
+                <Loader isAlignedRight isSmall />
               </div>
             )}
           </button>

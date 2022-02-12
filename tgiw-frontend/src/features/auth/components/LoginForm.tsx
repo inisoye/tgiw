@@ -84,7 +84,7 @@ export const LoginForm: React.FunctionComponent<LoginFormProps> = ({
 
             {isLoading && (
               <div className="pr-4">
-                <Loader isAlignedRight />
+                <Loader isAlignedRight isSmall />
               </div>
             )}
           </button>
