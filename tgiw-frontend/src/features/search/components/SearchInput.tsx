@@ -31,7 +31,7 @@ export const SearchInput: React.FunctionComponent<SearchInputProps> = ({
 
   return (
     <>
-      <div className="flex items-center text-tgiwPurplish transition duration-700 ease-in-out border-b-2 border-b-gray-300 focus-within:border-b-gray-700 input-wrapper bg-gray-100 px-4 focus-within:ring-2 focus-within:ring-blue-600 focus-within:border-b-transparent">
+      <div className="input-wrapper flex items-center border-b-2 border-b-gray-300 bg-gray-100 px-4 text-tgiwPurplish transition duration-700 ease-in-out focus-within:border-b-gray-700 focus-within:border-b-transparent focus-within:ring-2 focus-within:ring-blue-600">
         <span>
           <svg
             width={19}
@@ -44,7 +44,7 @@ export const SearchInput: React.FunctionComponent<SearchInputProps> = ({
               strokeWidth={2.5}
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="transition duration-700 ease-in-out stroke-gray-400 search-path"
+              className="search-path stroke-gray-400 transition duration-700 ease-in-out"
             />
           </svg>
         </span>
@@ -54,11 +54,11 @@ export const SearchInput: React.FunctionComponent<SearchInputProps> = ({
           autoFocus
           placeholder="Genres, countries, songs, or artists"
           value={filter}
-          onChange={(event) => {
+          onChange={event => {
             handleFilterChange(event);
             debouncedRefetch();
           }}
-          className="w-full p-3 pl-4 pr-5 text-lg bg-transparent focus:outline-none placeholder:text-gray-400 stroke-gray-400 font-heading"
+          className="w-full bg-transparent stroke-gray-400 p-3 pl-4 pr-5 font-heading text-lg placeholder:text-gray-400 focus:outline-none"
         />
 
         {isLoading && (
@@ -80,7 +80,7 @@ export const SearchInput: React.FunctionComponent<SearchInputProps> = ({
                 strokeWidth={2.5}
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="transition duration-700 ease-in-out stroke-gray-400 close-path"
+                className="close-path stroke-gray-400 transition duration-700 ease-in-out"
               />
             </svg>
           </button>

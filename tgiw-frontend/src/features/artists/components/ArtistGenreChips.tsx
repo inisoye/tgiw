@@ -13,10 +13,10 @@ export const ArtistGenreChips: React.FunctionComponent<
   return (
     <>
       {!!genres?.length && (
-        <section className="pb-8 lg:top-10 lg:sticky lg:pr-9 lg:pb-0 ">
+        <section className="pb-8 lg:sticky lg:top-10 lg:pr-9 lg:pb-0 ">
           <h2 className="text-xl">Genres</h2>
 
-          <ul className="flex flex-wrap gap-2 mt-4">
+          <ul className="mt-4 flex flex-wrap gap-2">
             {genres?.map(({ color, id, name }) => {
               return (
                 <li key={id}>

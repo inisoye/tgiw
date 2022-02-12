@@ -7,10 +7,10 @@ export const SidebarAuthLinks: React.FunctionComponent<
   SidebarAuthLinksProps
 > = () => {
   return (
-    <div className="px-4 mt-auto">
+    <div className="mt-auto px-4">
       <div>
         <Link href="/log-in">
-          <a className="block w-full px-4 py-2 mt-20 transition duration-500 ease-in-out rounded-md hover:scale-105 active:scale-[0.95] bg-gray-300 bg-opacity-50 hover:bg-gray-200">
+          <a className="mt-20 block w-full rounded-md bg-gray-300 bg-opacity-50 px-4 py-2 transition duration-500 ease-in-out hover:scale-105 hover:bg-gray-200 active:scale-[0.95]">
             Log in
           </a>
         </Link>
@@ -18,7 +18,7 @@ export const SidebarAuthLinks: React.FunctionComponent<
 
       <div>
         <Link href="/sign-up">
-          <a className="block w-full px-4 py-2 mt-4 transition duration-500 ease-in-out rounded-md hover:scale-105 active:scale-[0.95] bg-tgiwPurplish text-white">
+          <a className="mt-4 block w-full rounded-md bg-tgiwPurplish px-4 py-2 text-white transition duration-500 ease-in-out hover:scale-105 active:scale-[0.95]">
             Sign up
           </a>
         </Link>

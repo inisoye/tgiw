@@ -33,17 +33,17 @@ export const Search: React.FunctionComponent<SearchProps> = () => {
 
   const debouncedRefetch = React.useMemo(
     () => debounceFn(refetch, { wait: 500 }),
-    [refetch]
+    [refetch],
   );
 
   const artists = React.useMemo(
     () => pickPropertyFromSongs(songs, 'artists'),
-    [songs]
+    [songs],
   );
 
   const genres = React.useMemo(
     () => pickPropertyFromSongs(songs, 'genres'),
-    [songs]
+    [songs],
   );
 
   const areSuggestionsDisplayed = !filter;
@@ -87,7 +87,7 @@ export const Search: React.FunctionComponent<SearchProps> = () => {
           <span className="text-tgiwOrange"> &quot;{filter}&quot;</span>. Try
           using the{' '}
           <Link href="/genre-finder">
-            <a className="text-blue-600 underline transition duration-500 ease-in-out hover:text-blue-900 underline-offset-2 decoration-2">
+            <a className="text-blue-600 underline decoration-2 underline-offset-2 transition duration-500 ease-in-out hover:text-blue-900">
               Genre Finder
             </a>
           </Link>{' '}

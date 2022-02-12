@@ -48,7 +48,7 @@ export const SongDetails: React.FunctionComponent<SongDetailsProps> = () => {
 
     const form = event.target as HTMLFormElement;
     const { value: contributorNote } = form.elements.namedItem(
-      'contributorNote'
+      'contributorNote',
     ) as HTMLTextAreaElement;
 
     if (songDetails) {
@@ -58,12 +58,12 @@ export const SongDetails: React.FunctionComponent<SongDetailsProps> = () => {
         onSuccess: () => {
           launchNotification(
             'success',
-            'Your contribution has been submitted successfully.'
+            'Your contribution has been submitted successfully.',
           );
           closeDialog();
         },
 
-        onError: (error) => {
+        onError: error => {
           const errorMessage = formatAxiosErrorMessage(error as AxiosError);
           launchNotification('error', errorMessage);
         },
@@ -76,13 +76,13 @@ export const SongDetails: React.FunctionComponent<SongDetailsProps> = () => {
   }
 
   return (
-    <div className="relative max-w-xl py-16 pb-24 mx-auto text-white">
+    <div className="relative mx-auto max-w-xl py-16 pb-24 text-white">
       <Head>
         <title>{name}&apos;s Genres - The Genre isn&apos;t World</title>
         <meta
           name="description"
           content={`The genres associated with ${name} by ${pickArtistsNames(
-            artists as FormattedArtist[]
+            artists as FormattedArtist[],
           )}.`}
         />
       </Head>
@@ -95,7 +95,7 @@ export const SongDetails: React.FunctionComponent<SongDetailsProps> = () => {
         isContributionLoading={isContributionLoading}
       />
 
-      <div className="w-1/2 min-w-[150px] max-w-[200px] overflow-hidden rounded-2xl ml-8">
+      <div className="ml-8 w-1/2 min-w-[150px] max-w-[200px] overflow-hidden rounded-2xl">
         <ImageWithFallback
           src={imageUrl}
           fallbackSrc="/images/song.jpg"
@@ -103,12 +103,12 @@ export const SongDetails: React.FunctionComponent<SongDetailsProps> = () => {
           width="100%"
           height="100%"
           objectFit="cover"
-          className="relative w-full h-full"
+          className="relative h-full w-full"
         />
       </div>
 
-      <div className="relative p-8 pb-16 space-y-8 rounded-md bg-tgiwBlue-dark -top-10">
-        <h1 className="max-w-md ml-auto text-5xl text-right break-words">
+      <div className="relative -top-10 space-y-8 rounded-md bg-tgiwBlue-dark p-8 pb-16">
+        <h1 className="ml-auto max-w-md break-words text-right text-5xl">
           {name}
         </h1>
 
@@ -120,7 +120,7 @@ export const SongDetails: React.FunctionComponent<SongDetailsProps> = () => {
       {userRole === 'contributor' && (
         <button
           onClick={openDialog}
-          className="bottom-0 right-0 w-full px-4 py-6 transition-colors duration-300 rounded-md md:rounded-none md:fixed bg-tgiwYellow hover:bg-tgiwOrange text-tgiwPurplish mdrounded-md eas"
+          className="mdrounded-md eas bottom-0 right-0 w-full rounded-md bg-tgiwYellow px-4 py-6 text-tgiwPurplish transition-colors duration-300 hover:bg-tgiwOrange md:fixed md:rounded-none"
         >
           Contribute this song to TGIW
         </button>

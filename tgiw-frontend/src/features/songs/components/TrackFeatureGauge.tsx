@@ -15,14 +15,14 @@ export const TrackFeatureGauge: React.FunctionComponent<
 
   return (
     <>
-      <div aria-hidden className="flex items-center justify-between pt-4 h-11">
-        <p className="text-sm text-left capitalize text-tgiwPurplish text-opacity-70">
+      <div aria-hidden className="flex h-11 items-center justify-between pt-4">
+        <p className="text-left text-sm capitalize text-tgiwPurplish text-opacity-70">
           {featureName}
         </p>
 
-        <div className="relative flex items-center w-3/5 h-5 px-2 ml-10 rounded-md shrink-0 bg-tgiwBlue">
-          <div className="absolute flex justify-center w-4 h-3 rounded-full bg-tgiwOrange percentage-gauge">
-            <span className="text-xs text-center -translate-y-6 text-tgiwPurplish text-opacity-70">
+        <div className="relative ml-10 flex h-5 w-3/5 shrink-0 items-center rounded-md bg-tgiwBlue px-2">
+          <div className="percentage-gauge absolute flex h-3 w-4 justify-center rounded-full bg-tgiwOrange">
+            <span className="-translate-y-6 text-center text-xs text-tgiwPurplish text-opacity-70">
               {roundedValue}%
             </span>
           </div>

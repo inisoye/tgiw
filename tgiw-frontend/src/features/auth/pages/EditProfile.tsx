@@ -36,7 +36,7 @@ export const EditProfile: React.FunctionComponent<EditProfileProps> = () => {
         form.reset();
         launchNotification(
           'success',
-          'Update successful. Redirecting you to the homepage.'
+          'Update successful. Redirecting you to the homepage.',
         );
 
         /**
@@ -51,11 +51,11 @@ export const EditProfile: React.FunctionComponent<EditProfileProps> = () => {
             onSuccess: () => {
               window.location.href = '/';
             },
-          }
+          },
         );
       },
 
-      onError: (error) => {
+      onError: error => {
         const errorMessage = formatAxiosErrorMessage(error as AxiosError);
         launchNotification('error', errorMessage);
       },

@@ -24,10 +24,10 @@ export const SecondaryLayout: React.FunctionComponent<SecondaryLayoutProps> = ({
 
       <main
         className={clsx(
-          'min-h-[calc(100vh-79px)]  bg-gray-900 pb-8 overflow-auto',
+          'min-h-[calc(100vh-79px)]  overflow-auto bg-gray-900 pb-8',
           {
             'px-8 md:px-14': hasChildrenMargin,
-          }
+          },
         )}
       >
         <div

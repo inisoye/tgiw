@@ -56,8 +56,8 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
 
     await queryClient.prefetchQuery('10songs', get10Songs);
 
-    const flagQueries = HOMEPAGE_COUNTRIES.map((country) =>
-      queryClient.prefetchQuery(['flag', country], () => getFlag(country))
+    const flagQueries = HOMEPAGE_COUNTRIES.map(country =>
+      queryClient.prefetchQuery(['flag', country], () => getFlag(country)),
     );
 
     await Promise.all(flagQueries);
@@ -76,7 +76,7 @@ const Home: NextPageWithLayout = () => {
   const { data: songs } = use10Songs();
 
   const flagsResponse = useFlags(HOMEPAGE_COUNTRIES);
-  const flags = flagsResponse.map((r) => r.data);
+  const flags = flagsResponse.map(r => r.data);
 
   if (user) {
     router.replace('/songs');
@@ -92,33 +92,33 @@ const Home: NextPageWithLayout = () => {
         />
       </Head>
 
-      <section className="sm:max-w-xl w-full mx-auto lg:max-w-full p-6 rounded bg-[#A3BBCE]">
-        <div className="py-6 mx-auto overflow-hidden text-center rounded-lg bg-tgiwBlue-light lg:text-left lg:flex lg:justify-between lg:space-x-6 lg:items-start">
+      <section className="mx-auto w-full rounded bg-[#A3BBCE] p-6 sm:max-w-xl lg:max-w-full">
+        <div className="mx-auto overflow-hidden rounded-lg bg-tgiwBlue-light py-6 text-center lg:flex lg:items-start lg:justify-between lg:space-x-6 lg:text-left">
           <div className="px-6">
-            <h1 className="max-w-sm mx-auto text-3xl lg:mx-0 sm:text-4xl">
+            <h1 className="mx-auto max-w-sm text-3xl sm:text-4xl lg:mx-0">
               Curated tunes from all over the globe
             </h1>
 
-            <p className="max-w-md mx-auto mt-4 text-tgiwPurplish text-opacity-60 lg:mx-0">
+            <p className="mx-auto mt-4 max-w-md text-tgiwPurplish text-opacity-60 lg:mx-0">
               Extend your music taste with songs from a diverse catalogue
               spanning numerous genres.
             </p>
 
             <Link href="/sign-up">
-              <a className="inline-block text-sm px-4 py-2 mt-8 transition duration-500 ease-in-out rounded-md hover:scale-105 active:scale-[0.95] bg-tgiwPurplish text-white">
+              <a className="mt-8 inline-block rounded-md bg-tgiwPurplish px-4 py-2 text-sm text-white transition duration-500 ease-in-out hover:scale-105 active:scale-[0.95]">
                 Get started
               </a>
             </Link>
           </div>
 
-          <div className="lg:max-w-[40%] max-h-60 overflow-hidden relative rounded-l-md">
-            <div className="absolute z-[1] w-full h-full bg-gradient-to-b lg:bg-gradient-to-l from-transparent to-tgiwBlue-light"></div>
+          <div className="relative max-h-60 overflow-hidden rounded-l-md lg:max-w-[40%]">
+            <div className="absolute z-[1] h-full w-full bg-gradient-to-b from-transparent to-tgiwBlue-light lg:bg-gradient-to-l"></div>
 
-            <ul className="relative flex flex-wrap gap-3 mt-12 justify-left w-[140%] -left-4 lg:mt-0 lg:items-start card-home">
+            <ul className="justify-left card-home relative -left-4 mt-12 flex w-[140%] flex-wrap gap-3 lg:mt-0 lg:items-start">
               {HOMEPAGE_COUNTRIES.map((country, index) => (
                 <li
                   key={country}
-                  className="py-1.5 px-2 bg-gray-200 bg-opacity-40 rounded"
+                  className="rounded bg-gray-200 bg-opacity-40 py-1.5 px-2"
                 >
                   {country} {flags[index]}
                 </li>
@@ -128,28 +128,28 @@ const Home: NextPageWithLayout = () => {
         </div>
       </section>
 
-      <div className="flex flex-col items-center w-full gap-4 p-6 py-4 mx-auto mt-12 rounded-md lg:justify-between bg-opacity-30 bg-tgiwOrange lg:flex-row sm:max-w-xl lg:max-w-full">
+      <div className="mx-auto mt-12 flex w-full flex-col items-center gap-4 rounded-md bg-tgiwOrange bg-opacity-30 p-6 py-4 sm:max-w-xl lg:max-w-full lg:flex-row lg:justify-between">
         <p className="max-w-sm text-center lg:text-left">
           Find the genre of any digital track in the world. Well, kinda.
         </p>
 
         <Link href="/genre-finder">
-          <a className="inline-block text-sm px-4 py-2  transition duration-500 ease-in-out rounded-md hover:scale-105 active:scale-[0.95] bg-tgiwOrange text-white">
+          <a className="inline-block rounded-md bg-tgiwOrange px-4  py-2 text-sm text-white transition duration-500 ease-in-out hover:scale-105 active:scale-[0.95]">
             Try without signing in
           </a>
         </Link>
       </div>
 
       <section className="mt-12">
-        <h1 className="text-lg text-center lg:text-left text-tgiwPurplish text-opacity-40">
+        <h1 className="text-center text-lg text-tgiwPurplish text-opacity-40 lg:text-left">
           Recently Added
         </h1>
 
         <ul
           aria-label="songs"
-          className="grid grid-cols-2 gap-4 mx-auto mt-2 sm:gap-8 sm:max-w-xl md:grid-cols-2 lg:max-w-4xl xl:mx-0 xl:max-w-none lg:grid-cols-3 xl:grid-cols-4"
+          className="mx-auto mt-2 grid grid-cols-2 gap-4 sm:max-w-xl sm:gap-8 md:grid-cols-2 lg:max-w-4xl lg:grid-cols-3 xl:mx-0 xl:max-w-none xl:grid-cols-4"
         >
-          {songs?.map((song) => {
+          {songs?.map(song => {
             return (
               <li key={song.id}>
                 <SongCard song={song} />
@@ -159,13 +159,13 @@ const Home: NextPageWithLayout = () => {
         </ul>
       </section>
 
-      <div className="flex flex-col items-center w-full gap-4 p-6 py-4 mx-auto my-12 rounded-md mb-14 md:mb-8 lg:justify-between bg-opacity-30 bg-tgiwYellow lg:flex-row sm:max-w-xl lg:max-w-full">
+      <div className="mx-auto my-12 mb-14 flex w-full flex-col items-center gap-4 rounded-md bg-tgiwYellow bg-opacity-30 p-6 py-4 sm:max-w-xl md:mb-8 lg:max-w-full lg:flex-row lg:justify-between">
         <p className="max-w-sm text-center lg:text-left">
           {"You'll need an account to view more songs, song details or genres."}
         </p>
 
         <Link href="/sign-up">
-          <a className="inline-block text-sm px-4 py-2 transition duration-500 ease-in-out rounded-md hover:scale-105 active:scale-[0.95] bg-tgiwYellow ">
+          <a className="inline-block rounded-md bg-tgiwYellow px-4 py-2 text-sm transition duration-500 ease-in-out hover:scale-105 active:scale-[0.95] ">
             Create account
           </a>
         </Link>

@@ -17,7 +17,7 @@ export const Input: React.FunctionComponent<InputProps> = ({
   placeholder,
   autoFocus,
   required,
-  defaultValue
+  defaultValue,
 }) => {
   return (
     <input
@@ -28,7 +28,7 @@ export const Input: React.FunctionComponent<InputProps> = ({
       autoFocus={autoFocus}
       required={required}
       defaultValue={defaultValue}
-      className="block w-full p-3 px-4 mt-1 transition duration-700 ease-in-out bg-gray-100 rounded-md sm:text-sm focus:bg-white placeholder:text-opacity-40 focus:border-b-transparent placeholder:text-gray-400"
+      className="mt-1 block w-full rounded-md bg-gray-100 p-3 px-4 transition duration-700 ease-in-out placeholder:text-gray-400 placeholder:text-opacity-40 focus:border-b-transparent focus:bg-white sm:text-sm"
     />
   );
 };

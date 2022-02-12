@@ -8,17 +8,17 @@ export const ContributorGenresList: React.FunctionComponent<
   ContributorGenresListProps
 > = ({ genreNames }) => {
   return (
-    <div className="relative w-4/6 p-8 ml-auto mr-8 bg-white -top-20">
+    <div className="relative -top-20 ml-auto mr-8 w-4/6 bg-white p-8">
       {genreNames?.length ? (
         <>
-          <h2 className="pb-4 text-xl text-gray-900 border-b-2 border-b-gray-900">
+          <h2 className="border-b-2 border-b-gray-900 pb-4 text-xl text-gray-900">
             Associated Genres
           </h2>
 
-          <ul className="border-b-2 divide-y-2 divide-gray-900 border-b-gray-900">
-            {genreNames?.map((g) => {
+          <ul className="divide-y-2 divide-gray-900 border-b-2 border-b-gray-900">
+            {genreNames?.map(g => {
               return (
-                <li key={g} className="py-4 text-gray-900 capitalize">
+                <li key={g} className="py-4 capitalize text-gray-900">
                   {g}
                 </li>
               );
@@ -26,7 +26,7 @@ export const ContributorGenresList: React.FunctionComponent<
           </ul>
         </>
       ) : (
-        <p className="text-lg text-center text-red-700">No genres found</p>
+        <p className="text-center text-lg text-red-700">No genres found</p>
       )}
     </div>
   );

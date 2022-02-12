@@ -17,7 +17,7 @@ export const SearchResultSongs: React.FunctionComponent<
   const queryClient = useQueryClient();
 
   return (
-    <ul className="px-8 mt-4 space-y-6 md:mx-auto md:max-w-[1328px] md:grid md:grid-cols-2 lg:grid-cols-3 md:space-y-0 md:gap-6 md:px-14">
+    <ul className="mt-4 space-y-6 px-8 md:mx-auto md:grid md:max-w-[1328px] md:grid-cols-2 md:gap-6 md:space-y-0 md:px-14 lg:grid-cols-3">
       {songs?.map(({ name, artists, images, id, color, spotifyId }) => {
         const imageUrl = images?.[1]?.url as string;
         const artistsNames = pickArtistsNames(artists);
@@ -56,9 +56,9 @@ export const SearchResultSongCard: React.FunctionComponent<
 > = ({ imageUrl, name, artistsNames, spotifyId }) => {
   return (
     <Link href={`/genre-finder/${spotifyId}`}>
-      <a className="block w-full p-3 rounded-md md:inline-block bg-black bg-opacity-40 hover:bg-tgiwPurplish lg:hover:scale-[1.02] lg:active:scale-[0.98] transition duration-300 ease-in-out">
+      <a className="block w-full rounded-md bg-black bg-opacity-40 p-3 transition duration-300 ease-in-out hover:bg-tgiwPurplish md:inline-block lg:hover:scale-[1.02] lg:active:scale-[0.98]">
         <div className="flex items-center space-x-4">
-          <div className="w-16 overflow-hidden rounded-md shrink-0">
+          <div className="w-16 shrink-0 overflow-hidden rounded-md">
             <ImageWithFallback
               key={spotifyId}
               src={imageUrl}
@@ -67,7 +67,7 @@ export const SearchResultSongCard: React.FunctionComponent<
               width="100%"
               height="100%"
               objectFit="cover"
-              className="relative w-full h-full"
+              className="relative h-full w-full"
             />
           </div>
 

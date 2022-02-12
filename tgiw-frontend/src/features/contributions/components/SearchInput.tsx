@@ -33,12 +33,12 @@ export const SearchInput: React.FunctionComponent<SearchInputProps> = ({
     <>
       <label
         htmlFor="contr-search-input"
-        className="inline-block w-full px-8 mt-8 text-sm text-center"
+        className="mt-8 inline-block w-full px-8 text-center text-sm"
       >
         Find the genres of songs that have not been added to TGIW
       </label>
 
-      <div className="sticky top-0 z-10 flex items-center px-8 mt-2 text-gray-800 transition duration-700 ease-in-out bg-white focus-within:bg-opacity-95 input-wrapper md:px-14">
+      <div className="input-wrapper sticky top-0 z-10 mt-2 flex items-center bg-white px-8 text-gray-800 transition duration-700 ease-in-out focus-within:bg-opacity-95 md:px-14">
         <span>
           <svg
             width={19}
@@ -51,7 +51,7 @@ export const SearchInput: React.FunctionComponent<SearchInputProps> = ({
               strokeWidth={2.5}
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="transition duration-700 ease-in-out stroke-gray-400 search-path"
+              className="search-path stroke-gray-400 transition duration-700 ease-in-out"
             />
           </svg>
         </span>
@@ -62,11 +62,11 @@ export const SearchInput: React.FunctionComponent<SearchInputProps> = ({
           autoFocus
           placeholder="Search for any song"
           value={filter}
-          onChange={(event) => {
+          onChange={event => {
             handleFilterChange(event);
             debouncedRefetch();
           }}
-          className="w-full py-5 pl-4 pr-5 text-xl text-center bg-transparent focus:outline-none placeholder:text-gray-400 stroke-gray-400 font-heading"
+          className="w-full bg-transparent stroke-gray-400 py-5 pl-4 pr-5 text-center font-heading text-xl placeholder:text-gray-400 focus:outline-none"
         />
 
         {isLoading && (
@@ -88,7 +88,7 @@ export const SearchInput: React.FunctionComponent<SearchInputProps> = ({
                 strokeWidth={2.5}
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="transition duration-700 ease-in-out stroke-gray-400 close-path"
+                className="close-path stroke-gray-400 transition duration-700 ease-in-out"
               />
             </svg>
           </button>

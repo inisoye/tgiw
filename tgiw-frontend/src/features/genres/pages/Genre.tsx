@@ -22,7 +22,7 @@ export const Genre: React.FunctionComponent<GenreProps> = () => {
   const { name, color, songs, countries } = genre || {};
 
   const flagsResponse = useFlags(countries);
-  const flags = flagsResponse.map((r) => r.data);
+  const flags = flagsResponse.map(r => r.data);
 
   if (isLoading) {
     return <Loader isFullHeight />;
@@ -38,18 +38,18 @@ export const Genre: React.FunctionComponent<GenreProps> = () => {
         <meta
           name="description"
           content={`Curated songs within the ${convertToTitleCase(
-            name as string
+            name as string,
           )} genre.`}
         />
       </Head>
 
-      <div className="px-4 py-6 rounded-md pt-36 genre-background lg:px-9">
-        <h1 className="text-white capitalize text-4xl lg:text-5xl max-w-[70%] break-words">
+      <div className="genre-background rounded-md px-4 py-6 pt-36 lg:px-9">
+        <h1 className="max-w-[70%] break-words text-4xl capitalize text-white lg:text-5xl">
           {name === 'world' ? `${name} (ew!)` : name}
         </h1>
       </div>
 
-      <div className="relative items-start justify-between px-6 py-12 mt-6 bg-white border-2 border-gray-100 divide-y-2 divide-gray-100 rounded-md lg:divide-y-0 lg:flex lg:px-9">
+      <div className="relative mt-6 items-start justify-between divide-y-2 divide-gray-100 rounded-md border-2 border-gray-100 bg-white px-6 py-12 lg:flex lg:divide-y-0 lg:px-9">
         <GenreCountriesList countries={countries} flags={flags} />
 
         <GenreSongsList countries={countries} songs={songs} />

@@ -17,7 +17,7 @@ export const SearchResultSongs: React.FunctionComponent<
   const queryClient = useQueryClient();
 
   return (
-    <ul className="space-y-3 overflow-auto lg:overflow-visible max-h-[22.3rem] lg:grid lg:grid-cols-2 lg:space-y-0 lg:gap-3 lg:max-h-[16.5rem]">
+    <ul className="max-h-[22.3rem] space-y-3 overflow-auto lg:grid lg:max-h-[16.5rem] lg:grid-cols-2 lg:gap-3 lg:space-y-0 lg:overflow-visible">
       {songs?.slice(0, 4).map(({ name, artists, images, id, color }) => {
         const imageUrl = images?.[1]?.url as string;
         const artistsNames = pickArtistsNames(artists);
@@ -54,9 +54,9 @@ export const SearchResultSongCard: React.FunctionComponent<
 > = ({ id, imageUrl, name, artistsNames, color }) => {
   return (
     <Link href={`/songs/${id}`}>
-      <a className="block w-full p-2 rounded-md md:inline-block song-background lg:hover:scale-[1.02] lg:active:scale-[0.98] transition duration-300 ease-in-out">
+      <a className="song-background block w-full rounded-md p-2 transition duration-300 ease-in-out md:inline-block lg:hover:scale-[1.02] lg:active:scale-[0.98]">
         <div className="flex items-center space-x-4">
-          <div className="w-12 overflow-hidden rounded-md shrink-0">
+          <div className="w-12 shrink-0 overflow-hidden rounded-md">
             <ImageWithFallback
               key={id}
               src={imageUrl}
@@ -65,7 +65,7 @@ export const SearchResultSongCard: React.FunctionComponent<
               width="100%"
               height="100%"
               objectFit="cover"
-              className="relative w-full h-full"
+              className="relative h-full w-full"
             />
           </div>
 

@@ -13,11 +13,11 @@ export const SearchSuggestions: React.FunctionComponent<
 > = ({ suggestions, setFilter }) => {
   return (
     <div className="mt-8">
-      <h2 className="mb-2 text-xs text-tgiwPurplish uppercase text-opacity-40 font-regular">
+      <h2 className="mb-2 font-regular text-xs uppercase text-tgiwPurplish text-opacity-40">
         Suggestions
       </h2>
 
-      <ul className="border-gray-100 divide-y-2 divide-gray-100 border-y-2">
+      <ul className="divide-y-2 divide-gray-100 border-y-2 border-gray-100">
         {suggestions.map(({ id, item }) => (
           <li key={id}>
             <button

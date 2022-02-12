@@ -5,7 +5,7 @@ import type { AuthError } from 'firebase/auth';
 import type { Artist, FormattedArtist, Notification } from '@/types';
 
 export const pickArtistsNames = (
-  artistsObjects: Artist[] | FormattedArtist[]
+  artistsObjects: Artist[] | FormattedArtist[],
 ): string => artistsObjects.map(({ name }) => name).join(', ');
 
 export const getInitials = (string: string) => {
@@ -23,12 +23,12 @@ export const convertToTitleCase = (string: string) =>
   string
     .toLowerCase()
     .split(' ')
-    .map((word) => word.charAt(0).toUpperCase() + word.substring(1))
+    .map(word => word.charAt(0).toUpperCase() + word.substring(1))
     .join(' ');
 
 export const getInputValueFromForm = (
   form: HTMLFormElement,
-  valueName: string
+  valueName: string,
 ) => {
   const { value } = form.elements.namedItem(valueName) as HTMLInputElement;
   return value;
@@ -50,7 +50,7 @@ export const insertSpacesBeforeCapitalLetters = (string: string) => {
  */
 export const capitalizeFirstLetter = (string: string) => {
   const stringWithSpaces = insertSpacesBeforeCapitalLetters(
-    string.toLowerCase()
+    string.toLowerCase(),
   );
 
   return (
@@ -69,7 +69,7 @@ export const formatAxiosErrorMessage = (error: AxiosError) => {
 
   if (Array.isArray(errorMessage)) {
     const allMessages = errorMessage
-      .map((m) => capitalizeFirstLetter(m))
+      .map(m => capitalizeFirstLetter(m))
       .join('. ');
 
     return `Error: ${allMessages}`;

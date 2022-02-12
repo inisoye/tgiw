@@ -16,7 +16,7 @@ export const LargeSongCardImage: React.FunctionComponent<
   LargeSongCardImageProps
 > = ({ imageUrl, name }) => {
   return (
-    <div className="w-1/2 min-w-[150px] max-w-[250px] overflow-hidden rounded-md mx-auto lg:mx-0">
+    <div className="mx-auto w-1/2 min-w-[150px] max-w-[250px] overflow-hidden rounded-md lg:mx-0">
       <ImageWithFallback
         src={imageUrl}
         fallbackSrc="/images/song.jpg"
@@ -24,7 +24,7 @@ export const LargeSongCardImage: React.FunctionComponent<
         width="100%"
         height="100%"
         objectFit="cover"
-        className="relative w-full h-full"
+        className="relative h-full w-full"
       />
     </div>
   );
@@ -46,10 +46,10 @@ export const ArtistLink: React.FunctionComponent<ArtistLinkProps> = ({
   return (
     <Link href={`/artists/${id}`}>
       <a
-        className="flex items-center px-3 py-1.5 space-x-3 transition duration-500 ease-in-out bg-black rounded-md bg-opacity-10 hover:scale-105 active:scale-[0.95]"
+        className="flex items-center space-x-3 rounded-md bg-black bg-opacity-10 px-3 py-1.5 transition duration-500 ease-in-out hover:scale-105 active:scale-[0.95]"
         // onMouseEnter={async () => prefetchArtist(queryClient, id)}
       >
-        <div className="w-8 h-8 overflow-hidden rounded-full shrink-0">
+        <div className="h-8 w-8 shrink-0 overflow-hidden rounded-full">
           <ImageWithFallback
             src={imageUrl}
             key={id}
@@ -58,10 +58,10 @@ export const ArtistLink: React.FunctionComponent<ArtistLinkProps> = ({
             width="100%"
             height="100%"
             objectFit="cover"
-            className="relative w-full h-full"
+            className="relative h-full w-full"
           />
         </div>
-        <span className="truncate text-tgiwPurplish shrink text-opacity-90">
+        <span className="shrink truncate text-tgiwPurplish text-opacity-90">
           {name}
         </span>
       </a>
@@ -81,11 +81,11 @@ export const ArtistLinks: React.FunctionComponent<ArtistLinksProps> = ({
   return (
     <ul
       className={clsx(
-        'flex flex-wrap gap-2 mx-auto lg:mx-0 lg:inline-flex lg:w-full',
+        'mx-auto flex flex-wrap gap-2 lg:mx-0 lg:inline-flex lg:w-full',
         {
-          'justify-center lg:justify-end mt-10': isJustifiedRight,
+          'mt-10 justify-center lg:justify-end': isJustifiedRight,
           'justify-start lg:justify-start': !isJustifiedRight,
-        }
+        },
       )}
     >
       {artists?.map(({ id, name, images }) => {
@@ -116,7 +116,7 @@ export const SnippetButton: React.FunctionComponent<SnippetButtonProps> = ({
     <button
       disabled={isLoading}
       onClick={toggle}
-      className="inline-flex items-center p-2 px-3 space-x-2 text-sm transition duration-500 ease-in-out rounded-md bg-tgiwYellow hover:scale-105 active:scale-[0.95] disabled:opacity-50"
+      className="inline-flex items-center space-x-2 rounded-md bg-tgiwYellow p-2 px-3 text-sm transition duration-500 ease-in-out hover:scale-105 active:scale-[0.95] disabled:opacity-50"
     >
       <span>Snippet {isLoading && 'Loading'}</span>
       <span>
@@ -165,7 +165,7 @@ export const LargeSongCardActionButtons: React.FunctionComponent<
   LargeSongCardActionButtonsProps
 > = ({ duration, toggle, isPlaying, spotifyUrl }) => {
   return (
-    <ul className="inline-flex flex-wrap justify-center w-full gap-2 mt-10 lg:justify-end">
+    <ul className="mt-10 inline-flex w-full flex-wrap justify-center gap-2 lg:justify-end">
       <li className="inline w-max">
         <SnippetButton
           isLoading={!duration}
@@ -191,8 +191,8 @@ export const TrackProgressMeter: React.FunctionComponent<
 > = ({ trackProgressPercentage }) => {
   return (
     <>
-      <div className="w-full h-3 mt-3 bg-black rounded-sm bg-opacity-5">
-        <div className="h-full transition-all duration-200 ease-linear rounded-sm bg-tgiwPurplish meter-length"></div>
+      <div className="mt-3 h-3 w-full rounded-sm bg-black bg-opacity-5">
+        <div className="meter-length h-full rounded-sm bg-tgiwPurplish transition-all duration-200 ease-linear"></div>
       </div>
 
       <style jsx>{`

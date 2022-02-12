@@ -43,7 +43,7 @@ export const Song: React.FunctionComponent<SongProps> = () => {
   } = song || {};
 
   const { isPlaying, toggle, trackProgressPercentage, duration } = useAudio(
-    snippetUrl as string
+    snippetUrl as string,
   );
 
   const imageUrl = images?.[0].url as string;
@@ -62,7 +62,7 @@ export const Song: React.FunctionComponent<SongProps> = () => {
         <meta
           name="description"
           content={`${name} by ${pickArtistsNames(
-            artists as Artist[]
+            artists as Artist[],
           )}. ${contributorNote}`}
         />
       </Head>
@@ -79,8 +79,8 @@ export const Song: React.FunctionComponent<SongProps> = () => {
         color={color}
       />
 
-      <div className="px-6 mt-6 text-center bg-white border-2 border-gray-100 divide-y-2 divide-gray-100 rounded-md lg:text-left lg:py-12 lg:flex lg:space-x-12 lg:divide-y-0 lg:divide-x-2">
-        <div className="py-12 space-y-12 lg:py-0 lg:w-3/5">
+      <div className="mt-6 divide-y-2 divide-gray-100 rounded-md border-2 border-gray-100 bg-white px-6 text-center lg:flex lg:space-x-12 lg:divide-y-0 lg:divide-x-2 lg:py-12 lg:text-left">
+        <div className="space-y-12 py-12 lg:w-3/5 lg:py-0">
           {!!genres?.length && (
             <section>
               <h2 className="text-2xl">Associated Genres</h2>
@@ -122,7 +122,7 @@ export const Song: React.FunctionComponent<SongProps> = () => {
           </section>
         </div>
 
-        <div className="py-12 space-y-8 lg:py-0 lg:px-6">
+        <div className="space-y-8 py-12 lg:py-0 lg:px-6">
           <SmallSongDescriptor heading="Song Mood">
             {getSongMoodMessage(valence)}
           </SmallSongDescriptor>

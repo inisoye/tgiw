@@ -11,7 +11,7 @@ export const getSearchResults = async (params: Params): Promise<Song[]> => {
   const { filter } = params.queryKey[1] as { filter: string };
   // Default filter added here to prevent 500 errors.
   const { data } = await axios.get(
-    `/spotify/tracks?name=${filter || 'love'}&limit=50`
+    `/spotify/tracks?name=${filter || 'love'}&limit=50`,
   );
   return data;
 };

@@ -17,7 +17,7 @@ export const FIREBASE_ADMIN_CONFIG = {
 if (!firebaseAdmin.apps.length) {
   firebaseAdmin.initializeApp({
     credential: firebaseAdmin.credential.cert(
-      FIREBASE_ADMIN_CONFIG as firebaseAdmin.ServiceAccount
+      FIREBASE_ADMIN_CONFIG as firebaseAdmin.ServiceAccount,
     ),
   });
 }

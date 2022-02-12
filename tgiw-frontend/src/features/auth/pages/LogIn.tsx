@@ -29,12 +29,12 @@ export const LogIn: React.FunctionComponent<LogInProps> = () => {
         form.reset();
         launchNotification(
           'success',
-          'Login successful. Redirecting you to the homepage.'
+          'Login successful. Redirecting you to the homepage.',
         );
         window.location.href = '/';
       },
 
-      onError: (error) => {
+      onError: error => {
         const errorMessage = formatFirebaseErrorMessage(error as AuthError);
         launchNotification('error', errorMessage);
       },

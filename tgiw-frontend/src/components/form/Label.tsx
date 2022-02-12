@@ -12,7 +12,7 @@ export const Label: React.FunctionComponent<LabelProps> = ({
   return (
     <label
       htmlFor={htmlFor}
-      className="text-sm text-opacity-50 text-tgiwPurplish"
+      className="text-sm text-tgiwPurplish text-opacity-50"
     >
       {text}
     </label>

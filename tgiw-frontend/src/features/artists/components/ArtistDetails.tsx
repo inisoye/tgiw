@@ -17,19 +17,19 @@ export const ArtistDetails: React.FunctionComponent<ArtistDetailsProps> = ({
 }) => {
   return (
     <>
-      <div className="relative w-full overflow-hidden rounded-md h-96 lg:h-[40rem]">
+      <div className="relative h-96 w-full overflow-hidden rounded-md lg:h-[40rem]">
         <ImageWithFallback
           src={imageUrl}
           fallbackSrc="/images/artist.jpg"
           alt={name as string}
           layout="fill"
           objectFit="cover"
-          className="relative w-full h-full"
+          className="relative h-full w-full"
         />
       </div>
 
-      <div className="relative flex items-center justify-between gap-4 px-4 py-6 mx-4 rounded-md bg-tgiwBlue-light lg:gap-9 lg:mx-9 bottom-12 lg:px-9 artist-background">
-        <h1 className="text-4xl lg:text-5xl max-w-[70%] break-words">{name}</h1>
+      <div className="artist-background relative bottom-12 mx-4 flex items-center justify-between gap-4 rounded-md bg-tgiwBlue-light px-4 py-6 lg:mx-9 lg:gap-9 lg:px-9">
+        <h1 className="max-w-[70%] break-words text-4xl lg:text-5xl">{name}</h1>
 
         <SpotifyLink spotifyUrl={spotifyUrl} />
       </div>

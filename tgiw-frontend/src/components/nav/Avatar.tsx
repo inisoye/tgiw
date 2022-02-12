@@ -12,7 +12,7 @@ export const Avatar: React.FunctionComponent<AvatarProps> = ({ dbUser }) => {
   return (
     <AvatarPrimitive.Root
       aria-hidden
-      className="inline-flex items-center justify-center text-sm text-white bg-teal-600 rounded-full w-7 h-7"
+      className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-teal-600 text-sm text-white"
     >
       <AvatarPrimitive.Fallback>
         {!!dbUser && getInitials(dbUser?.userName)}

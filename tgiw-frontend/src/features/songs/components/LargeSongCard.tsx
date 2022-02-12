@@ -33,12 +33,12 @@ export const LargeSongCard: React.FunctionComponent<LargeSongCardProps> = ({
 }) => {
   return (
     <>
-      <section className="w-full p-6 rounded-md card-background">
-        <div className="p-4 mx-auto text-center bg-black rounded-md bg-opacity-5 lg:text-left lg:flex lg:justify-between lg:space-x-6">
+      <section className="card-background w-full rounded-md p-6">
+        <div className="mx-auto rounded-md bg-black bg-opacity-5 p-4 text-center lg:flex lg:justify-between lg:space-x-6 lg:text-left">
           <LargeSongCardImage imageUrl={imageUrl} name={name as string} />
 
-          <div className="lg:text-right lg:w-[60%] lg:max-w-[60%]">
-            <h1 className="mx-10 mt-10 text-4xl break-words text-tgiwPurplish lg:mx-0 lg:mt-0 lg:text-5xl">
+          <div className="lg:w-[60%] lg:max-w-[60%] lg:text-right">
+            <h1 className="mx-10 mt-10 break-words text-4xl text-tgiwPurplish lg:mx-0 lg:mt-0 lg:text-5xl">
               {name}
             </h1>
 

@@ -1,5 +1,5 @@
 export const getSongMoodMessage = (
-  valence: number | undefined
+  valence: number | undefined,
 ): string | undefined => {
   if (!valence) return;
 
@@ -15,7 +15,7 @@ export const getSongMoodMessage = (
 };
 
 export const getGaugeColor = (
-  featureValue: number | undefined
+  featureValue: number | undefined,
 ): string | undefined => {
   if (!featureValue) return;
 

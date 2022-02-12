@@ -28,7 +28,7 @@ export const MobileNav: React.FunctionComponent<MobileNavProps> = () => {
   return (
     <>
       <button
-        className="fixed bottom-0 z-[2] w-screen py-4 mt-auto text-lg bg-white border-t border-gray-100 font-heading md:hidden"
+        className="fixed bottom-0 z-[2] mt-auto w-screen border-t border-gray-100 bg-white py-4 font-heading text-lg md:hidden"
         onClick={openDialog}
       >
         Open menu
@@ -40,7 +40,7 @@ export const MobileNav: React.FunctionComponent<MobileNavProps> = () => {
         isMobileMenu
         ariaLabel="Menu"
       >
-        <div className="flex items-center justify-between gap-4 pl-6 overflow-auto leading-3 transition duration-300 ease-in-out bg-gray-900 wrap md:hidden">
+        <div className="wrap flex items-center justify-between gap-4 overflow-auto bg-gray-900 pl-6 leading-3 transition duration-300 ease-in-out md:hidden">
           <div className="w-max shrink-0">
             <Image
               src="/logos/tgiwLogoHorizontal.svg"
@@ -51,7 +51,7 @@ export const MobileNav: React.FunctionComponent<MobileNavProps> = () => {
           </div>
 
           <button
-            className="p-4 px-6 py-8 text-right text-white bg-tgiwPurplish"
+            className="bg-tgiwPurplish p-4 px-6 py-8 text-right text-white"
             onClick={closeDialog}
           >
             Close menu
@@ -59,21 +59,21 @@ export const MobileNav: React.FunctionComponent<MobileNavProps> = () => {
         </div>
 
         {!!user && (
-          <div className="flex items-center w-full px-6 py-3 space-x-4 text-left transition duration-500 ease-in-out bg-gray-100 focus:outline-none focus:bg-gray-300 ">
+          <div className="flex w-full items-center space-x-4 bg-gray-100 px-6 py-3 text-left transition duration-500 ease-in-out focus:bg-gray-300 focus:outline-none ">
             <Avatar dbUser={dbUser} />
 
-            <span className="w-[calc(100%_-_3rem)] inline-block truncate text-tgiwPurplish text-opacity-90">
+            <span className="inline-block w-[calc(100%_-_3rem)] truncate text-tgiwPurplish text-opacity-90">
               {dbUser?.userName}
             </span>
           </div>
         )}
 
-        <nav className=" w-full h-[calc(100%-7.9rem)] my-12 px-2">
-          <ul className="px-4 space-y-3 text-lg font-heading">
+        <nav className=" my-12 h-[calc(100%-7.9rem)] w-full px-2">
+          <ul className="space-y-3 px-4 font-heading text-lg">
             {menuLinks.map(({ link, text }) => (
               <li key={link} className="relative" onClick={closeDialog}>
                 <Link href={link}>
-                  <a className="block w-full p-4 transition duration-500 ease-in-out bg-opacity-25 rounded-md bg-tgiwBlue-light hover:bg-opacity-50">
+                  <a className="block w-full rounded-md bg-tgiwBlue-light bg-opacity-25 p-4 transition duration-500 ease-in-out hover:bg-opacity-50">
                     {text}
                   </a>
                 </Link>
@@ -81,12 +81,12 @@ export const MobileNav: React.FunctionComponent<MobileNavProps> = () => {
             ))}
           </ul>
 
-          <div className="max-w-[200px] px-4 my-12">
+          <div className="my-12 max-w-[200px] px-4">
             {!user ? (
               <div className="space-y-3">
                 <div onClick={closeDialog}>
                   <Link href="/log-in">
-                    <a className="block w-full px-4 py-2 transition duration-500 ease-in-out rounded-md bg-tgiwYellow">
+                    <a className="block w-full rounded-md bg-tgiwYellow px-4 py-2 transition duration-500 ease-in-out">
                       Log in
                     </a>
                   </Link>
@@ -94,7 +94,7 @@ export const MobileNav: React.FunctionComponent<MobileNavProps> = () => {
 
                 <div onClick={closeDialog}>
                   <Link href="/sign-up">
-                    <a className="block w-full px-4 py-2 transition duration-500 ease-in-out rounded-md bg-tgiwOrange">
+                    <a className="block w-full rounded-md bg-tgiwOrange px-4 py-2 transition duration-500 ease-in-out">
                       Sign up
                     </a>
                   </Link>
@@ -104,7 +104,7 @@ export const MobileNav: React.FunctionComponent<MobileNavProps> = () => {
               <div className="space-y-3">
                 <div onClick={closeDialog}>
                   <Link href="/edit-profile">
-                    <a className="block w-full px-4 py-2 transition duration-500 ease-in-out rounded-md bg-opacity-60 bg-tgiwBlue-light">
+                    <a className="block w-full rounded-md bg-tgiwBlue-light bg-opacity-60 px-4 py-2 transition duration-500 ease-in-out">
                       Edit profile
                     </a>
                   </Link>
@@ -115,7 +115,7 @@ export const MobileNav: React.FunctionComponent<MobileNavProps> = () => {
                     postLogOut();
                     closeDialog();
                   }}
-                  className="block w-full px-4 py-2 text-left text-red-700 transition duration-500 ease-in-out bg-red-200 rounded-md"
+                  className="block w-full rounded-md bg-red-200 px-4 py-2 text-left text-red-700 transition duration-500 ease-in-out"
                 >
                   Log out
                 </button>

@@ -12,7 +12,7 @@ export const SpotifyLink: React.FunctionComponent<SpotifyLinkProps> = ({
       href={spotifyUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center p-2 px-3 space-x-2 text-sm text-white transition duration-500 ease-in-out rounded-md bg-spotifyGreen hover:scale-105 active:scale-[0.95]"
+      className="inline-flex items-center space-x-2 rounded-md bg-spotifyGreen p-2 px-3 text-sm text-white transition duration-500 ease-in-out hover:scale-105 active:scale-[0.95]"
     >
       <span>Spotify</span>
       <span>

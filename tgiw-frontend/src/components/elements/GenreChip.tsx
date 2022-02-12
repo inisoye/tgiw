@@ -28,12 +28,12 @@ export const GenreChip: React.FunctionComponent<GenreChipProps> = ({
       <Link href={`/genres/${id}`}>
         <a
           className={clsx(
-            'chip inline-block py-1.5 px-2 text-white capitalize rounded-md hover:scale-105 active:scale-[0.95] transition ease-in-out duration-300',
+            'chip inline-block rounded-md py-1.5 px-2 capitalize text-white transition duration-300 ease-in-out hover:scale-105 active:scale-[0.95]',
             {
               'text-sm': !isBaseTextSize && !isExtraSmallTextSize,
               'text-base': isBaseTextSize,
               'text-xs': isExtraSmallTextSize,
-            }
+            },
           )}
           // onMouseEnter={async () => {
           //   if (hasPrefetch) prefetchGenre(queryClient, id);

@@ -11,5 +11,3 @@ export const useDialogControl = (initialState = false) => {
     closeDialog,
   };
 };
-
-

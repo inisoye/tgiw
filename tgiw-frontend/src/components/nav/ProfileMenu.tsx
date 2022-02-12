@@ -16,26 +16,26 @@ export const ProfileMenu: React.FunctionComponent<ProfileMenuProps> = ({
   const { mutate: postLogOut } = useLogOut();
 
   return (
-    <div className="w-full px-4 mt-auto">
+    <div className="mt-auto w-full px-4">
       <DropdownMenuPrimitive.Root>
-        <DropdownMenuPrimitive.Trigger className="flex items-center w-[9.625rem] px-4 py-2 space-x-4 text-left transition duration-500 ease-in-out bg-gray-200 rounded-md mt-5 active:scale-90 hover:bg-gray-300 focus:outline-none focus:bg-gray-300 ">
+        <DropdownMenuPrimitive.Trigger className="mt-5 flex w-[9.625rem] items-center space-x-4 rounded-md bg-gray-200 px-4 py-2 text-left transition duration-500 ease-in-out hover:bg-gray-300 focus:bg-gray-300 focus:outline-none active:scale-90 ">
           <Avatar dbUser={dbUser} />
 
-          <span className="w-[calc(100%_-_3rem)] inline-block truncate text-tgiwPurplish text-opacity-90">
+          <span className="inline-block w-[calc(100%_-_3rem)] truncate text-tgiwPurplish text-opacity-90">
             {dbUser?.userName}
           </span>
         </DropdownMenuPrimitive.Trigger>
 
-        <DropdownMenuPrimitive.Content className="bg-gray-200 w-[9.625rem] -translate-y-2 rounded-md">
-          <DropdownMenuPrimitive.Item className="w-full px-4 py-2 text-sm transition duration-500 ease-in-out rounded-md cursor-pointer text-tgiwPurplish text-opacity-90 focus:outline-none focus:bg-gray-300">
+        <DropdownMenuPrimitive.Content className="w-[9.625rem] -translate-y-2 rounded-md bg-gray-200">
+          <DropdownMenuPrimitive.Item className="w-full cursor-pointer rounded-md px-4 py-2 text-sm text-tgiwPurplish text-opacity-90 transition duration-500 ease-in-out focus:bg-gray-300 focus:outline-none">
             <Link href="/edit-profile">
-              <a className="inline-block w-full h-full">Edit Profile</a>
+              <a className="inline-block h-full w-full">Edit Profile</a>
             </Link>
           </DropdownMenuPrimitive.Item>
 
           <DropdownMenuPrimitive.Item
             onClick={() => postLogOut()}
-            className="w-full px-4 py-2 text-sm transition duration-500 ease-in-out rounded-md cursor-pointer text-tgiwPurplish text-opacity-90 focus:outline-none focus:bg-red-100 focus:text-red-700"
+            className="w-full cursor-pointer rounded-md px-4 py-2 text-sm text-tgiwPurplish text-opacity-90 transition duration-500 ease-in-out focus:bg-red-100 focus:text-red-700 focus:outline-none"
           >
             Log Out
           </DropdownMenuPrimitive.Item>

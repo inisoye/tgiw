@@ -11,7 +11,7 @@ interface ImageWithFallbackProps {
 
 export const ImageWithFallback: React.FunctionComponent<
   ImageWithFallbackProps
-> = (props) => {
+> = props => {
   const { src, fallbackSrc, alt, objectFit, ...rest } = props;
   const [imgSrc, setImgSrc] = React.useState(src || fallbackSrc);
 

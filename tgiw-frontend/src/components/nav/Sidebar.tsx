@@ -24,11 +24,11 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = () => {
   const dbUser = data?.dbUser;
 
   return (
-    <div className="md:p-8 md:h-full md:pr-0">
+    <div className="md:h-full md:p-8 md:pr-0">
       <Logo />
 
-      <nav className="hidden w-full max-w-[11.875rem] h-[calc(100%-7.9rem)] mt-8 text-sm md:flex md:flex-col py-9 ">
-        <ul className="px-4 space-y-4 overflow-auto">
+      <nav className="mt-8 hidden h-[calc(100%-7.9rem)] w-full max-w-[11.875rem] py-9 text-sm md:flex md:flex-col ">
+        <ul className="space-y-4 overflow-auto px-4">
           {sidebarLinks.map(({ link, text, className }) => (
             <li key={link} className="relative">
               <SidebarLink link={link} text={text} className={className} />

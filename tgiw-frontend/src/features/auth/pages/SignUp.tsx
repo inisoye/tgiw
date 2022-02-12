@@ -31,7 +31,7 @@ export const SignUp: React.FunctionComponent<SignUpProps> = () => {
         form.reset();
         launchNotification(
           'success',
-          'Your account has been successfully created'
+          'Your account has been successfully created',
         );
 
         /**
@@ -48,11 +48,11 @@ export const SignUp: React.FunctionComponent<SignUpProps> = () => {
               launchNotification('neutral', 'Redirecting you to the homepage.');
               window.location.href = '/';
             },
-          }
+          },
         );
       },
 
-      onError: (error) => {
+      onError: error => {
         const errorMessage = formatAxiosErrorMessage(error as AxiosError);
         launchNotification('error', errorMessage);
       },

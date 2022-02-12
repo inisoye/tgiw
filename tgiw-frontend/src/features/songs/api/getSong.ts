@@ -15,7 +15,7 @@ export const getSong = async (params: GetSongParams): Promise<Song> => {
 
 export const prefetchSong = async (
   queryClient: QueryClient,
-  id: string | undefined
+  id: string | undefined,
 ) =>
   await queryClient.prefetchQuery(['song', { id }], getSong, {
     retry: 1,

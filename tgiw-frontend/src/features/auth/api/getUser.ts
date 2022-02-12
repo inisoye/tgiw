@@ -9,7 +9,7 @@ interface Params {
 }
 
 export const getUser = async (
-  params: Params
+  params: Params,
 ): Promise<{
   firebaseUser: FirebaseUser;
   dbUser: DbUser;

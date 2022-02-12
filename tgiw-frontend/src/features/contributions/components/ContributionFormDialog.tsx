@@ -45,10 +45,10 @@ export const ContributionFormDialog: React.FunctionComponent<
             />
           </div>
 
-          <div className="flex w-full mt-16">
+          <div className="mt-16 flex w-full">
             <button
               type="button"
-              className="w-1/2 p-4 px-8 text-left text-white text-opacity-50 transition duration-500 ease-in-out bg-tgiwPurplish hover:bg-opacity-95"
+              className="w-1/2 bg-tgiwPurplish p-4 px-8 text-left text-white text-opacity-50 transition duration-500 ease-in-out hover:bg-opacity-95"
               onClick={closeDialog}
             >
               Cancel
@@ -56,7 +56,7 @@ export const ContributionFormDialog: React.FunctionComponent<
 
             <button
               type="submit"
-              className="w-1/2 p-4 px-8 text-right transition duration-500 ease-in-out bg-tgiwYellow hover:bg-tgiwOrange disabled:cursor-not-allowed disabled:opacity-60"
+              className="w-1/2 bg-tgiwYellow p-4 px-8 text-right transition duration-500 ease-in-out hover:bg-tgiwOrange disabled:cursor-not-allowed disabled:opacity-60"
               disabled={isContributionLoading}
             >
               {isContributionLoading ? (

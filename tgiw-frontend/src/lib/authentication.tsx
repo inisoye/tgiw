@@ -41,7 +41,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       (window as any).nookies = nookies;
     }
 
-    return onIdTokenChanged(firebaseClient, async (user) => {
+    return onIdTokenChanged(firebaseClient, async user => {
       if (!user) {
         setUser(null);
 

@@ -19,15 +19,15 @@ export const GenreSongsList: React.FunctionComponent<GenreSongsListProps> = ({
 
   return (
     <section
-      className={clsx('pt-6 lg:pt-0 flex-shrink-0', {
-        'lg:border-l-2 lg:border-gray-100 lg:pl-9 lg:w-3/5':
+      className={clsx('flex-shrink-0 pt-6 lg:pt-0', {
+        'lg:w-3/5 lg:border-l-2 lg:border-gray-100 lg:pl-9':
           !!countries?.length,
         'lg:w-full': !countries?.length,
       })}
     >
       <h2 className="text-xl">Associated Songs</h2>
 
-      <ul className="w-full mt-4 space-y-3 overflow-auto lg:overflow-visible">
+      <ul className="mt-4 w-full space-y-3 overflow-auto lg:overflow-visible">
         {songs?.map(({ name: songName, images, id, color }) => {
           const imageUrl = images?.[1]?.url as string;
 

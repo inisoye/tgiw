@@ -43,7 +43,7 @@ export const Artist: React.FunctionComponent<ArtistProps> = () => {
         color={color}
       />
 
-      <div className="relative items-start justify-between px-6 py-12 bg-white border-2 border-gray-100 divide-y-2 divide-gray-100 rounded-md lg:divide-y-0 lg:flex lg:px-9">
+      <div className="relative items-start justify-between divide-y-2 divide-gray-100 rounded-md border-2 border-gray-100 bg-white px-6 py-12 lg:flex lg:divide-y-0 lg:px-9">
         <ArtistGenreChips genres={genres} />
 
         <ArtistSongsList songs={songs} genres={genres} />

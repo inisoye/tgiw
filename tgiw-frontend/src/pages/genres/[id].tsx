@@ -19,7 +19,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
 
     await queryClient.prefetchQuery(
       ['genre', { id: ctx.query.id as string }],
-      getGenre
+      getGenre,
     );
 
     return {

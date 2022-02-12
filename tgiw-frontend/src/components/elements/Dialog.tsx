@@ -27,12 +27,12 @@ export const Dialog: React.FunctionComponent<DialogProps> = ({
     >
       <div
         className={clsx(
-          'overflow-auto w-screen mx-auto bg-white text-tgiwPurplish',
+          'mx-auto w-screen overflow-auto bg-white text-tgiwPurplish',
           {
             'h-screen max-h-screen rounded-none': isCenterFullHeight,
-            'max-h-[84%] h-max max-w-3xl mx-auto': !isMobileMenu,
-            'md:hidden max-w-none h-full': isMobileMenu,
-          }
+            'mx-auto h-max max-h-[84%] max-w-3xl': !isMobileMenu,
+            'h-full max-w-none md:hidden': isMobileMenu,
+          },
         )}
       >
         <DialogContent

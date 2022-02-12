@@ -23,7 +23,7 @@ export const getStoredUser = async (): Promise<StoredUser> => {
   const tx = db2.transaction('firebaseLocalStorage', 'readonly');
   const store = tx.objectStore('firebaseLocalStorage');
   const result = await store.get(
-    `firebase:authUser:${FIREBASE_CLIENT_CONFIG.apiKey}:[DEFAULT]`
+    `firebase:authUser:${FIREBASE_CLIENT_CONFIG.apiKey}:[DEFAULT]`,
   );
   return result?.value;
 };

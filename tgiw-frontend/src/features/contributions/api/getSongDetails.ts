@@ -8,7 +8,7 @@ interface GetSongDetailsParams {
 }
 
 export const getSongDetails = async (
-  params: GetSongDetailsParams
+  params: GetSongDetailsParams,
 ): Promise<ContributedSongDetails> => {
   const { id } = params.queryKey[1] as { id: string };
   const { data } = await axios.get(`/spotify/tracks/${id}`);
@@ -17,7 +17,7 @@ export const getSongDetails = async (
 
 export const prefetchSongDetails = async (
   queryClient: QueryClient,
-  id: string | undefined
+  id: string | undefined,
 ) =>
   await queryClient.prefetchQuery(
     ['contribution-song-details', { id }],
@@ -25,7 +25,7 @@ export const prefetchSongDetails = async (
     {
       retry: 1,
       staleTime: 10 * 1000, // only prefetch if older than 10 seconds
-    }
+    },
   );
 
 export const useSongDetails = (id: string | undefined) =>

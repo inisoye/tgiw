@@ -22,17 +22,17 @@ export const Loader: React.FunctionComponent<LoaderProps> = ({
     <>
       <div
         className={clsx(
-          'flex items-center justify-center m-auto wrapper w-max h-max',
+          'wrapper m-auto flex h-max w-max items-center justify-center',
           {
             /* Screen minus header height on mobile */
-            'h-[calc(100vh-71px)] md:h-full min-h-[calc(100vh-71px)]':
+            'h-[calc(100vh-71px)] min-h-[calc(100vh-71px)] md:h-full':
               isFullHeight,
             'py-10': isInfiniteLoader,
             'mr-0': isAlignedRight,
-          }
+          },
         )}
       >
-        <div className="text-tgiwPurplish bg-tgiwPurplish dot-flashing before:bg-tgiwPurplish after:bg-tgiwPurplish before:text-tgiwPurplish after:text-tgiwPurplish">
+        <div className="dot-flashing bg-tgiwPurplish text-tgiwPurplish before:bg-tgiwPurplish before:text-tgiwPurplish after:bg-tgiwPurplish after:text-tgiwPurplish">
           <VisuallyHidden>Loading</VisuallyHidden>
         </div>
       </div>

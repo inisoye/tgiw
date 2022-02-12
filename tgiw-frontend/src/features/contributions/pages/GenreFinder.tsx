@@ -28,7 +28,7 @@ export const GenreFinder: React.FunctionComponent<GenreFinderProps> = () => {
 
   const debouncedRefetch = React.useMemo(
     () => debounceFn(refetch, { wait: 500 }),
-    [refetch]
+    [refetch],
   );
 
   const isErrorMessageDisplayed = !songs?.length && !!filter && !isRefetching;
@@ -40,7 +40,7 @@ export const GenreFinder: React.FunctionComponent<GenreFinderProps> = () => {
   }
 
   return (
-    <div className="pb-24 text-white isolate">
+    <div className="isolate pb-24 text-white">
       <Head>
         <title>Find the genre for any song.</title>
 
@@ -61,19 +61,19 @@ export const GenreFinder: React.FunctionComponent<GenreFinderProps> = () => {
       />
 
       {isResultsOrSuggestionsHeadingDisplayed && (
-        <h2 className="mt-8 text-center text-white text-opacity-70 text-md">
+        <h2 className="text-md mt-8 text-center text-white text-opacity-70">
           {!!filter ? `Results for "${filter}"` : 'Suggestions'}
         </h2>
       )}
 
       {isRefetching && (
-        <p className="mt-8 text-center text-white text-opacity-70 text-md font-heading">
+        <p className="text-md mt-8 text-center font-heading text-white text-opacity-70">
           Loading
         </p>
       )}
 
       {isErrorMessageDisplayed && (
-        <p className="mt-16 text-3xl text-center capitalize font-heading">
+        <p className="mt-16 text-center font-heading text-3xl capitalize">
           No Results
         </p>
       )}

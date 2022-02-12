@@ -15,7 +15,7 @@ export const getGenre = async (params: GetGenreParams): Promise<Genre> => {
 
 export const prefetchGenre = async (
   queryClient: QueryClient,
-  id: string | undefined
+  id: string | undefined,
 ) =>
   await queryClient.prefetchQuery(['genre', { id }], getGenre, {
     retry: 1,

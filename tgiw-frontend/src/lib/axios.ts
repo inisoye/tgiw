@@ -7,7 +7,7 @@ export const axios = Axios.create({ baseURL: API_BASE_URL });
 
 export const setAxiosAccessToken = (
   token: string,
-  axiosInstance: AxiosInstance
+  axiosInstance: AxiosInstance,
 ) => {
   axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
 };

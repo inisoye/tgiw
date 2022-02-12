@@ -24,7 +24,7 @@ export const Songs: React.FunctionComponent<SongsProps> = () => {
   }
 
   const allFetchedSongs = data?.pages
-    ?.map((page) => page.data.map((song) => song))
+    ?.map(page => page.data.map(song => song))
     .flat();
 
   return (

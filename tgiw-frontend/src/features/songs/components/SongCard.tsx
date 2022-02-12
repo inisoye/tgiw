@@ -23,7 +23,7 @@ export const SongCard: React.FunctionComponent<SongCardProps> = ({ song }) => {
         <Link href={`/songs/${id}`}>
           {/* Trigger ends up rendering an anchor tag. */}
           <HoverCardPrimitive.Trigger>
-            <div className="p-4 cursor-pointer block text-center transition duration-500 ease-in-out rounded-md shadow-lg song-background card-background hover:filter-none hover:scale-[1.02] active:scale-[0.98] hover:shadow-none">
+            <div className="song-background card-background block cursor-pointer rounded-md p-4 text-center shadow-lg transition duration-500 ease-in-out hover:scale-[1.02] hover:shadow-none hover:filter-none active:scale-[0.98]">
               <div className="overflow-hidden rounded-md">
                 <ImageWithFallback
                   key={id}
@@ -33,15 +33,15 @@ export const SongCard: React.FunctionComponent<SongCardProps> = ({ song }) => {
                   width="100%"
                   height="100%"
                   objectFit="cover"
-                  className="relative w-full h-full"
+                  className="relative h-full w-full"
                 />
               </div>
 
-              <p className="max-w-full mt-4 truncate md:text-lg text-tgiwPurplish font-heading">
+              <p className="mt-4 max-w-full truncate font-heading text-tgiwPurplish md:text-lg">
                 {name}
               </p>
-              <div className="flex items-center justify-center mt-1 space-x-2 text-sm text-tgiwPurplish text-opacity-70">
-                <p className="truncate max-w-[80%]">{artistsNames}</p>
+              <div className="mt-1 flex items-center justify-center space-x-2 text-sm text-tgiwPurplish text-opacity-70">
+                <p className="max-w-[80%] truncate">{artistsNames}</p>
                 <div>&#8226;</div>
                 <p>{yearReleased}</p>
               </div>
@@ -50,9 +50,9 @@ export const SongCard: React.FunctionComponent<SongCardProps> = ({ song }) => {
         </Link>
 
         <HoverCardPrimitive.Content side="top" sideOffset={5} avoidCollisions>
-          <div className="max-w-[234px] w-max p-3 rounded-md song-background transition duration-500 ease-in-out hidden md:block">
+          <div className="song-background hidden w-max max-w-[234px] rounded-md p-3 transition duration-500 ease-in-out md:block">
             {!!genres.length ? (
-              <ul className="flex flex-wrap justify-center gap-1.5 genres-list">
+              <ul className="flex flex-wrap justify-center gap-1.5">
                 {genres?.map(({ color, id, name }) => {
                   return (
                     <li key={id}>
@@ -94,9 +94,6 @@ export const SongCard: React.FunctionComponent<SongCardProps> = ({ song }) => {
           animation-duration: 600ms;
           animation-timing-function: ease-in-out;
           will-change: transform, opacity;
-        }
-
-        .song-background:hover {
         }
       `}</style>
     </>

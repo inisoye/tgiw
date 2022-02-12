@@ -17,9 +17,9 @@ export const SongGenreChips: React.FunctionComponent<SongGenreChipsProps> = ({
 }) => {
   return (
     <ul
-      className={clsx('flex flex-wrap max-w-md gap-2 lg:max-w-none', {
-        'justify-center lg:justify-start mt-4 mx-auto': !isJustifiedLeft,
-        'justify-start mt-0': isJustifiedLeft,
+      className={clsx('flex max-w-md flex-wrap gap-2 lg:max-w-none', {
+        'mx-auto mt-4 justify-center lg:justify-start': !isJustifiedLeft,
+        'mt-0 justify-start': isJustifiedLeft,
       })}
     >
       {genres?.map(({ color, id, name }) => {

@@ -57,7 +57,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       <ReactQueryProvider pageProps={pageProps}>
         <AuthProvider>
           {/* More custom base styles added here */}
-          <div className="text-tgiwPurplish font-regular">
+          <div className="font-regular text-tgiwPurplish">
             {getLayout(<Component {...pageProps} />)}
 
             <Toaster position="bottom-center" reverseOrder={false} />

@@ -19,7 +19,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
 
     await queryClient.prefetchQuery(
       ['song', { id: ctx.query.id as string }],
-      getSong
+      getSong,
     );
 
     return {
@@ -43,4 +43,4 @@ const Song: NextPageWithLayout = () => <SongRoute />;
 
 Song.getLayout = (page: React.ReactElement) => <MainLayout>{page}</MainLayout>;
 
-export default (Song);
+export default Song;

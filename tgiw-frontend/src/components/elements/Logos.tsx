@@ -11,7 +11,7 @@ export const Logo: React.FunctionComponent<LogoProps> = () => {
   return (
     <>
       <Link href="/">
-        <a className="hidden px-8 py-6 mx-auto leading-3 rounded-md bg-tgiwPurplish hover:bg-gray-900 md:block w-max hover:scale-[1.02] active:scale-[0.98] transition ease-in-out duration-300">
+        <a className="mx-auto hidden w-max rounded-md bg-tgiwPurplish px-8 py-6 leading-3 transition duration-300 ease-in-out hover:scale-[1.02] hover:bg-gray-900 active:scale-[0.98] md:block">
           <Image
             src="/logos/tgiwLogo.svg"
             alt="The Genre Isn't World Logo"
@@ -22,7 +22,7 @@ export const Logo: React.FunctionComponent<LogoProps> = () => {
       </Link>
 
       <Link href="/">
-        <a className="block px-8 py-6 mx-auto leading-3 transition duration-300 ease-in-out bg-gray-900 hover:bg-tgiwPurplish md:hidden">
+        <a className="mx-auto block bg-gray-900 px-8 py-6 leading-3 transition duration-300 ease-in-out hover:bg-tgiwPurplish md:hidden">
           <div className="mx-auto w-max">
             <Image
               src="/logos/tgiwLogoHorizontal.svg"
@@ -49,16 +49,16 @@ export const SecondaryLogo: React.FunctionComponent<SecondaryLogoProps> = ({
   return (
     <div
       className={clsx(
-        'flex flex-row-reverse items-center  w-full transition duration-500 ease-in-out border-b-8  border-opacity-[0.4] ',
+        'flex w-full flex-row-reverse  items-center border-b-8 border-opacity-[0.4] transition duration-500  ease-in-out ',
         {
           'justify-center border-b-transparent': isCentered,
-          'justify-center md:justify-between border-b-gray-600 bg-tgiwPurplish':
+          'justify-center border-b-gray-600 bg-tgiwPurplish md:justify-between':
             !isCentered,
-        }
+        },
       )}
     >
       <Link href="/">
-        <a className="px-8 py-6 leading-3 transition duration-500 ease-in-out bg-opacity-50 justify-self-center md:px-14">
+        <a className="justify-self-center bg-opacity-50 px-8 py-6 leading-3 transition duration-500 ease-in-out md:px-14">
           <div className="mx-auto w-max ">
             <Image
               src="/logos/tgiwLogoHorizontal.svg"
@@ -73,8 +73,8 @@ export const SecondaryLogo: React.FunctionComponent<SecondaryLogoProps> = ({
       <button
         onClick={() => router.back()}
         className={clsx(
-          'h-[71px]  px-8 md:px-14 text-white hover:bg-tgiwYellow hover:text-tgiwPurplish transition ease-in-out duration-500',
-          { hidden: isCentered, 'hidden md:inline-block': !isCentered }
+          'h-[71px]  px-8 text-white transition duration-500 ease-in-out hover:bg-tgiwYellow hover:text-tgiwPurplish md:px-14',
+          { hidden: isCentered, 'hidden md:inline-block': !isCentered },
         )}
       >
         Go back
@@ -90,8 +90,8 @@ export const PlayfulFooterLogo: React.FunctionComponent<
 > = () => {
   return (
     <>
-      <div className="fixed bottom-0 w-screen pt-5 pb-4 text-white bg-tgiwPurplish">
-        <div className="w-full h-5 px-2 playful-logo"></div>
+      <div className="fixed bottom-0 w-screen bg-tgiwPurplish pt-5 pb-4 text-white">
+        <div className="playful-logo h-5 w-full px-2"></div>
       </div>
 
       <style jsx>{`
