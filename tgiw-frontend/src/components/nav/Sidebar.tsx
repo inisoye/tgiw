@@ -13,7 +13,12 @@ const sidebarLinks = [
   { link: '/songs', text: 'All Songs' },
   { link: '/search', text: 'Search' },
   { link: '/genre-finder', text: 'Genre Finder' },
-  { link: '/about', text: 'About TGIW', className: 'mt-10 hidden' },
+  {
+    link: 'https://portfolio-hpr.pages.dev/projects/tgiw',
+    text: 'About TGIW',
+    className: 'mt-10',
+    type: 'external',
+  },
 ];
 
 export const Sidebar: React.FunctionComponent<SidebarProps> = () => {
@@ -29,9 +34,14 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = () => {
 
       <nav className="mt-8 hidden h-[calc(100%-7.9rem)] w-full max-w-[11.875rem] py-9 text-sm md:flex md:flex-col ">
         <ul className="space-y-4 overflow-auto px-4">
-          {sidebarLinks.map(({ link, text, className }) => (
+          {sidebarLinks.map(({ link, text, className, type }) => (
             <li key={link} className="relative">
-              <SidebarLink link={link} text={text} className={className} />
+              <SidebarLink
+                link={link}
+                text={text}
+                className={className}
+                type={type}
+              />
             </li>
           ))}
         </ul>

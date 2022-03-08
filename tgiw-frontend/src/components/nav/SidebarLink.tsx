@@ -7,6 +7,7 @@ interface SidebarLinkProps {
   link: string;
   text: string;
   className: string | undefined;
+  type: string | undefined;
 }
 
 export const SidebarLink: React.FunctionComponent<SidebarLinkProps> = ({
