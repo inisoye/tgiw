@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Img from 'react-cool-img';
+import * as AspectRatio from '@radix-ui/react-aspect-ratio';
 
 interface ImageWithFallbackProps {
   src: string;
@@ -16,13 +17,17 @@ export const ImageWithFallback: React.FunctionComponent<
   const [imgSrc, setImgSrc] = React.useState(src || fallbackSrc);
 
   return (
-    <Img
-      {...rest}
-      src={imgSrc}
-      style={{ objectFit }}
-      error={fallbackSrc}
-      alt={alt}
-      placeholder="/images/staticLightBg.jpg"
-    />
+    <AspectRatio.Root ratio={1 / 1}>
+      <Img
+        {...rest}
+        src={imgSrc}
+        style={{ objectFit }}
+        error={fallbackSrc}
+        alt={alt}
+        width="100%"
+        height="100%"
+        placeholder="/images/staticLightBg.jpg"
+      />
+    </AspectRatio.Root>
   );
 };
