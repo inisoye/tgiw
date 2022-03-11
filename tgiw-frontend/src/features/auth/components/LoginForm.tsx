@@ -56,6 +56,7 @@ export const LoginForm: React.FunctionComponent<LoginFormProps> = ({
             id="email"
             type="email"
             name="email"
+            defaultValue="blah@gmail.com"
             placeholder="Enter your email"
             autoFocus
             required
@@ -69,6 +70,7 @@ export const LoginForm: React.FunctionComponent<LoginFormProps> = ({
             id="password"
             type="password"
             name="password"
+            defaultValue="blahblah"
             placeholder="Enter your password"
             required
           />
