@@ -66,9 +66,6 @@ export class HelpersService {
   };
 
   async getColorFromImage(images: SpotifyApi.ImageObject[]): Promise<string> {
-    console.log(images.length);
-    console.log(!images.length);
-
     if (!images.length) {
       return;
     }
